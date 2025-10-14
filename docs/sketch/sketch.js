@@ -4,12 +4,13 @@ let isReady = true;
 let canvas4;
 let mousePressed = false;
 let particles = [];
+let img;
 
 particlebackground = function (p) {
   let particles = [];
   let res = 50;
   p.preload = function () {
-    img = p.loadImage("/images/6.jpg");
+    img = p.loadImage(import.meta.env.BASE_URL + "images/6.jpg");
     pageHeight = p.select("body").height;
     pageWidth = p.select("body").width;
     img.resize(pageWidth, pageHeight);
