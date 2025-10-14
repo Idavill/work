@@ -9,7 +9,7 @@ function s1(p) {
   p.preload = function () {
     // bungeeFont = p.loadFont("images/BungeeSpice-Regular.ttf");
     textured_output = p.loadModel(
-      "images/textured_output.obj",
+      "/images/textured_output.obj",
       true,
       () => {
         console.log("Model loaded successfully");
