@@ -1,14 +1,9 @@
 import { useState } from "react";
 
-type MiniHeadlinesTypes = {
-    ref:any;
-}
-
 export default function MiniHeadlines(){
     const [hover1,setHover1] = useState(false);
     const [hover2,setHover2] = useState(false);
 
-    
     return(
         <>
         <div

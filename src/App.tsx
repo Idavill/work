@@ -1,5 +1,4 @@
 import Card from "./components/Card";
-import SectionCard from "./components/SectionCard";
 import FancyTop from "./components/FancyTop";
 import aboutJson from "./post-content/About.json";
 import contactJson from "./post-content/Contant.json";

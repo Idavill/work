@@ -1,7 +1,4 @@
-import { GrAdd } from "react-icons/gr";
-import PaperTag from "../PaperTag";
 import { useState } from "react";
-import SharpiSection from "../SharpiSection";
 import { Bs1Circle } from "react-icons/bs";
 import MiniHeadlines from "./MiniHeadlines";
 import SkillList from "./SkillList";
@@ -20,8 +17,6 @@ type AboutProps = {
 
 export default function About({ title, id, ref, topics }: AboutProps){
   const [hover,setHover] = useState(false);
-  let subdued_color = "text-cyan-200 opacity-75"
-
 
     return(
       <div className="h-dvh">

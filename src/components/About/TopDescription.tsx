@@ -1,5 +1,4 @@
 import { GrAdd } from "react-icons/gr";
-import PaperTag from "../PaperTag";
 import SharpiSection from "../SharpiSection";
 
 type TopDescriptionType = {
