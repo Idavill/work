@@ -17,7 +17,7 @@
         "title": "URBAN FREQUENCIES",
         "short_description": "Through satellite imagery, climate indicators, and spatial analytics, six thematic maps construct a chronological narrative—from the subtle pulses of air and heat to the physical imprints of urban expansion and ecological presence.",
         "description": "This project reimagines environmental data as architectural storytelling. Through satellite imagery, climate indicators, and spatial analytics, six thematic maps construct a chronological narrative—from the subtle pulses of air and heat to the physical imprints of urban expansion and ecological presence. Each map transcends its technical function, becoming a spatial artifact that invites viewers to interpret the city as a dynamic, living organism in flux.",
-        "images":["/images/sentinel.gif","/images/uf-s-4.png","/images/uf-s-7.png","/images/uf-s-6.png"]
+        "images":["images/sentinel.gif","images/uf-s-4.png","images/uf-s-7.png","images/uf-s-6.png"]
     },
     {
         "id":"3c2f7e50-3f4a-11ee-be56-0242ac120002",
