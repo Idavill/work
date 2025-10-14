@@ -1,0 +1,32 @@
+{
+    "content":[
+    {
+        "degree":"Software developer",
+        "university":"The National Archive",
+        "year":"2025"
+    }, 
+    {
+        "degree":"Software developer",
+        "university":"Zmei",
+        "year":"2024-2025"
+    },   
+    {
+        "degree":"Software developer",
+        "university":"Twoday",
+        "year":"2023-2024"
+    },   
+    {
+        "degree":"Masters of Science in IT",
+        "university":"IT University of Copenhagen",
+        "year":"2021-2023"
+    },
+    {
+        "degree":"Bachelors of Art in Architecture",
+        "university":"The Royal Danish Academy",
+        "year":"2017-2020"
+    }],
+    "programming": ["C#/.NET","Python","JavaScript","React","HTML/CSS","SQL"],
+    "design": ["Figma","Adobe Creative Suite","Rhino","Blender","Unity"],
+    "tools": ["Git","Azure Devops"],
+    "soft Skills": ["Problem Solving","Prototyping"]
+}
