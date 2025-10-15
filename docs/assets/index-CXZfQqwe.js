@@ -12436,11 +12436,7 @@ function V1({ selectedProject: a }) {
       !a &&
       O.jsxs("footer", {
         className: "bg-gray-900 text-center text-white p-4 text-sm z-3",
-        children: [
-          "© ",
-          new Date().getFullYear(),
-          " Your Name. All rights reserved.",
-        ],
+        children: ["© ", new Date().getFullYear(), "All rights reserved."],
       }),
   });
 }
