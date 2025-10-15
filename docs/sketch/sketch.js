@@ -10,7 +10,7 @@ particlebackground = function (p) {
   let particles = [];
   let res = 50;
   p.preload = function () {
-    img = p.loadImage("/work/images/6.jpg");
+    img = p.loadImage("/work/images/6-small.jpg");
     pageHeight = p.select("body").height;
     pageWidth = p.select("body").width;
     img.resize(pageWidth, pageHeight);

@@ -26,7 +26,7 @@
         "title": "FLAX IN NORTHERN JUTLAND",
         "short_description": "By analyzing shipping records from 1650 to 1800, we aim to uncover patterns of trade, assess the scale and significance of textile imports, and situate these findings within their broader historical and economic context.",
         "description": "This project explores the historical journey of flax as a key commodity in textile production, focusing on its movement from the Baltic region to northern Jutland. By analyzing shipping records from 1650 to 1800, we aim to uncover patterns of trade, assess the scale and significance of textile imports, and situate these findings within their broader historical and economic context. The research will involve meticulous data cleaning and the development of insightful visualizations to illuminate the connections between maritime trade and regional textile manufacturing.",
-        "images": ["images/flax-s.png"]
+        "images": ["images/flax-s_20.jpg"]
     }],
     "skills": ["python","touchdesigner","react","figma","supabase"]
 }
