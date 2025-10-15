@@ -102,7 +102,7 @@ function App() {
         <div className="flex flex-col w-100 md:w-200 lg:w-300">
           <div className={`${selectedProject!=null? "blur-xl grayscale":""}`}>
             <div id="p5_loading" className="loadingclass">
-            this could be some sweet graphics loading lots of bits.
+            Loading..
             <span className="loading justify-center loading-dots loading-xl absolute z-20"></span>
           </div>
         <FancyTop ref={topRef} title={"FancyTop"} id="top" selectedProject={!!selectedProject} currentSection={currentSection}/>
