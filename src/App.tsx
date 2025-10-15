@@ -12,15 +12,34 @@ import ContactSectionCard from "./components/Contact";
 import About from "./components/About/About";
 import Projects from "./components/Projects";
 
+// type ImageMap = {
+//   id: string,
+//   images : string[]
+// }
+
+// type Images = {
+//   list: ImageMap[]
+// }
+
 function App() {
   const [currentSection, setCurrentSection] = useState("");
   const [selectedProject, setSelectedProject]= useState<ProjectType | null>(null);
   const [headerOpacity, setHeaderOpacity] = useState(0);
+  // const [preloadedImages, setPreloadedImages]= useState<Images | null>(null);
   let color = "text-cyan-200"
   const aboutRef = useRef(null);
   const projectsRef = useRef(null);
   const contactRef = useRef(null);
   const topRef = useRef(null);
+  
+  const preloadImages = () => {
+    projects.projects.forEach((p)=>{
+      p.images.forEach((i)=>{
+        const img = new Image();
+        img.src = i;
+      })
+    })
+  }
 
   useEffect(() => {
     const sections = [
@@ -59,6 +78,8 @@ function App() {
   }, [selectedProject]);
 
   useEffect(() => {
+    preloadImages();
+
     const handleScroll = () => {
       const start = 40; // scroll position where fade starts
       const end = 300;  // scroll position where fade ends
