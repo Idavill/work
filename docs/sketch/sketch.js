@@ -48,7 +48,9 @@ particlebackground = function (p) {
       pageHeight = p.select("body").height;
       pageWidth = p.select("body").width;
       p.resizeCanvas(pageWidth, pageHeight);
-      img.resize(pageWidth, pageHeight);
+      if (img) {
+        img.resize(pageWidth, pageHeight);
+      }
       paintParticles();
       console.log("window resized and particles repainted!");
     }, 300); // Adjust delay as needed
