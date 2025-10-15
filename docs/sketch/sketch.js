@@ -48,7 +48,7 @@ particlebackground = function (p) {
       pageHeight = p.select("body").height;
       pageWidth = p.select("body").width;
       p.resizeCanvas(pageWidth, pageHeight);
-      if (img) {
+      if (img !== undefined) {
         img.resize(pageWidth, pageHeight);
       }
       paintParticles();
