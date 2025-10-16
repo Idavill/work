@@ -13,11 +13,11 @@ export default function AppImage({id, fallbackImage, img, setHover}:ImageProps){
     useEffect(()=>{
         const i = new Image();
         i.src = img;
-        console.log("image is loaded!!", img)
+        // console.log("image is loaded!!", img)
 
         i.onload = function () {
             setImage(img);
-            console.log("image is loaded!!", img)
+            // console.log("image is loaded!!", img)
         }
     },[image])
 
@@ -28,11 +28,11 @@ export default function AppImage({id, fallbackImage, img, setHover}:ImageProps){
         src={image}
         alt={image}
         onMouseEnter={() => {
-            console.log("true");
+            // console.log("true");
             setHover(true);
         }}
         onMouseLeave={() => {
-            console.log("false");
+            // console.log("false");
             setHover(false);
         }}
     />

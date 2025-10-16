@@ -52,7 +52,7 @@ particlebackground = function (p) {
         img.resize(pageWidth, pageHeight);
       }
       paintParticles();
-      console.log("window resized and particles repainted!");
+      // console.log("window resized and particles repainted!");
     }, 300); // Adjust delay as needed
   };
 

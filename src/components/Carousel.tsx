@@ -29,7 +29,7 @@ export default function Carousel({ images }: CarouselProps) {
       {/* BUTTONS */}
       <div
                       onMouseEnter={() => {
-                console.log("true");
+                // console.log("true");
                 setHover(true);
               }}
         className={`absolute bottom-5 ${hover ? "opacity-100" : "opacity-0"} left-1/2 -translate-x-1/2 flex gap-3 bg-gray-950 rounded-4xl p-2 z-10`}
