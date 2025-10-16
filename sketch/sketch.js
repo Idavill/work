@@ -10,11 +10,12 @@ particlebackground = function (p) {
   let particles = [];
   let res = 50;
   p.preload = function () {
-    img = p.loadImage(
-      process.env.NODE_ENV === "production"
-        ? "/work/images/6-small.jpg"
-        : "/images/6-small.jpg"
-    );
+    // img = p.loadImage(
+    //   process.env.NODE_ENV === "production"
+    //     ? "/work/images/6-small.jpg"
+    //     : "/images/6-small.jpg"
+    // );
+    img = p.loadImage("/images/6-small.jpg");
     pageHeight = p.select("body").height;
     pageWidth = p.select("body").width;
     img.resize(pageWidth, pageHeight);
