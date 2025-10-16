@@ -8,5 +8,6 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
-  base:"/work/"
+  // base:"/work/"
+  base: process.env.NODE_ENV === 'production' ? '/work/' : '/',
 })

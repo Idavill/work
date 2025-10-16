@@ -21,7 +21,7 @@ export default function Card({ project, setOpen }: CardProps) {
         <div className="md:shrink-0">
           <img
             className={`h-48 w-full object-cover md:h-full md:w-80 brightness-80 ${hover? "contrast-100" : "grayscale contrast-70"}`}
-            src={project.images[0]}
+            src={project.images.main[0]}
             alt="image of project"
           />
         </div>
@@ -36,7 +36,7 @@ export default function Card({ project, setOpen }: CardProps) {
           </p>
           <div className=" flex px-5 flex-wrap gap-2 flex-end">
             {project.tags.map((t) => (
-            <PaperTag width="" id={project.id + t} color={"text-cyan-200 hover:bg-white/10"} tag={t}></PaperTag>
+            <PaperTag key={t} width="" id={project.id + t} color={"text-cyan-200 hover:bg-white/10"} tag={t}></PaperTag>
             ))}
           </div>
         </div>

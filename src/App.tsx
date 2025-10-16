@@ -34,7 +34,7 @@ function App() {
   
   const preloadImages = () => {
     projects.projects.forEach((p)=>{
-      p.images.forEach((i)=>{
+      p.images.main.forEach((i)=>{
         const img = new Image();
         img.src = i;
       })

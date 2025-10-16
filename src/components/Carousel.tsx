@@ -1,7 +1,9 @@
 import { useState } from "react";
+import AppImage from "./AppImage";
+import type { ImgType } from "../types/Types";
 
 type CarouselProps = {
-  images: string[];
+  images: ImgType;
   id?: string[];
 };
 
@@ -14,29 +16,16 @@ export default function Carousel({ images }: CarouselProps) {
       <div
         className="carousel lg:rounded-l-xl lg:rounded-t-none rounded-t-xl overflow-x-hidden rounded-box w-full max-h-64 md:max-h-80 lg:max-h-full flex snap-x snap-mandatory"
       >
-        {images.map((img, index) => (
+        {images.main.map((img, index) => (
           <div
             id={`${index}`}
-            key={img}
+            key={`${img}${index}`}
             className="carousel-item overflow-hidden flex-shrink-0 snap-center w-full"
           >
-            <img
-              className="w-full h-full object-cover"
-              src={img}
-              alt={img}
-              onMouseEnter={() => {
-                console.log("true");
-                setHover(true);
-              }}
-              onMouseLeave={() => {
-                console.log("false");
-                setHover(false);
-              }}
-            />
+            <AppImage id={`${index}${img}`} fallbackImage={images.fallback[index]} img={img} setHover={setHover}/>
           </div>
         ))}
       </div>
-
       {/* BUTTONS */}
       <div
                       onMouseEnter={() => {
@@ -45,7 +34,7 @@ export default function Carousel({ images }: CarouselProps) {
               }}
         className={`absolute bottom-5 ${hover ? "opacity-100" : "opacity-0"} left-1/2 -translate-x-1/2 flex gap-3 bg-gray-950 rounded-4xl p-2 z-10`}
       >
-        {images.map((_, index) => (
+        {images.main.map((_, index) => (
           <a key={index} href={`#${index}`}>
             <button
               onClick={() => setActiveButton(`#${index}`)}

@@ -5,5 +5,10 @@ export type ProjectType = {
   title: string;
   short_description: string;
   description: string;
-  images: string[];
+  images: ImgType;
 };
+
+export type ImgType = {
+  main:string[],
+  fallback:string[]
+}
