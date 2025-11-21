@@ -13,6 +13,18 @@
             "fallback":["images/flax-s_20-small.jpg","images/flax-s_20-small.jpg","images/flax-s_20-small.jpg"]
         }
     },
+        {
+        "id":"4d3f8f60-3f4a-11ee-be56-0242ac120002",
+        "number":4,
+        "tags":["react","three.js"],
+        "title": "IDEADOTS LAB",
+        "short_description": "Web application for sharing ideas with images and text, allowing the user to create ideas situated in 3D space.",
+        "description": "This project explores the historical journey of flax as a key commodity in textile production, focusing on its movement from the Baltic region to northern Jutland. By analyzing shipping records from 1650 to 1800, we aim to uncover patterns of trade, assess the scale and significance of textile imports, and situate these findings within their broader historical and economic context. The research will involve meticulous data cleaning and the development of insightful visualizations to illuminate the connections between maritime trade and regional textile manufacturing.",
+        "images": {
+            "main":["images/dots_5.png","images/dots_1.png","images/dots_4.png","images/dots_3.png"],
+            "fallback":["images/flax-s_20-small.jpg"]
+        }
+    },
     {
         "id":"2a1e5f40-3f4a-11ee-be56-0242ac120002",
         "number":2,
@@ -36,6 +48,7 @@
             "main":["images/flax-s_20.jpg"],
             "fallback":["images/flax-s_20-small.jpg"]
         }
-    }],
+    }
+],
     "skills": ["python","touchdesigner","react","figma","supabase"]
 }
