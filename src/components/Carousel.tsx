@@ -14,7 +14,7 @@ export default function Carousel({ images }: CarouselProps) {
   return (
     <div className="relative">
       <div
-        className="carousel lg:rounded-l-xl lg:rounded-t-none rounded-t-xl overflow-x-hidden rounded-box w-full max-h-64 md:max-h-80 lg:max-h-full flex snap-x snap-mandatory"
+        className="carousel lg:rounded-l-xl lg:rounded-t-none rounded-t-xl overflow-x-hidden rounded-box w-full max-h-64 md:max-h-80 lg:max-h-200 flex snap-x snap-mandatory"
       >
         {images.main.map((img, index) => (
           <div
