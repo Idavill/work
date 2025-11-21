@@ -26,7 +26,7 @@ export default function Carousel({ images }: CarouselProps) {
           </div>
         ))}
       </div>
-      {/* BUTTONS */}
+      {/* BUTTONS */} 
       <div
                       onMouseEnter={() => {
                 // console.log("true");
