@@ -6,31 +6,31 @@
         "number":1,
         "tags":["touchdesigner","python"],
         "title": "MEDITATION ON MATTER",
-        "short_description": "Drift through a living collage of textures and tones: whispers of soil, rustling leaves, distant water – field recordings and 3D scans gathered from real landscapes and arranged into an ambient world of stillness and growth.",
-        "description": "An audiovisual journey into the rhythms of plant life. Step into the garden and leave the noise of the festival behind for a moment. Meditation on Matter invites you to slow down and reconnect with your senses through a guided audiovisual meditation inspired by the quiet intelligence of plant life and all that sustains it. Drift through a living collage of textures and tones: whispers of soil, rustling leaves, distant water – field recordings and 3D scans gathered from real landscapes and arranged into an ambient world of stillness and growth. Taste the garden’s offerings, sip herbal tea, and let your awareness settle into the present. Forget your FOMO. Bring a friend, breathe deeply, and return to the grounding rhythm of simply being.",
+        "short_description": "Installation at Roskilde Festival 2025. Drift through a living collage of textures and tones: whispers of soil, rustling leaves, distant water – field recordings and 3D scans gathered from real landscapes and arranged into an ambient world of stillness and growth.",
+        "description": "An audiovisual journey into the rhythms of plant life. Step into the Roskilde Festivals GROW garden and leave the noise of the festival behind for a moment. Meditation on Matter invites you to slow down and reconnect with your senses through a guided audiovisual meditation inspired by the quiet intelligence of plant life and all that sustains it. Drift through a living collage of textures and tones: whispers of soil, rustling leaves, distant water – field recordings and 3D scans gathered from real landscapes and arranged into an ambient world of stillness and growth. Taste the garden’s offerings, sip herbal tea, and let your awareness settle into the present. Forget your FOMO. Bring a friend, breathe deeply, and return to the grounding rhythm of simply being.",
         "images":{
             "main":["images/mm.gif","images/td.png","images/fauna2.gif"],
             "fallback":["images/flax-s_20-small.jpg","images/flax-s_20-small.jpg","images/flax-s_20-small.jpg"]
         }
     },
-        {
-        "id":"4d3f8f60-3f4a-11ee-be56-0242ac120002",
-        "number":4,
+    {
+        "id":"675f9d70-3f4a-11ee-be56-0242ac120002",
+        "number":3,
         "tags":["react","three.js"],
-        "title": "IDEADOTS LAB",
-        "short_description": "Place your ideas in 3D space, connect them, and watch your thought network grow organically as you explore relationships between concepts visually.",
-        "description": "Ideadots Lab is an experimental tool for visual thinking and idea mapping. Place your ideas in 3D space, connect them, and watch your thought network grow organically as you explore relationships between concepts visually. Whether brainstorming, planning projects, or studying complex topics, Ideadots Lab helps you see connections and patterns that traditional note-taking methods might miss. Dive into your ideas from new angles and discover insights through spatial organization.",
+        "title": "IDEADOTS 3D-LAB",
+        "short_description": "Web application for idea generation. Place your ideas in 3D space, connect them, and watch your thought network grow organically as you explore relationships between concepts.",
+        "description": "Ideadots 3D-Lab is an experimental tool for visual thinking and idea mapping. Place your ideas in 3D space, connect them, and watch your thought network grow organically as you explore relationships between concepts. Whether brainstorming, planning projects, or studying complex topics, Ideadots Lab helps you see connections and patterns that traditional note-taking methods might miss. Dive into your ideas from new angles and discover insights through spatial organization.",
         "images": {
-            "main":["images/dots_5.png","images/dots_1.png","images/dots_4.png","images/dots_3.png"],
+            "main":["images/dots_1.png","images/dots_4.png","images/dots_3.png"],
             "fallback":["images/flax-s_20-small.jpg"]
         }
     },
     {
         "id":"2a1e5f40-3f4a-11ee-be56-0242ac120002",
-        "number":2,
+        "number":4,
         "tags":["react","figma","python"],
         "title": "URBAN FREQUENCIES",
-        "short_description": "Through satellite imagery, climate indicators, and spatial analytics, six thematic maps construct a chronological narrative—from the subtle pulses of air and heat to the physical imprints of urban expansion and ecological presence.",
+        "short_description": "Application developed for Copenhagen Architecture Biennale. Through satellite imagery, climate indicators, and spatial analytics, six thematic maps construct a chronological narrative—from the subtle pulses of air and heat to the physical imprints of urban expansion and ecological presence.",
         "description": "This project reimagines environmental data as architectural storytelling. Through satellite imagery, climate indicators, and spatial analytics, six thematic maps construct a chronological narrative—from the subtle pulses of air and heat to the physical imprints of urban expansion and ecological presence. Each map transcends its technical function, becoming a spatial artifact that invites viewers to interpret the city as a dynamic, living organism in flux.",
         "images":{
             "main":["images/sentinel.gif","images/uf-s-4.png","images/uf-s-7.png","images/uf-s-6.png"],
@@ -39,10 +39,10 @@
     },
     {
         "id":"3c2f7e50-3f4a-11ee-be56-0242ac120002",
-        "number":3,
+        "number":5,
         "tags":["python","supabase"],
         "title": "FLAX IN NORTHERN JUTLAND",
-        "short_description": "By analyzing shipping records from 1650 to 1800, we aim to uncover patterns of trade, assess the scale and significance of textile imports, and situate these findings within their broader historical and economic context.",
+        "short_description": "Data analysis and historical research. By analyzing shipping records from 1650 to 1800, we aim to uncover patterns of trade, assess the scale and significance of textile imports, and situate these findings within their broader historical and economic context.",
         "description": "This project explores the historical journey of flax as a key commodity in textile production, focusing on its movement from the Baltic region to northern Jutland. By analyzing shipping records from 1650 to 1800, we aim to uncover patterns of trade, assess the scale and significance of textile imports, and situate these findings within their broader historical and economic context. The research will involve meticulous data cleaning and the development of insightful visualizations to illuminate the connections between maritime trade and regional textile manufacturing.",
         "images": {
             "main":["images/flax-s_20.jpg"],
