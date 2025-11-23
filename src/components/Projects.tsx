@@ -35,7 +35,7 @@ export default function Projects({ title, id, ref }: ProjectsProps
                 <div className="flex flex-col pl-0 md:pl-5 w-full md:w-5/6">
                   <p className="flex break-words w-full" >Below you can explore a selection of my most recent </p>
                   <SharpiSection
-                    text={`interactive, data-driven and colorful projects.`}
+                    text={`interactive, data-driven, and colorful projects.`}
                     backgroundSize={`${hover ? "100% 100%" : "0% 100%"}`}
                   />
                   <p className="flex break-words w-full" >This includes interactive pieces, data analysis and visualizations, as well as creative coding projects</p>
