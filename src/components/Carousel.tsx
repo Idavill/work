@@ -22,7 +22,14 @@ export default function Carousel({ images }: CarouselProps) {
             key={`${img}${index}`}
             className="carousel-item overflow-hidden flex-shrink-0 snap-center w-full"
           >
-            <AppImage id={`${index}${img}`} fallbackImage={images.fallback[index]} img={img} setHover={setHover}/>
+            <AppImage
+              id={`${index}${img}`}
+              fallbackImage={images.fallback[index] ?? images.fallback[0]}
+              img={img}
+              alt={`Slide ${index + 1} of ${images.main.length}`}
+              eager={index === 0}
+              setHover={setHover}
+            />
           </div>
         ))}
       </div>

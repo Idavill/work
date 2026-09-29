@@ -32,15 +32,6 @@ function App() {
   const contactRef = useRef(null);
   const topRef = useRef(null);
   
-  const preloadImages = () => {
-    projects.projects.forEach((p)=>{
-      p.images.main.forEach((i)=>{
-        const img = new Image();
-        img.src = i;
-      })
-    })
-  }
-
   useEffect(() => {
     const sections = [
       { ref: topRef, number: 0,title:"• • • *" },
@@ -78,8 +69,6 @@ function App() {
   }, [selectedProject]);
 
   useEffect(() => {
-    preloadImages();
-
     const handleScroll = () => {
       const start = 40; // scroll position where fade starts
       const end = 300;  // scroll position where fade ends

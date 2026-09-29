@@ -22,7 +22,9 @@ export default function Card({ project, setOpen }: CardProps) {
           <img
             className={`h-48 w-full object-cover md:h-full md:w-80 brightness-80 ${hover? "contrast-100" : "grayscale contrast-70"}`}
             src={project.images.main[0]}
-            alt="image of project"
+            alt={`${project.title} preview`}
+            loading="lazy"
+            decoding="async"
           />
         </div>
         <div className="p-8 flex flex-col justify-between">
