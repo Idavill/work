@@ -19,17 +19,18 @@ export default function Projects({ title, id, ref }: ProjectsProps
 ){
     const [hover,setHover] = useState(false);
     return(
+      <div className="min-h-dvh flex items-center justify-center py-10">
       <div ref={ref} id={id} onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}
-      className="mb-10 mt-120 md:mt-0 cursor-default h-120 md:h-80 hover:bg-blend-multiply backdrop-blur-2xl backdrop scroll-mt-30 mx-auto max-w-lg overflow-hidden rounded-xl  shadow-md md:max-w-4xl z-2">
-          <div className="md:flex">
+      className="mb-10 w-full cursor-default h-120 md:h-[clamp(280px,38vh,460px)] hover:bg-blend-multiply backdrop-blur-2xl backdrop scroll-mt-30 mx-auto max-w-lg overflow-hidden rounded-xl  shadow-md md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2">
+          <div className="md:flex h-full">
             <div className="md:shrink-0">
             </div>
-            <div className="flex flex-col justify-between p-8 h-80">
+            <div className="flex flex-col justify-around p-8 xl:p-12 h-full">
               <div className="flex opacity-0 text-gray-400 flex-row justify-between">
                 <Bs2Circle className="flex self-end"/>
                 <p>Projects</p>
               </div>
-              <h2 className={`text-5xl border-b-2 ${hover? "border-cyan-200" : "border-transparent" } w-fit font-semibold mb-4`}>{title}</h2>
+              <h2 className={`text-5xl xl:text-6xl 2xl:text-7xl border-b-2 ${hover? "border-cyan-200" : "border-transparent" } w-fit font-semibold mb-4`}>{title}</h2>
               <div className="flex flex-col md:flex-row">
                 <GrAdd className="flex w-1/6 mb-5 md:mb-0"/>
                 <div className="flex flex-col pl-0 md:pl-5 w-full md:w-5/6">
@@ -43,6 +44,7 @@ export default function Projects({ title, id, ref }: ProjectsProps
               </div>
             </div>
         </div>
+      </div>
       </div>
     );
 }
