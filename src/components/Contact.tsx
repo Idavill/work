@@ -1,7 +1,6 @@
 import { GrAdd } from "react-icons/gr";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { useState } from "react";
-import SharpiSection from "./SharpiSection";
 import { Bs3Circle } from "react-icons/bs";
 
 type ContactProps = {
@@ -32,18 +31,14 @@ export default function Contact({ title, id, ref }: ContactProps){
                 <Bs3Circle className="flex self-end"/>
                 <p>Contact</p>
               </div>
-              <h2 className={`text-5xl xl:text-6xl 2xl:text-7xl border-b-2 ${hover? "border-cyan-200" : "border-transparent" } w-fit  font-semibold mb-4`}>{title}</h2>
+              <h2 className={`text-5xl xl:text-6xl 2xl:text-7xl border-b-2 ${hover? "border-white" : "border-transparent" } w-fit  font-semibold mb-4`}>{title}</h2>
               <div className="flex flex-col md:flex-row">
                 <GrAdd className="flex w-1/6 mb-5"/>
                 <div className="flex flex-col pl-0 md:pl-5 w-full md:w-5/6">
                   {/* <p className="flex break-words w-full" >Below you can explore an array of my</p> */}
 
 
-                  <SharpiSection
-                    text={`Feel free to reach me through LinkedIn or GitHub`}
-                    backgroundSize={`${hover ? "100% 100%" : "0% 100%"}`}
-                  />
-                  <p className="flex break-words" >to connect or collaborate.</p>
+                  <p className="flex break-words" >Feel free to reach me through LinkedIn or GitHub to connect or collaborate.</p>
                 </div>
               </div>
               <div className="flex flex-row">

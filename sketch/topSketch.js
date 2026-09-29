@@ -39,7 +39,8 @@ function s1(p) {
   function hostSize() {
     const host = document.getElementById("topSketch");
     const w = host && host.clientWidth ? host.clientWidth : p.windowWidth;
-    const h = host && host.clientHeight ? host.clientHeight : p.windowHeight * 0.6;
+    const h =
+      host && host.clientHeight ? host.clientHeight : p.windowHeight * 0.6;
     return { w, h };
   }
 
@@ -145,4 +146,15 @@ function s1(p) {
   };
 }
 
-new p5(s1);
+// #topSketch is rendered by react, which mounts after this script runs.
+// starting p5 too early means .parent() finds nothing and the canvas is
+// left at the end of <body> — below the footer, stretching the page.
+// so wait until the container actually exists.
+function startTopSketch() {
+  if (document.getElementById("topSketch")) {
+    new p5(s1);
+  } else {
+    requestAnimationFrame(startTopSketch);
+  }
+}
+startTopSketch();

@@ -30,9 +30,15 @@ a {
 body {
   /* width:100%; */
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
+  min-height: 100vh;
+}
+
+/* the app shell must fill the viewport, otherwise the footer can't sit
+   at the bottom on short pages. deliberately NOT a flex container:
+   that would turn the app root into a flex item, which activates its
+   z-index and makes its background paint over the p5 canvases. */
+#root {
   min-height: 100vh;
 }
 

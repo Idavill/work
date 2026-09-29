@@ -130,8 +130,6 @@ particlebackground = function (p) {
       let homeA = this.p.atan2(this.homeY - this.y, this.homeX - this.x);
       // forces
       let mouseF = this.p.constrain(this.p.map(mouseD, 0, 200, 10, 0), 0, 10);
-      //console.log(mouseF);
-      //let mouseF = this.p.map(mouseD, 0, 100, 10, 0);
       let homeF = this.p.map(homeD, 0, 100, 0, 10);
 
       let vx = this.p.cos(mouseA) * mouseF * 2;
@@ -146,8 +144,8 @@ particlebackground = function (p) {
 
     draw() {
       this.p.fill(this.color);
-      // this.p.ellipse(this.x, this.y, this.res, this.res);
-      this.p.square(this.x, this.y, this.res);
+      this.p.ellipse(this.x, this.y, this.res, this.res);
+      //this.p.square(this.x, this.y, this.res);
     }
   }
 };

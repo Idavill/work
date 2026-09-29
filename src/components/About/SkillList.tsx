@@ -8,7 +8,7 @@ export default function SkillList({topics}:SkillListType){
     return(
         <>
             { topics &&
-            <div className="flex w-full md:w-2/6 flex-wrap flex-col gap-2 flex-end">
+            <div className="flex w-full md:w-2/6 flex-col justify-between gap-2">
                 {topics.map((t) => (
                 <div key={t}>
                     <PaperTag id={"c"} color={"text-white hover:bg-white/10"} width={"mr-5 "} tag={t}/>

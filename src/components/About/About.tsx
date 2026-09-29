@@ -34,11 +34,11 @@ export default function About({ title, id, ref, topics }: AboutProps){
                 <p>About</p>
               </div>
               <h2
-                className={`text-5xl xl:text-6xl 2xl:text-7xl border-b-2 ${hover? "border-cyan-200" : "border-transparent" } w-fit font-semibold mb-4`}
+                className={`text-5xl xl:text-6xl 2xl:text-7xl border-b-2 ${hover? "border-white" : "border-transparent" } w-fit font-semibold mb-4`}
               >
                   {title}
               </h2>
-              <TopDescription hover={hover}/>
+              <TopDescription/>
               <div className="flex md:flex-row flex-col md:ps-6 ps-0">
                 <div className="flex w-1/6"/>
                     <SkillList topics={topics}/>
