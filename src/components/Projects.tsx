@@ -19,9 +19,9 @@ export default function Projects({ title, id, ref }: ProjectsProps
 ){
     const [hover,setHover] = useState(false);
     return(
-      <div className="min-h-dvh flex items-center justify-center py-10">
+      <div className="flex items-end justify-center pt-10 pb-0">
       <div ref={ref} id={id} onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}
-      className="mb-10 w-full cursor-default h-120 md:h-[clamp(280px,38vh,460px)] hover:bg-blend-multiply backdrop-blur-2xl backdrop scroll-mt-30 mx-auto max-w-lg overflow-hidden rounded-xl  shadow-md md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2">
+      className="mb-3 w-full cursor-default h-120 md:h-[clamp(280px,38vh,460px)] hover:bg-blend-multiply backdrop-blur-2xl backdrop scroll-mt-30 mx-auto max-w-lg overflow-hidden rounded-xl  shadow-md md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2">
           <div className="md:flex h-full">
             <div className="md:shrink-0">
             </div>

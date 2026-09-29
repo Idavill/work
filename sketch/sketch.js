@@ -8,7 +8,7 @@ let img;
 
 particlebackground = function (p) {
   let particles = [];
-  let res = 70;
+  let res = 50;
   p.preload = function () {
     // img = p.loadImage(
     //   process.env.NODE_ENV === "production"

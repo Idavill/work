@@ -11,6 +11,12 @@ const RES = 8; // sampling step: smaller = more boxes, more detail, slower
 const DEPTH = 70; // how far the letters extrude
 const FONT_STACK = '"Bungee Spice", "Koulen", "Poppins", sans-serif';
 
+// the word is always sampled at this fixed resolution, so the number of
+// boxes stays constant. we then scale the whole drawing to fit whatever
+// size the canvas happens to be.
+const BUF_W = 1060;
+const BUF_H = 820;
+
 let cells = [];
 let gfx;
 
@@ -29,11 +35,19 @@ function s1(p) {
     // );
   };
 
+  // measure the div the sketch lives in, so the canvas matches the layout
+  function hostSize() {
+    const host = document.getElementById("topSketch");
+    const w = host && host.clientWidth ? host.clientWidth : p.windowWidth;
+    const h = host && host.clientHeight ? host.clientHeight : p.windowHeight * 0.6;
+    return { w, h };
+  }
+
   // draw TEXT into an offscreen 2d buffer, then keep one cell per
   // opaque pixel. extrude in draw().
   function buildCells() {
-    const w = 1060;
-    const h = 820;
+    const w = BUF_W;
+    const h = BUF_H;
 
     if (!gfx) {
       gfx = p.createGraphics(w, h);
@@ -68,7 +82,8 @@ function s1(p) {
   }
 
   p.setup = function () {
-    canvas1 = p.createCanvas(1000, 1000, p.WEBGL).parent("#topSketch");
+    const { w, h } = hostSize();
+    canvas1 = p.createCanvas(w, h, p.WEBGL).parent("#topSketch");
     canvas1.style("display", "flex");
     p.pixelDensity(1);
 
@@ -80,6 +95,13 @@ function s1(p) {
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(buildCells);
     }
+  };
+
+  // follow the layout when the window changes. the sampled cells don't
+  // need rebuilding — only the scale factor in draw() changes.
+  p.windowResized = function () {
+    const { w, h } = hostSize();
+    p.resizeCanvas(w, h);
   };
 
   p.draw = function () {
@@ -100,6 +122,11 @@ function s1(p) {
     // gentle tumble so the extrusion actually reads as 3d
     // p.rotateY(Math.sin(p.frameCount * 0.01) * 0.6);
     // p.rotateX(Math.cos(p.frameCount * 0.008) * 0.25);
+
+    // fit the word to the current canvas: whichever axis is tightest wins,
+    // so the text never spills out on narrow screens
+    const fit = Math.min(p.width / BUF_W, p.height / BUF_H);
+    p.scale(fit);
 
     p.noStroke();
     p.ambientMaterial(color);
