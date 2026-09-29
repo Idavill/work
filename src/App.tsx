@@ -88,7 +88,7 @@ function App() {
       <div className={`fixed inset-0 ${selectedProject? "backdrop-grayscale blur-xl" : "backdrop-hue-rotate-300 blur-sm"} z-2`} />
       <Header headerOpacity={headerOpacity} selectedProject={!!selectedProject}/>
       <main className="flex p-10 place-content-around z-2">
-        <div className="flex flex-col w-100 md:w-200 lg:w-300">
+        <div className="flex flex-col w-100 md:w-200 lg:w-300 xl:w-[88vw] xl:max-w-[1600px]">
           <div className={`${selectedProject!=null? "blur-xl grayscale":""}`}>
             <div id="p5_loading" className="loadingclass">
             Loading..
@@ -105,7 +105,7 @@ function App() {
               setOpen={(open) => setSelectedProject(open ? project : null)}
             />
           ))}
-          <div className="mb-100"/> {/*buffer between contact and projects*/}
+          <div className="mb-20"/> {/*buffer between contact and projects*/}
         <ContactSectionCard ref={contactRef} title={"CONTACT ME"} id="contact" content={contactJson.content}/>
         </div>
         {selectedProject && (
