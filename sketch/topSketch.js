@@ -30,7 +30,7 @@ function s1(p) {
   };
 
   // draw TEXT into an offscreen 2d buffer, then keep one cell per
-  // opaque pixel. those cells become the boxes we extrude in draw().
+  // opaque pixel. extrude in draw().
   function buildCells() {
     const w = 1060;
     const h = 820;
@@ -45,7 +45,7 @@ function s1(p) {
     gfx.textFont(FONT_STACK);
     gfx.textAlign(gfx.CENTER, gfx.CENTER);
 
-    // scale the type so TEXT always fills the buffer, whatever it says
+    // scale type so TEXT always fills buffer
     let size = 280;
     gfx.textSize(size);
     const measured = gfx.textWidth(TEXT);
@@ -58,7 +58,7 @@ function s1(p) {
     const next = [];
     for (let y = 0; y < h; y += RES) {
       for (let x = 0; x < w; x += RES) {
-        // alpha channel: anything opaque is part of a letter
+        // alpha channel: anything opaque is part of letter
         if (gfx.pixels[(y * w + x) * 4 + 3] > 128) {
           next.push({ x: x - w / 2, y: y - h / 2 });
         }

@@ -26,7 +26,7 @@ function App() {
   const [selectedProject, setSelectedProject]= useState<ProjectType | null>(null);
   const [headerOpacity, setHeaderOpacity] = useState(0);
   // const [preloadedImages, setPreloadedImages]= useState<Images | null>(null);
-  let color = "text-cyan-200"
+  let color = "text-white"
   const aboutRef = useRef(null);
   const projectsRef = useRef(null);
   const contactRef = useRef(null);

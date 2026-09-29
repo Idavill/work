@@ -10,7 +10,7 @@ type CardProps = {
 
 export default function Card({ project, setOpen }: CardProps) {
   const [hover,setHover] = useState(false);
-   let color = "text-cyan-200 opacity-75"
+   let color = "text-white opacity-75"
 
   return (
       <div onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)} key={project.id}
@@ -30,7 +30,7 @@ export default function Card({ project, setOpen }: CardProps) {
         <div className="p-8 flex flex-col justify-between">
           <div className="flex flex-row justify-between items-center">
           <h2
-          className={`text-2xl mx-5 border-b-2 ${hover? "border-cyan-200" : "border-transparent" } font-semibold`}
+          className={`text-2xl mx-5 border-b-2 ${hover? "border-white" : "border-transparent" } font-semibold`}
           >{project.title}</h2>
           </div>
           <p className={`mt-7 mb-7 px-5 ${color} me-10 flex-grow`}>
@@ -38,7 +38,7 @@ export default function Card({ project, setOpen }: CardProps) {
           </p>
           <div className=" flex px-5 flex-wrap gap-2 flex-end">
             {project.tags.map((t) => (
-            <PaperTag key={t} width="" id={project.id + t} color={"text-cyan-200 hover:bg-white/10"} tag={t}></PaperTag>
+            <PaperTag key={t} width="" id={project.id + t} color={"border-white hover:bg-white/10"} tag={t}></PaperTag>
             ))}
           </div>
         </div>

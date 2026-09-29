@@ -7,7 +7,7 @@ export default function MiniHeadlines(){
     return(
         <>
         <div
-            className="flex text-cyan-200 opacity-75 flex-col md:my-0 md:w-3/6 w-full">
+            className="flex text-white opacity-75 flex-col md:my-0 md:w-3/6 w-full">
             <section
                 onMouseEnter={()=>setHover1(true)}
                 onMouseLeave={()=>setHover1(false)}

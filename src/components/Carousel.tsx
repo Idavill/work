@@ -45,7 +45,7 @@ export default function Carousel({ images }: CarouselProps) {
           <a key={index} href={`#${index}`}>
             <button
               onClick={() => setActiveButton(`#${index}`)}
-              className={`rounded-full px-4 py-2 text-cyan-200 transition-all duration-200
+              className={`rounded-full px-4 py-2 text-white transition-all duration-200
                 ${activeButton === `#${index}`
                     ? "bg-purple-700 text-white"
                     : "bg-transparent"
