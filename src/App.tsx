@@ -84,8 +84,8 @@ function App() {
   }, []);
 
   return (
-    <div className={`${color} grid grid-rows-[auto_1fr_auto] min-h-screen min-w-screen bg-amber-700 z-3 `}>
-      <div className={`fixed inset-0 ${selectedProject? "backdrop-grayscale blur-xl" : "backdrop-hue-rotate-280 blur-sm"} z-2`} />
+    <div className={`${color} grid grid-rows-[auto_1fr_auto] min-h-screen min-w-screen bg-green-700 z-3 `}>
+      <div className={`fixed inset-0 ${selectedProject? "backdrop-grayscale blur-xl" : "backdrop-hue-rotate-300 blur-sm"} z-2`} />
       <Header headerOpacity={headerOpacity} selectedProject={!!selectedProject}/>
       <main className="flex p-10 place-content-around z-2">
         <div className="flex flex-col w-100 md:w-200 lg:w-300">

@@ -26,7 +26,7 @@ export default function SectionCard({ id, ref, currentSection}: FancyTopProps){
           id="topSketch"
           className="flex justify-center items-center absolute inset-0 w-full h-6/10" 
         ></div>
-        <div className="flex justify-center flex-col items-center md:flex-row absolute inset-0 w-full md:mt-0 h-6/10">
+        {/* <div className="flex justify-center flex-col items-center md:flex-row absolute inset-0 w-full md:mt-0 h-6/10">
           <div className="flex h-fit w-full md:max-w-90 justify-end  md:h-120 items-start">
             <h1
               id="bytesized-regular"
@@ -44,7 +44,7 @@ export default function SectionCard({ id, ref, currentSection}: FancyTopProps){
             </h1>
           </div>
 
-        </div>
+        </div> */}
       </div>
     );
 }

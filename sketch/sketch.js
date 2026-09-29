@@ -8,14 +8,14 @@ let img;
 
 particlebackground = function (p) {
   let particles = [];
-  let res = 50;
+  let res = 70;
   p.preload = function () {
     // img = p.loadImage(
     //   process.env.NODE_ENV === "production"
     //     ? "/work/images/6-small.jpg"
     //     : "/images/6-small.jpg"
     // );
-    img = p.loadImage("/images/6-small.jpg");
+    img = p.loadImage("/images/pixel3-small.jpg");
     pageHeight = p.select("body").height;
     pageWidth = p.select("body").width;
     img.resize(pageWidth, pageHeight);
@@ -78,8 +78,8 @@ particlebackground = function (p) {
               i, //+ p.noise(i * 100, j * 100) * 10,
               j, //+ p.noise(-i * 100, -j * 100) * 10,
               c,
-              res
-            )
+              res,
+            ),
           );
         }
       }
@@ -146,7 +146,8 @@ particlebackground = function (p) {
 
     draw() {
       this.p.fill(this.color);
-      this.p.ellipse(this.x, this.y, this.res, this.res);
+      // this.p.ellipse(this.x, this.y, this.res, this.res);
+      this.p.square(this.x, this.y, this.res);
     }
   }
 };
