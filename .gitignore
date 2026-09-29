@@ -57,3 +57,7 @@ coverage/
 *.local
 
 *TODO
+
+laundry.md
+/dist/**
+AUDIT.md
