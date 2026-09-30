@@ -6,9 +6,12 @@ let color;
 let amount = 100;
 
 // --- 3d text settings ---
-// other cute ones to try:
+// the face itself is per theme and comes from --sketch-face in index.css,
+// next to that theme's colours. this is only the fallback for a theme that
+// forgot to set one. other cute ones to try:
 //   "(◕‿◕)"   "(｡◕‿◕｡)"   "ʕ•ᴥ•ʔ"   "(=^･ω･^=)"   "^_^"   "(·_·)"
-const TEXT = "ʕ•ᴥ•ʔ";
+const FALLBACK_TEXT = "ʕ•ᴥ•ʔ";
+let text = FALLBACK_TEXT;
 const RES = 6; // sampling step: smaller = more boxes, more detail, slower
 const DEPTH = 70; // how far the letters extrude
 // kaomoji glyphs don't exist in display faces like Bungee Spice, so the
@@ -17,9 +20,12 @@ const DEPTH = 70; // how far the letters extrude
 const FONT_STACK =
   '-apple-system, "Poppins", "Segoe UI Symbol", "Apple Symbols", sans-serif';
 
-// the word is always sampled at this fixed resolution, so the number of
-// boxes stays constant. we then scale the whole drawing to fit whatever
-// size the canvas happens to be.
+// the face is always sampled into a buffer of this fixed size, so the box
+// count depends only on how much ink the face has and never on the viewport.
+// we then scale the whole drawing to fit whatever size the canvas happens
+// to be. note the face is fitted to the buffer WIDTH, so a face with more
+// glyphs is drawn smaller rather than wider — box count stays in the same
+// ballpark across faces instead of growing with their length.
 const BUF_W = 1060;
 const BUF_H = 820;
 
@@ -42,6 +48,19 @@ function readPalette() {
     ambient: pick("--color-sketch-ambient", "#2e2e2e"),
     key: pick("--color-sketch-key", "#ffffff"),
   };
+}
+
+// --sketch-face is stored quoted so a paren or semicolon in the face can't
+// break css parsing. getPropertyValue hands back the quotes, so strip them.
+// returns true if the face actually changed, since resampling costs a
+// full-buffer pixel readback and only the face affects it.
+function readFace() {
+  const cs = getComputedStyle(document.documentElement);
+  const raw = cs.getPropertyValue("--sketch-face").trim();
+  const next = raw.replace(/^["']|["']$/g, "") || FALLBACK_TEXT;
+  if (next === text) return false;
+  text = next;
+  return true;
 }
 
 function s1(p) {
@@ -68,8 +87,9 @@ function s1(p) {
     return { w, h };
   }
 
-  // draw TEXT into an offscreen 2d buffer, then keep one cell per
-  // opaque pixel. extrude in draw().
+  // draw the current face into an offscreen 2d buffer, then keep one cell
+  // per opaque pixel. extrude in draw(). called on first paint, once fonts
+  // load, and on each theme change that brings a different face.
   function buildCells() {
     const w = BUF_W;
     const h = BUF_H;
@@ -84,14 +104,14 @@ function s1(p) {
     gfx.textFont(FONT_STACK);
     gfx.textAlign(gfx.CENTER, gfx.CENTER);
 
-    // scale type so TEXT always fills buffer
+    // scale type so the face always fills buffer
     let size = 280;
     gfx.textSize(size);
-    const measured = gfx.textWidth(TEXT);
+    const measured = gfx.textWidth(text);
     if (measured > 0) {
       gfx.textSize(size * ((w * 0.9) / measured));
     }
-    gfx.text(TEXT, w / 2, h / 2);
+    gfx.text(text, w / 2, h / 2);
 
     gfx.loadPixels();
     const next = [];
@@ -113,8 +133,14 @@ function s1(p) {
     p.pixelDensity(1);
 
     readPalette();
-    // repaint when the theme toggle flips data-theme on <html>
-    new MutationObserver(readPalette).observe(document.documentElement, {
+    readFace();
+    // the theme toggle flips data-theme on <html>: recolour always, and
+    // resample the boxes only when that theme's face differs from the one
+    // already on screen.
+    new MutationObserver(function () {
+      readPalette();
+      if (readFace()) buildCells();
+    }).observe(document.documentElement, {
       attributes: true,
       attributeFilter: ["data-theme"],
     });

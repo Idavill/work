@@ -52,6 +52,17 @@
   --color-sketch-ambient: #2e2e2e;
   --color-sketch-key: #ffffff;
 
+  /* the kaomoji the 3d text sketch extrudes. each theme sets its own, so
+     the toggle swaps the face in the hero along with the colours.
+
+     ALWAYS QUOTE IT. an unbalanced paren or a semicolon in a bare value
+     breaks css parsing for the whole block; the quotes also stop trailing
+     spaces being trimmed. topSketch.js strips them back off.
+
+     keep faces to roughly this width — the sketch scales the face to fill
+     90% of its buffer, so a much longer one just renders smaller. */
+  --sketch-face: "ʕ•ᴥ•ʔ";
+
   /* emoji are colour fonts — no text colour can touch them, so a filter is
      the only way to restyle them. currently full colour.
      for black & white set this to:
@@ -78,7 +89,8 @@ html[data-theme="mono"] {
   --color-sketch-ambient: #2e2e2e;
   --color-sketch-key: #ffffff;
   --color-hover: rgba(255, 255, 255, 0.07); /* lighten */
-  --color-shadow: rgba(159, 17, 17, 0.831);
+  --color-shadow: rgba(26, 45, 255, 0.831);
+  --sketch-face:"(♥‿♥)";
 }
 
 /* inverted black & white */
@@ -98,6 +110,7 @@ html[data-theme="paper"] {
   --color-hover: rgba(226, 226, 226, 0.782); /* darken, since the page is light */
   --color-shadow: rgba(71, 71, 71, 0.831);
   --sticker-filter: none;
+  --sketch-face:"(ﾉ◕ヮ◕)ﾉ";
 }
 
 /* the original green look, rebuilt from tokens */
@@ -115,6 +128,7 @@ html[data-theme="green"] {
   --color-sketch-key: #ffffff;
   --color-hover: rgba(74, 222, 128, 0.12); /* accent-tinted lighten */
   --color-shadow: rgba(20, 66, 0, 0.831);
+  --sketch-face:"(✿◠‿◠)";
 }
 
 html,
