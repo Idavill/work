@@ -11,6 +11,9 @@ import Header from "./composition/Header";
 import ContactSectionCard from "./components/Contact";
 import About from "./components/About/About";
 import Projects from "./components/Projects";
+// draggable fruit stickers — parked for now, uncomment this and the
+// <Stickers /> render below to bring them back
+// import Stickers from "./components/Stickers";
 
 // type ImageMap = {
 //   id: string,
@@ -117,6 +120,9 @@ function App() {
         )}
         </div>
       </main>
+
+      {/* hidden while a project modal is open so they don't float over it */}
+      {/* {!selectedProject && <Stickers />} */}
 
       <Footer selectedProject={!!selectedProject}/>
     </div>

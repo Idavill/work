@@ -51,6 +51,15 @@
   --color-sketch-material: #ffffff;
   --color-sketch-ambient: #2e2e2e;
   --color-sketch-key: #ffffff;
+
+  /* emoji are colour fonts — no text colour can touch them, so a filter is
+     the only way to restyle them. currently full colour.
+     for black & white set this to:
+       grayscale(1) brightness(1.7) contrast(1.05)   on dark themes
+       grayscale(1) brightness(0.55) contrast(1.15)  on paper
+     (greyscale alone lands in the mid-tones and reads muddy on both, hence
+     the brightness push in opposite directions per theme.) */
+  --sticker-filter: none;
 }
 
 /* html[data-theme] beats :root on specificity, so these always win */
@@ -88,7 +97,7 @@ html[data-theme="paper"] {
   --color-sketch-key: #ffffff;
   --color-hover: rgba(206, 206, 206, 0.782); /* darken, since the page is light */
   --color-shadow: rgba(71, 71, 71, 0.831);
-
+  --sticker-filter: none;
 }
 
 /* the original green look, rebuilt from tokens */
