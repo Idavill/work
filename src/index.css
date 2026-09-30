@@ -138,9 +138,31 @@ html,
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  text-decoration: inherit;
+/* element defaults live in @layer base so a utility class on the element
+   can override them. an unlayered rule here would beat every tailwind
+   utility no matter the specificity — that's what silently pinned every
+   <h2> to 1.5em regardless of its text-*xl class. */
+@layer base {
+  a {
+    font-weight: 500;
+    text-decoration: inherit;
+  }
+
+  /* 'Nunito Sans', 'Poppins',  */
+  p {
+    font-size: 1.1em;
+    font-family: "Google Sans Code", Arial, sans-serif;
+  }
+
+  h1 {
+    font-size: 3.2em;
+    line-height: 1.1;
+  }
+
+  h2 {
+    font-size: 1.5em;
+    line-height: 1.1;
+  }
 }
 
 body {
@@ -179,22 +201,6 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5em;
-}
-
-/* 'Nunito Sans', 'Poppins',  */
-p {
-  font-size: 1.1em;
-  font-family: 'Google Sans Code', Arial, sans-serif;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-h2 {
-  font-size: 1.5em;
-  line-height: 1.1;
 }
 
 button {

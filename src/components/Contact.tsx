@@ -31,7 +31,7 @@ export default function Contact({ title, id, ref }: ContactProps){
                 <Bs3Circle className="flex self-end"/>
                 <p>Contact</p>
               </div>
-              <h2 className={`text-5xl xl:text-6xl 2xl:text-7xl border-b-2 ${hover? "border-line" : "border-transparent" } w-fit  font-semibold mb-4`}>{title}</h2>
+              <h2 className={`text-4xl xl:text-5xl 2xl:text-6xl border-b-2 ${hover? "border-line" : "border-transparent" } w-fit  font-semibold mb-4`}>{title}</h2>
               <div className="flex flex-col md:flex-row">
                 <GrAdd className="flex w-1/6 mb-5"/>
                 <div className="flex flex-col pl-0 md:pl-5 w-full md:w-5/6">

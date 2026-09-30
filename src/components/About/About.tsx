@@ -34,7 +34,7 @@ export default function About({ title, id, ref, topics }: AboutProps){
                 <p>About</p>
               </div>
               <h2
-                className={`text-5xl xl:text-6xl 2xl:text-7xl border-b-2 ${hover? "border-line" : "border-transparent" } w-fit font-semibold mb-4`}
+                className={`text-4xl xl:text-5xl 2xl:text-6xl border-b-2 ${hover? "border-line" : "border-transparent" } w-fit font-semibold mb-4`}
               >
                   {title}
               </h2>
