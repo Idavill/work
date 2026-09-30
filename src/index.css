@@ -95,7 +95,7 @@ html[data-theme="paper"] {
   --color-sketch-material: #5a5a5a;
   --color-sketch-ambient: #1f1f1f;
   --color-sketch-key: #ffffff;
-  --color-hover: rgba(206, 206, 206, 0.782); /* darken, since the page is light */
+  --color-hover: rgba(226, 226, 226, 0.782); /* darken, since the page is light */
   --color-shadow: rgba(71, 71, 71, 0.831);
   --sticker-filter: none;
 }
@@ -115,7 +115,6 @@ html[data-theme="green"] {
   --color-sketch-key: #ffffff;
   --color-hover: rgba(74, 222, 128, 0.12); /* accent-tinted lighten */
   --color-shadow: rgba(20, 66, 0, 0.831);
-
 }
 
 html,

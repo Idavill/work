@@ -65,6 +65,8 @@ export default function ThemeToggle() {
         borderRadius: 0,
         padding: 0,
         boxShadow: "4px 4px 0 var(--color-shadow)",
+        background: "var(--color-canvas)",
+        border:"1px solid",
       }}
     >
       <span
