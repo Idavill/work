@@ -16,7 +16,7 @@ export default function SectionCard({ id, ref, currentSection}: FancyTopProps){
         <div className="fixed left-10 flex h-4/10 w-10 ">
           <h2
           id="bytesized-medium"
-          className={`flex text-green-500 rotate-180`}
+          className={`flex text-accent rotate-180`}
           >
             {currentSection}
           </h2>

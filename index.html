@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ida Villadsen Portfolio</title>
 
+    <!-- apply the saved theme before first paint, otherwise the default
+         theme flashes for a frame before react mounts -->
+    <script>
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem("theme") || "mono";
+      } catch (e) {
+        document.documentElement.dataset.theme = "mono";
+      }
+    </script>
+
     <!-- external assets (fine to keep absolute) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/p5.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">

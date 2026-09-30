@@ -1,4 +1,5 @@
 import Button from "../components/Button"
+import ThemeToggle from "../components/ThemeToggle"
 
 type HeaderProps = {
   headerOpacity: number;
@@ -17,7 +18,7 @@ export default function Header({headerOpacity, selectedProject}: HeaderProps) {
             style={{
               boxShadow: headerOpacity > 0.2 ? "0 2px 8px rgba(0,0,0,0.15)" : "none",
               // backdropFilter: headerOpacity > 0.2 ? "blur(16px)" : "none",
-              backgroundColor: `rgba(20, 20, 20, ${headerOpacity})`,
+              backgroundColor: `color-mix(in srgb, var(--color-surface) ${headerOpacity * 100}%, transparent)`,
           }}>
             <div className="flex flex-row justify-center place-content-around w-110 md:w-150 lg:w-150">
               <a href="#top"><Button name="↑" /></a>
@@ -25,6 +26,7 @@ export default function Header({headerOpacity, selectedProject}: HeaderProps) {
               <a href="#projects"><Button name="Projects" /></a>
               {/* <a href="#education"><Button name="Experience" /></a> */}
               <a href="#contact"><Button name="Contact" /></a>
+              <ThemeToggle />
             </div>
           </div>
         </header>

@@ -39,18 +39,18 @@ export default function Carousel({ images }: CarouselProps) {
                 // console.log("true");
                 setHover(true);
               }}
-        className={`absolute bottom-5 ${hover ? "opacity-100" : "opacity-0"} left-1/2 -translate-x-1/2 flex gap-3 bg-gray-950 rounded-4xl p-2 z-10`}
+        className={`absolute bottom-5 ${hover ? "opacity-100" : "opacity-0"} left-1/2 -translate-x-1/2 flex gap-3 bg-surface rounded-4xl p-2 z-10`}
       >
         {images.main.map((_, index) => (
           <a key={index} href={`#${index}`}>
             <button
               onClick={() => setActiveButton(`#${index}`)}
-              className={`rounded-full px-4 py-2 text-white transition-all duration-200
+              className={`rounded-full px-4 py-2 text-ink transition-all duration-200
                 ${activeButton === `#${index}`
-                    ? "bg-purple-700 text-white"
+                    ? "bg-accent text-canvas"
                     : "bg-transparent"
-                } 
-                hover:text-purple-400 active:text-purple-400
+                }
+                hover:text-accent active:text-accent
               `}
             >
               {index + 1}

@@ -1,7 +1,104 @@
-@tailwind utilities;
 @import "tailwindcss";
 
-html, :root {
+/* ---------------------------------------------------------------
+   design tokens
+
+   every colour in the app comes from one of these six. tailwind v4
+   turns each --color-* into utilities, so --color-canvas gives you
+   bg-canvas / text-canvas / border-canvas, and so on.
+
+   the values here are the DEFAULT theme. each html[data-theme="..."]
+   block below overrides them, which is what repaints the whole site.
+   never hardcode a colour in a component — add a token instead.
+   --------------------------------------------------------------- */
+@theme {
+  --color-canvas: #0a0a0a; /* page background */
+  --color-surface: #171717; /* cards, footer, header pill */
+  --color-ink: #ffffff; /* primary text */
+  --color-muted: #a3a3a3; /* secondary text */
+  --color-line: #ffffff; /* borders and underlines */
+  --color-accent: #ffffff; /* hover / active highlights */
+
+  /* wash laid over a card while hovered. deliberately translucent so the
+     particle background still shows through the card's backdrop-blur —
+     a solid colour here would block it. light themes darken, dark
+     themes lighten, which is just the sign of the overlay. */
+  --color-hover: rgba(255, 255, 255, 0.06);
+}
+
+/* --sketch-saturation drives the p5 particle background: 0 renders the
+   sampled image colours as greyscale, 1 leaves them untouched. it lives
+   outside @theme because it isn't a colour utility. */
+:root {
+  --sketch-saturation: 0;
+
+  /* lighting for the 3d text sketch. the three work together:
+       material = the box colour. everything is MULTIPLIED by this, so a
+                  near-black material can never be bright — give it room.
+       ambient  = flat, directionless fill. this is the SHADOW value, the
+                  darkest a face can get. keep it well below material.
+       key      = directional light. this is the HIGHLIGHT value and the
+                  only thing that actually differentiates faces.
+     a bright ambient is what makes the word look flat: it lifts every
+     face to the same value and leaves the key nothing to do. */
+  --color-sketch-material: #ffffff;
+  --color-sketch-ambient: #2e2e2e;
+  --color-sketch-key: #ffffff;
+}
+
+/* html[data-theme] beats :root on specificity, so these always win */
+
+/* pure black & white */
+html[data-theme="mono"] {
+  --color-canvas: #0a0a0a;
+  --color-surface: #171717;
+  --color-ink: #ffffff;
+  --color-muted: #a3a3a3;
+  --color-line: #ffffff;
+  --color-accent: #ffffff;
+  --sketch-saturation: 0;
+  /* white word, deep grey shadows */
+  --color-sketch-material: #ffffff;
+  --color-sketch-ambient: #2e2e2e;
+  --color-sketch-key: #ffffff;
+  --color-hover: rgba(255, 255, 255, 0.07); /* lighten */
+}
+
+/* inverted black & white */
+html[data-theme="paper"] {
+  --color-canvas: #f5f5f4;
+  --color-surface: #ffffff;
+  --color-ink: #0a0a0a;
+  --color-muted: #525252;
+  --color-line: #0a0a0a;
+  --color-accent: #0a0a0a;
+  --sketch-saturation: 0;
+  /* mid-grey material, not the near-black --color-accent: on a light page
+     the word still needs range between lit and shadowed faces */
+  --color-sketch-material: #5a5a5a;
+  --color-sketch-ambient: #1f1f1f;
+  --color-sketch-key: #ffffff;
+  --color-hover: rgba(198, 198, 198, 0.612); /* darken, since the page is light */
+}
+
+/* the original green look, rebuilt from tokens */
+html[data-theme="green"] {
+  --color-canvas: #14532d;
+  --color-surface: #0a0a0a;
+  --color-ink: #ffffff;
+  --color-muted: #a3a3a3;
+  --color-line: #ffffff;
+  --color-accent: #4ade80;
+  --sketch-saturation: 1;
+  /* green word, darker green in shadow */
+  --color-sketch-material: #4ade80;
+  --color-sketch-ambient: #14532d;
+  --color-sketch-key: #ffffff;
+  --color-hover: rgba(74, 222, 128, 0.12); /* accent-tinted lighten */
+}
+
+html,
+:root {
   height: 100%;
   scroll-behavior: smooth;
   /* overflow-y: hidden; */
@@ -12,9 +109,7 @@ html, :root {
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  /* background-color: #242424; */
+  color: var(--color-ink);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -32,6 +127,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--color-canvas);
 }
 
 /* the app shell must fill the viewport, otherwise the footer can't sit
@@ -87,24 +183,14 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: transparent;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #ffffff;
+  border-color: var(--color-line);
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }

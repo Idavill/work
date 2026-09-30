@@ -6,6 +6,31 @@ let mousePressed = false;
 let particles = [];
 let img;
 
+// particles are sampled from an image, so they carry its colours. the
+// --sketch-saturation token lets a theme drain that: 0 = greyscale.
+let sketchSaturation = 1;
+
+function readSketchSaturation() {
+  const raw = getComputedStyle(document.documentElement)
+    .getPropertyValue("--sketch-saturation")
+    .trim();
+  const parsed = parseFloat(raw);
+  sketchSaturation = Number.isFinite(parsed) ? parsed : 1;
+}
+
+function tintedColor(c) {
+  if (sketchSaturation >= 1) return c;
+  const s = sketchSaturation;
+  // rec. 601 luma, the standard greyscale weighting
+  const grey = 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2];
+  return [
+    c[0] * s + grey * (1 - s),
+    c[1] * s + grey * (1 - s),
+    c[2] * s + grey * (1 - s),
+    c[3],
+  ];
+}
+
 particlebackground = function (p) {
   let particles = [];
   let res = 50;
@@ -29,6 +54,13 @@ particlebackground = function (p) {
     canvas4.position(0, 0);
     canvas4.style("z-index", "1");
     p.noStroke();
+
+    readSketchSaturation();
+    // recolour when the theme toggle flips data-theme on <html>
+    new MutationObserver(readSketchSaturation).observe(
+      document.documentElement,
+      { attributes: true, attributeFilter: ["data-theme"] },
+    );
     // paintParticles();
     // img.resize(pageWidth, pageHeight); // pageHeight
   };
@@ -143,7 +175,7 @@ particlebackground = function (p) {
     }
 
     draw() {
-      this.p.fill(this.color);
+      this.p.fill(tintedColor(this.color));
       this.p.ellipse(this.x, this.y, this.res, this.res);
       //this.p.square(this.x, this.y, this.res);
     }

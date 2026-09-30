@@ -26,7 +26,7 @@ function App() {
   const [selectedProject, setSelectedProject]= useState<ProjectType | null>(null);
   const [headerOpacity, setHeaderOpacity] = useState(0);
   // const [preloadedImages, setPreloadedImages]= useState<Images | null>(null);
-  let color = "text-white"
+  let color = "text-ink"
   const aboutRef = useRef(null);
   const projectsRef = useRef(null);
   const contactRef = useRef(null);
@@ -84,8 +84,8 @@ function App() {
   }, []);
 
   return (
-    <div className={`${color} grid grid-rows-[auto_1fr_auto] min-h-screen min-w-screen bg-green-700 z-3 `}>
-      <div className={`fixed inset-0 ${selectedProject? "backdrop-grayscale blur-xl" : "backdrop-hue-rotate-300 blur-sm"} z-2`} />
+    <div className={`${color} grid grid-rows-[auto_1fr_auto] min-h-screen min-w-screen bg-canvas z-3 `}>
+      <div className={`fixed inset-0 ${selectedProject? "backdrop-grayscale blur-xl" : "blur-sm"} z-2`} />
       <Header headerOpacity={headerOpacity} selectedProject={!!selectedProject}/>
       <main className="flex p-10 place-content-around z-2">
         <div className="flex flex-col w-100 md:w-200 lg:w-300 xl:w-[88vw] xl:max-w-[1600px]">

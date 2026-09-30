@@ -20,6 +20,24 @@ const BUF_H = 820;
 let cells = [];
 let gfx;
 
+// the sketch reads its colours from the css theme tokens in index.css,
+// so switching theme repaints the 3d text along with everything else.
+let palette = {
+  material: "#ffffff",
+  ambient: "#2e2e2e",
+  key: "#ffffff",
+};
+
+function readPalette() {
+  const cs = getComputedStyle(document.documentElement);
+  const pick = (name, fallback) => cs.getPropertyValue(name).trim() || fallback;
+  palette = {
+    material: pick("--color-sketch-material", "#ffffff"),
+    ambient: pick("--color-sketch-ambient", "#2e2e2e"),
+    key: pick("--color-sketch-key", "#ffffff"),
+  };
+}
+
 function s1(p) {
   p.preload = function () {
     // bungeeFont = p.loadFont("images/BungeeSpice-Regular.ttf");
@@ -88,7 +106,12 @@ function s1(p) {
     canvas1.style("display", "flex");
     p.pixelDensity(1);
 
-    color = p.color(10, 100, 10); // color on text
+    readPalette();
+    // repaint when the theme toggle flips data-theme on <html>
+    new MutationObserver(readPalette).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
 
     buildCells();
     // google fonts may still be loading on first paint, so resample
@@ -106,23 +129,30 @@ function s1(p) {
   };
 
   p.draw = function () {
-    // p.background(0, 50, 200, 10);
+    // clear() wipes to transparent so the page shows through. without it
+    // webgl keeps every previous frame, so the word drawn in the fallback
+    // font stays burned in after the real font loads and cells rebuild.
+    p.clear();
     p.push();
-    // p.ambientLight(10, 100, 220); // blue
-    // p.ambientLight(170, 80, 40); // orange
-    // p.ambientLight(10, 120, 120); // tyrkis
-    p.ambientLight(10, 220, 10); //
 
+    // ambient is flat and directionless — it sets the SHADOW floor, the
+    // darkest any face gets. keep it dark or the word goes flat.
+    p.ambientLight(p.color(palette.ambient));
+
+    // the key light is the only thing that differentiates faces, so it
+    // provides all the shading. it orbits, so the highlight travels.
     const angle = p.frameCount * 0.02;
     const lx = 150 * Math.cos(angle);
     const ly = 200 * Math.sin(angle);
     const lz = 100 * Math.sin(angle * 0.98);
+    p.directionalLight(p.color(palette.key), p.createVector(lx, ly, lz));
 
-    p.directionalLight(255, 20, 100, lx, ly, lz);
-
-    // gentle tumble so the extrusion actually reads as 3d
-    // p.rotateY(Math.sin(p.frameCount * 0.01) * 0.6);
-    // p.rotateX(Math.cos(p.frameCount * 0.008) * 0.25);
+    // seen straight on, every box shows only its +z face — all normals
+    // identical, so no light can shade one differently from another. a
+    // small fixed tilt exposes the tops and sides, and THAT is what reads
+    // as depth. raise these for a more dramatic angle.
+    p.rotateX(-0.18);
+    p.rotateY(0.14);
 
     // fit the word to the current canvas: whichever axis is tightest wins,
     // so the text never spills out on narrow screens
@@ -130,7 +160,12 @@ function s1(p) {
     p.scale(fit);
 
     p.noStroke();
-    p.ambientMaterial(color);
+    // both are needed: ambientMaterial is what ambient light reflects,
+    // fill is what the directional light shades. set only one and the
+    // other half of the lighting falls back to default white.
+    const material = p.color(palette.material);
+    p.ambientMaterial(material);
+    p.fill(material);
 
     for (let i = 0; i < cells.length; i++) {
       const c = cells[i];
