@@ -1,5 +1,4 @@
 import Button from "../components/Button"
-import ThemeToggle from "../components/ThemeToggle"
 
 type HeaderProps = {
   headerOpacity: number;
@@ -29,7 +28,6 @@ export default function Header({headerOpacity, selectedProject}: HeaderProps) {
               <a href="#projects"><Button name="Projects" /></a>
               {/* <a href="#education"><Button name="Experience" /></a> */}
               <a href="#contact"><Button name="Contact" /></a>
-              <ThemeToggle />
             </div>
           </div>
         </header>

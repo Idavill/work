@@ -179,7 +179,9 @@ function s1(p) {
       let mouseD =
         p.dist(c.x, c.y, p.mouseX - BUF_W / 2, p.mouseY - BUF_H / 2) * 0.005;
 
-      const d = DEPTH * (0.6 + 0.4 * Math.sin(1 * 0.05 + c.x * 0.02)) * mouseD;
+      const d =
+        DEPTH * (0.6 + 0.4 * Math.sin(p.frameCount * 0.05 + c.x * 0.02)) * 0.05;
+      mouseD;
       p.push();
       p.translate(c.x, c.y);
       p.box(RES * 0.9, RES * 0.9, d);

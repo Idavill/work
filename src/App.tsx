@@ -9,6 +9,8 @@ import type { ProjectType } from "./types/Types";
 import Footer from "./composition/Footer";
 import Header from "./composition/Header";
 import ContactSectionCard from "./components/Contact";
+import BackToTop from "./components/BackToTop";
+import ThemeToggle from "./components/ThemeToggle";
 import About from "./components/About/About";
 import Projects from "./components/Projects";
 // draggable fruit stickers — parked for now, uncomment this and the
@@ -125,6 +127,10 @@ function App() {
       {/* {!selectedProject && <Stickers />} */}
 
       <Footer selectedProject={!!selectedProject}/>
+      {/* <BackToTop selectedProject={!!selectedProject}/> */}
+      {/* no selectedProject gate: the theme switcher stays reachable even with
+          a project modal open */}
+      <ThemeToggle />
     </div>
   );
 }
