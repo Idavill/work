@@ -20,7 +20,7 @@ export default function Projects({ title, id, ref }: ProjectsProps
     return(
       <div className="flex items-end justify-center pt-10 pb-0">
       <div ref={ref} id={id} onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}
-      className="mb-3 w-full cursor-default h-120 md:h-[clamp(280px,38vh,460px)] hover:bg-hover transition-colors duration-200 backdrop-blur-2xl backdrop scroll-mt-30 mx-auto max-w-lg overflow-hidden rounded-xl  shadow-md md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2">
+      className="mb-10 w-full cursor-default h-120 md:h-[clamp(280px,38vh,460px)] hover:bg-hover transition-colors duration-200 backdrop-blur-2xl backdrop scroll-mt-30 mx-auto max-w-lg overflow-hidden border border-line rounded-none  shadow-hard md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2">
           <div className="md:flex h-full">
             <div className="md:shrink-0">
             </div>
@@ -33,8 +33,7 @@ export default function Projects({ title, id, ref }: ProjectsProps
               <div className="flex flex-col md:flex-row">
                 <GrAdd className="flex w-1/6 mb-5 md:mb-0"/>
                 <div className="flex flex-col pl-0 md:pl-5 w-full md:w-5/6">
-                  <p className="flex break-words w-full" >Below you can explore a selection of my most recent interactive, data-driven, and colorful projects.</p>
-                  <p className="flex break-words w-full" >This includes interactive pieces, data analysis and visualizations, as well as creative coding projects</p>
+                  <p className="flex break-words w-full" >Below you can explore a selection of my most recent interactive, data-driven, and colorful projects. This includes interactive pieces, data analysis and visualizations, as well as creative coding projects</p>
                 </div>
               </div>
             </div>

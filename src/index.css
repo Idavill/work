@@ -24,6 +24,13 @@
      a solid colour here would block it. light themes darken, dark
      themes lighten, which is just the sign of the overlay. */
   --color-hover: rgba(255, 255, 255, 0.06);
+
+  /* hard-edged offset drop shadow: a solid block behind the card, no blur.
+     the 0 in the third slot is the blur radius — that's what makes the
+     edge crisp instead of soft. --color-shadow must contrast with the
+     canvas or the block disappears, so each theme sets its own. */
+  --color-shadow: #ffffff;
+  --shadow-hard: 14px 14px 0 var(--color-shadow);
 }
 
 /* --sketch-saturation drives the p5 particle background: 0 renders the
@@ -62,6 +69,7 @@ html[data-theme="mono"] {
   --color-sketch-ambient: #2e2e2e;
   --color-sketch-key: #ffffff;
   --color-hover: rgba(255, 255, 255, 0.07); /* lighten */
+  --color-shadow: rgba(159, 17, 17, 0.831);
 }
 
 /* inverted black & white */
@@ -78,7 +86,9 @@ html[data-theme="paper"] {
   --color-sketch-material: #5a5a5a;
   --color-sketch-ambient: #1f1f1f;
   --color-sketch-key: #ffffff;
-  --color-hover: rgba(198, 198, 198, 0.612); /* darken, since the page is light */
+  --color-hover: rgba(206, 206, 206, 0.782); /* darken, since the page is light */
+  --color-shadow: rgba(71, 71, 71, 0.831);
+
 }
 
 /* the original green look, rebuilt from tokens */
@@ -95,6 +105,8 @@ html[data-theme="green"] {
   --color-sketch-ambient: #14532d;
   --color-sketch-key: #ffffff;
   --color-hover: rgba(74, 222, 128, 0.12); /* accent-tinted lighten */
+  --color-shadow: rgba(20, 66, 0, 0.831);
+
 }
 
 html,

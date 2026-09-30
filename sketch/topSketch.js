@@ -6,10 +6,16 @@ let color;
 let amount = 100;
 
 // --- 3d text settings ---
-const TEXT = "dive";
-const RES = 8; // sampling step: smaller = more boxes, more detail, slower
+// other cute ones to try:
+//   "(◕‿◕)"   "(｡◕‿◕｡)"   "ʕ•ᴥ•ʔ"   "(=^･ω･^=)"   "^_^"   "(·_·)"
+const TEXT = "ʕ•ᴥ•ʔ";
+const RES = 6; // sampling step: smaller = more boxes, more detail, slower
 const DEPTH = 70; // how far the letters extrude
-const FONT_STACK = '"Bungee Spice", "Koulen", "Poppins", sans-serif';
+// kaomoji glyphs don't exist in display faces like Bungee Spice, so the
+// browser falls back per-glyph and the eyes end up a different size from
+// the brackets. a plain ui font has the whole set and stays consistent.
+const FONT_STACK =
+  '-apple-system, "Poppins", "Segoe UI Symbol", "Apple Symbols", sans-serif';
 
 // the word is always sampled at this fixed resolution, so the number of
 // boxes stays constant. we then scale the whole drawing to fit whatever
@@ -170,10 +176,12 @@ function s1(p) {
     for (let i = 0; i < cells.length; i++) {
       const c = cells[i];
       // ripple the depth across the word
-      const d =
-        DEPTH * (0.6 + 0.4 * Math.sin(p.frameCount * 0.05 + c.x * 0.02));
+      let mouseD =
+        p.dist(c.x, c.y, p.mouseX - BUF_W / 2, p.mouseY - BUF_H / 2) * 0.005;
+
+      const d = DEPTH * (0.6 + 0.4 * Math.sin(1 * 0.05 + c.x * 0.02)) * mouseD;
       p.push();
-      p.translate(c.x, c.y, 0);
+      p.translate(c.x, c.y);
       p.box(RES * 0.9, RES * 0.9, d);
       p.pop();
     }
