@@ -25,7 +25,7 @@ export default function About({ title, id, ref, topics }: AboutProps){
         id={id}
         onMouseEnter={()=>setHover(true)}
         onMouseLeave={()=>setHover(false)}
-        className="cursor-default md:mb-0 w-full h-250 md:h-[clamp(500px,62vh,820px)] hover:bg-hover transition-colors duration-600 backdrop-blur-2xl backdrop scroll-mt-[25vh] mx-auto max-w-lg overflow-hidden border border-line rounded-none shadow-hard md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2">
+        className="cursor-default md:mb-0 w-full h-220 md:h-[clamp(440px,55vh,740px)] hover:bg-hover transition-colors duration-600 backdrop-blur-2xl backdrop scroll-mt-[25vh] mx-auto max-w-lg overflow-hidden border border-line rounded-none shadow-hard md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2">
           <div className="md:flex h-full">
             <div className="md:shrink-0"/>
             <div className="flex flex-col justify-around p-8 xl:p-12 h-full">
@@ -54,7 +54,7 @@ export default function About({ title, id, ref, topics }: AboutProps){
 
                   the leading spacer is only the md+ indent, hence hidden while
                   stacked, where ps-0 applies instead. */}
-              <div className="flex flex-col gap-6 md:grid md:grid-cols-6 md:gap-0 md:ps-6 ps-0">
+              <div className="flex flex-col gap-6 pt-6 md:grid md:grid-cols-6 md:gap-0 md:ps-6 ps-0">
                 <div className="hidden md:block md:col-span-1"/>
                     <SkillList topics={topics}/>
                     <MiniHeadlines/>
