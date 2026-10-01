@@ -46,7 +46,7 @@ export default function Contact({ title, id, ref }: ContactProps){
                 <div className="flex w-1/6"/>
                 <div className="flex w-5/6">
                 <div className="pl-5 contact-links flex flex-row justify-center gap-4">
-                  <a href="https://linkedin.com/in/ida-maria-villadsen-a9954212a" target="_blank" rel="noopener noreferrer" className={`${linkTextColor} ${linkHoverColor} flex items-center gap-2`}>
+                  <a href="https://www.linkedin.com/in/ida-villadsen-a9954212a/" target="_blank" rel="noopener noreferrer" className={`${linkTextColor} ${linkHoverColor} flex items-center gap-2`}>
                     <FaLinkedin /> LinkedIn
                   </a>
                   <a href="https://github.com/Idavill" target="_blank" rel="noopener noreferrer" className={`${linkTextColor} ${linkHoverColor}  flex items-center gap-2`}>
