@@ -18,15 +18,15 @@ export default function Projects({ title, id, ref }: ProjectsProps
 ){
     const [hover,setHover] = useState(false);
     return(
-      <div className="flex items-end justify-center pt-10 pb-0">
+      <div className="flex items-end justify-center pt-10 pb-10">
       <div ref={ref} id={id} onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}
-      className="mb-10 w-full cursor-default h-120 md:h-[clamp(280px,38vh,460px)] hover:bg-hover transition-colors duration-600 backdrop-blur-2xl backdrop scroll-mt-30 mx-auto max-w-lg overflow-hidden border border-line rounded-none  shadow-hard md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2">
+      className=" md:mb-0 mb-10 w-full cursor-default h-120 md:h-[clamp(280px,38vh,460px)] hover:bg-hover transition-colors duration-600 backdrop-blur-2xl backdrop scroll-mt-30 mx-auto max-w-lg overflow-hidden border border-line rounded-none  shadow-hard md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2">
           <div className="md:flex h-full">
-            <div className="md:shrink-0">
-            </div>
+            {/* <div className="md:shrink-0">
+            </div> */}
             <div className="flex flex-col justify-around p-8 xl:p-12 h-full">
               <div className="flex opacity-0 text-muted flex-row justify-between">
-                <Bs2Circle className="flex self-end"/>
+                {/* <Bs2Circle className="flex self-end"/> */}
                 <p>Projects</p>
               </div>
               <h2 className={`text-4xl xl:text-5xl 2xl:text-6xl border-b-2 ${hover? "border-line" : "border-transparent" } w-fit font-semibold mb-4`}>{title}</h2>

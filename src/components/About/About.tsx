@@ -39,8 +39,23 @@ export default function About({ title, id, ref, topics }: AboutProps){
                   {title}
               </h2>
               <TopDescription/>
-              <div className="flex md:flex-row flex-col md:ps-6 ps-0">
-                <div className="flex w-1/6"/>
+              {/* two layouts, one per state, so neither has to compromise:
+
+                  stacked (below md) it is a plain flex column — each block is
+                  its own content height with gap-6 between them. an earlier
+                  auto-rows-fr grid equalised these rows too, which stretched the
+                  short tag row and left a void above the headlines.
+
+                  side by side (md+) it is a 6-column grid split 1/2/3, the same
+                  ratio the old sixths-based widths gave. one row, so cells are
+                  equal height by stretch; MiniHeadlines then takes itself out of
+                  flow (see its comment) so the tag stack is what sizes the row
+                  and both columns end on the same line.
+
+                  the leading spacer is only the md+ indent, hence hidden while
+                  stacked, where ps-0 applies instead. */}
+              <div className="flex flex-col gap-6 md:grid md:grid-cols-6 md:gap-0 md:ps-6 ps-0">
+                <div className="hidden md:block md:col-span-1"/>
                     <SkillList topics={topics}/>
                     <MiniHeadlines/>
                 </div>
