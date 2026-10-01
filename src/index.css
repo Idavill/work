@@ -107,7 +107,7 @@ html[data-theme="paper"] {
   --color-sketch-material: #5a5a5a;
   --color-sketch-ambient: #1f1f1f;
   --color-sketch-key: #ffffff;
-  --color-hover: rgba(226, 226, 226, 0.782); /* darken, since the page is light */
+  --color-hover: rgba(195, 200, 255, 0.782); /* darken, since the page is light */
   --color-shadow: rgba(71, 71, 71, 0.831);
   --sticker-filter: none;
   --sketch-face:"(ﾉ◕ヮ◕)ﾉ";

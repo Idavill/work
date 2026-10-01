@@ -15,7 +15,7 @@ type SectionCardProps = {
 export default function SectionCard({ title, id, content, softSkills,ref,topics }: SectionCardProps){
     return(
       <>
-      <div ref={ref} id={id} className="mt-25 cursor-default hover:bg-blend-multiply backdrop-blur-2xl backdrop scroll-mt-30 mx-auto max-w-lg overflow-hidden rounded-xl  shadow-md md:max-w-4xl z-2">
+      <div ref={ref} id={id} className="mt-25 cursor-default hover:bg-blend-multiply transition-colors duration-600 backdrop-blur-2xl backdrop scroll-mt-30 mx-auto max-w-lg overflow-hidden rounded-xl  shadow-md md:max-w-4xl z-2">
           <div className="md:flex">
             <div className="md:shrink-0">
             </div>

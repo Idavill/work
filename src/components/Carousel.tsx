@@ -12,15 +12,18 @@ export default function Carousel({ images }: CarouselProps) {
   const [hover, setHover] = useState(false);
 
   return (
-    <div className="relative">
+    <div className="relative w-full h-full">
+      {/* square corners: the card this sits in is rounded-none, so any radius
+          here reads as a rounded image floating inside a sharp box. the slides
+          fill the container instead of sizing to the image. */}
       <div
-        className="carousel lg:rounded-l-xl lg:rounded-t-none rounded-t-xl overflow-x-hidden rounded-box w-full max-h-64 md:max-h-80 lg:max-h-200 flex snap-x snap-mandatory"
+        className="carousel rounded-none overflow-x-hidden w-full h-64 md:h-80 lg:h-full lg:max-h-200 flex snap-x snap-mandatory"
       >
         {images.main.map((img, index) => (
           <div
             id={`${index}`}
             key={`${img}${index}`}
-            className="carousel-item overflow-hidden flex-shrink-0 snap-center w-full"
+            className="carousel-item overflow-hidden flex-shrink-0 snap-center w-full h-full"
           >
             <AppImage
               id={`${index}${img}`}
@@ -33,24 +36,25 @@ export default function Carousel({ images }: CarouselProps) {
           </div>
         ))}
       </div>
-      {/* BUTTONS */} 
+      {/* BUTTONS — same shape as the header pill: square corners, a 1px line
+          border and p-1 around transparent buttons, so the slide picker reads
+          as part of that family instead of a floating rounded capsule. */}
       <div
-                      onMouseEnter={() => {
-                // console.log("true");
-                setHover(true);
-              }}
-        className={`absolute bottom-5 ${hover ? "opacity-100" : "opacity-0"} left-1/2 -translate-x-1/2 flex gap-3 bg-surface rounded-4xl p-2 z-10`}
+        onMouseEnter={() => {
+          setHover(true);
+        }}
+        className={`absolute bottom-5 ${hover ? "opacity-100" : "opacity-0"} left-1/2 -translate-x-1/2 flex bg-surface rounded-none border border-line p-1 z-10`}
       >
         {images.main.map((_, index) => (
           <a key={index} href={`#${index}`}>
             <button
               onClick={() => setActiveButton(`#${index}`)}
-              className={`rounded-full px-4 py-2 text-ink transition-all duration-200
+              className={`rounded-none px-4 py-2 text-ink transition-all duration-200
                 ${activeButton === `#${index}`
                     ? "bg-accent text-canvas"
                     : "bg-transparent"
                 }
-                hover:text-accent active:text-accent
+                hover:bg-surface hover:text-accent active:text-accent
               `}
             >
               {index + 1}

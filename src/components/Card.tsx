@@ -14,7 +14,7 @@ export default function Card({ project, setOpen }: CardProps) {
 
   return (
       <div onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)} key={project.id}
-      className={`flex mb-12 justify-center m-3 w-full border border-line cursor-pointer hover:bg-hover transition-colors duration-200 backdrop-blur-2xl backdrop scroll-mt-30 mx-auto max-w-lg overflow-hidden rounded-none shadow-hard md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2`}
+      className={`flex mb-12 justify-center m-3 w-full border border-line cursor-pointer hover:bg-hover transition-colors duration-600 backdrop-blur-2xl backdrop scroll-mt-30 mx-auto max-w-lg overflow-hidden rounded-none shadow-hard md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2`}
       onClick={() => setOpen(true)}
       >
       <div className="md:flex">
