@@ -21,7 +21,7 @@ function s1(p) {
   };
 
   p.setup = function () {
-    canvas1 = p.createCanvas(500, 500, p.WEBGL).parent("#topSketch");
+    canvas1 = p.createCanvas(1000, 1000, p.WEBGL).parent("#topSketch");
     canvas1.style("display", "flex");
     p.pixelDensity(1);
 

@@ -26,11 +26,24 @@ const FONT_STACK =
 // to be. note the face is fitted to the buffer WIDTH, so a face with more
 // glyphs is drawn smaller rather than wider — box count stays in the same
 // ballpark across faces instead of growing with their length.
-const BUF_W = 1060;
-const BUF_H = 820;
+const BUF_W = 2000;
+const BUF_H = 2000;
+
+// how much of the canvas the face fills, 1 = hard against the edges. this is
+// the dial for "bigger face" — it is applied to a fit measured from the face's
+// own ink bounds (see ink below), not from the buffer, so it means what it says.
+const FILL = 0.92;
 
 let cells = [];
 let gfx;
+
+// bounding box of the sampled ink, in the same buffer-centred coords as cells,
+// plus its centre. draw() fits and centres on THIS rather than on the buffer:
+// the buffer is square and the face only ever occupies a band across its
+// middle, so fitting the whole 2000x2000 spent most of the scale on blank
+// space and drew the face far smaller than the canvas allowed. defaults are
+// the buffer size so a draw before the first sample still behaves.
+let ink = { w: BUF_W, h: BUF_H, cx: 0, cy: 0 };
 
 // the sketch reads its colours from the css theme tokens in index.css,
 // so switching theme repaints the 3d text along with everything else.
@@ -83,7 +96,9 @@ function s1(p) {
     const host = document.getElementById("topSketch");
     const w = host && host.clientWidth ? host.clientWidth : p.windowWidth;
     const h =
-      host && host.clientHeight ? host.clientHeight : p.windowHeight * 0.6;
+      host && host.clientHeight
+        ? host.clientHeight
+        : p.windowHeight * 0.6 * 1.2;
     return { w, h };
   }
 
@@ -115,15 +130,38 @@ function s1(p) {
 
     gfx.loadPixels();
     const next = [];
+    // track the ink bounds while sampling — it costs nothing here and saves
+    // draw() from measuring 30k cells every frame
+    let minX = Infinity;
+    let maxX = -Infinity;
+    let minY = Infinity;
+    let maxY = -Infinity;
     for (let y = 0; y < h; y += RES) {
       for (let x = 0; x < w; x += RES) {
         // alpha channel: anything opaque is part of letter
         if (gfx.pixels[(y * w + x) * 4 + 3] > 128) {
-          next.push({ x: x - w / 2, y: y - h / 2 });
+          const cx = x - w / 2;
+          const cy = y - h / 2;
+          next.push({ x: cx, y: cy });
+          if (cx < minX) minX = cx;
+          if (cx > maxX) maxX = cx;
+          if (cy < minY) minY = cy;
+          if (cy > maxY) maxY = cy;
         }
       }
     }
     cells = next;
+
+    if (next.length) {
+      // + RES because minX/maxX are box centres on the sampling grid, so the
+      // ink reaches half a step past each of them
+      ink = {
+        w: maxX - minX + RES,
+        h: maxY - minY + RES,
+        cx: (minX + maxX) / 2,
+        cy: (minY + maxY) / 2,
+      };
+    }
   }
 
   p.setup = function () {
@@ -186,10 +224,14 @@ function s1(p) {
     p.rotateX(-0.18);
     p.rotateY(0.14);
 
-    // fit the word to the current canvas: whichever axis is tightest wins,
-    // so the text never spills out on narrow screens
-    const fit = Math.min(p.width / BUF_W, p.height / BUF_H);
+    // fit the face to the current canvas: whichever axis is tightest wins, so
+    // it never spills out on narrow screens. measured from the ink bounds, so
+    // the face grows to the canvas instead of to the mostly-empty buffer.
+    const fit = Math.min(p.width / ink.w, p.height / ink.h) * FILL;
     p.scale(fit);
+    // ink is not exactly buffer-centred — kaomoji glyph boxes are lopsided —
+    // so recentre on the ink itself now that it fills the frame
+    p.translate(-ink.cx, -ink.cy);
 
     p.noStroke();
     // both are needed: ambientMaterial is what ambient light reflects,
