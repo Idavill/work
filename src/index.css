@@ -90,7 +90,7 @@ html[data-theme="mono"] {
   --color-sketch-key: #ffffff;
   --color-hover: rgba(255, 255, 255, 0.07); /* lighten */
   --color-shadow: rgba(26, 45, 255, 0.831);
-  --sketch-face:"(♥‿♥)";
+  --sketch-face:"( •⌄• ू )✧";
 }
 
 /* inverted black & white */
@@ -128,7 +128,7 @@ html[data-theme="green"] {
   --color-sketch-key: #ffffff;
   --color-hover: rgba(74, 222, 128, 0.12); /* accent-tinted lighten */
   --color-shadow: rgba(20, 66, 0, 0.831);
-  --sketch-face:"(✿◠‿◠)";
+  --sketch-face:"⁎( ˘ω˘ )⁎⁺";
 }
 
 html,
