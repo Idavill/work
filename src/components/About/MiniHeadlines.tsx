@@ -19,7 +19,9 @@ export default function MiniHeadlines(){
             contributions, which it leaves alone. It also clipped the children's
             left border, since the fr column width is fractional.)
 
-            the sections are flex-1 min-h-0 to divide that height between them.
+            the sections are md:flex-1 md:min-h-0 to divide that height between
+            them — scoped to md+ because below md there is no cell height to
+            divide and they must keep their own content height.
             their content is justify-start with a fixed px-3 py-2, so the text
             keeps the same small inset from the border at every width — centring
             it made the inset look like it grew and shrank with the screen, since
@@ -41,14 +43,14 @@ export default function MiniHeadlines(){
                 <section
                     onMouseEnter={()=>setHover1(true)}
                     onMouseLeave={()=>setHover1(false)}
-                    className={`flex flex-1 min-h-0 flex-col justify-start border-2 px-3 py-2 `}>
+                    className={`flex md:flex-1 md:min-h-0 flex-col justify-start border-2 px-3 py-2 `}>
                     <p className={`flex border-b-2 w-fit ${hover1? "border-line": "border-transparent" }`}>VISUAL STORYTELLING</p>
                     <p className="flex break-words">I love to tell stories that are inherently visual and spatial situated i.e. in the urban fabric and our lived experience</p>
                 </section>
                 <section
                     onMouseEnter={()=>setHover2(true)}
                     onMouseLeave={()=>setHover2(false)}
-                    className={`flex flex-1 min-h-0 flex-col justify-start border-2 px-3 py-2`}>
+                    className={`flex md:flex-1 md:min-h-0 flex-col justify-start border-2 px-3 py-2`}>
                     <p className={`flex border-b-2 w-fit ${hover2? "border-line": "border-transparent" }`}>DIVERSE TECHNOLOGIES</p>
                     <p className="flex break-words">It's not about the tool, but about the task. My toolbox spans from engineering, analysis to design</p>
                 </section>

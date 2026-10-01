@@ -15,7 +15,11 @@ export default function SkillList({topics}:SkillListType){
             <div className="flex w-full md:col-span-2 flex-col justify-start gap-2">
                 {topics.map((t) => (
                 <div key={t}>
-                    <PaperTag id={"c"} color={"text-ink hover:bg-ink/10"} width={"mr-5 "} tag={t}/>
+                    {/* mr-5 only from md: there it is the gutter to the
+                        headlines column, which the grid has no gap-x for. while
+                        stacked it just made the tags 20px narrower than the
+                        headline boxes above them. */}
+                    <PaperTag id={"c"} color={"text-ink hover:bg-ink/10"} width={"md:mr-5 "} tag={t}/>
                 </div>
                 ))}
             </div>
