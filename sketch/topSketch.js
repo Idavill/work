@@ -26,12 +26,22 @@ const FONT_STACK =
 // to be. note the face is fitted to the buffer WIDTH, so a face with more
 // glyphs is drawn smaller rather than wider — box count stays in the same
 // ballpark across faces instead of growing with their length.
-const BUF_W = 2000;
-const BUF_H = 2000;
+const BUF_W = 1000;
+const BUF_H = 1000;
 
-// how much of the canvas the face fills, 1 = hard against the edges. this is
-// the dial for "bigger face" — it is applied to a fit measured from the face's
-// own ink bounds (see ink below), not from the buffer, so it means what it says.
+// --- the two size dials -----------------------------------------------------
+//
+// CANVAS_SCALE sizes the CANVAS relative to the div it lives in. 1 = exactly the
+// div; above 1 the canvas is bigger than its box and the drawing spills past it,
+// which works because the parent in FancyTop.tsx is overflow-visible.
+//
+// FILL sizes the FACE within that canvas. 1 = hard against the canvas edges. it
+// is applied to a fit measured from the face's own ink bounds (see ink below),
+// not from the buffer, so it means what it says.
+//
+// for "make the whole sketch bigger" reach for CANVAS_SCALE; for "make the face
+// bigger in the space it already has" reach for FILL.
+const CANVAS_SCALE = 1.2;
 const FILL = 0.92;
 
 let cells = [];
@@ -77,29 +87,19 @@ function readFace() {
 }
 
 function s1(p) {
-  p.preload = function () {
-    // bungeeFont = p.loadFont("images/BungeeSpice-Regular.ttf");
-    // textured_output = p.loadModel(
-    //   "images/textured_output.obj",
-    //   true,
-    //   () => {
-    //     console.log("Model loaded successfully");
-    //   },
-    //   (err) => {
-    //     console.error("Error loading model:", err);
-    //   }
-    // );
-  };
+  p.preload = function () {};
 
-  // measure the div the sketch lives in, so the canvas matches the layout
+  // measure the div the sketch lives in, so the canvas follows the layout.
+  // that div is #topSketch in FancyTop.tsx: absolute inset-0 w-full h-6/10
+  // inside a h-dvh mt-20 max-w-2xl lg:max-w-5xl column — so width is that
+  // column (672px, 1024px from lg, viewport width below that) and height is
+  // 60% of the viewport. CANVAS_SCALE then oversizes the canvas against it.
   function hostSize() {
     const host = document.getElementById("topSketch");
     const w = host && host.clientWidth ? host.clientWidth : p.windowWidth;
     const h =
-      host && host.clientHeight
-        ? host.clientHeight
-        : p.windowHeight * 0.6 * 1.2;
-    return { w, h };
+      host && host.clientHeight ? host.clientHeight : p.windowHeight * 0.6;
+    return { w: w * CANVAS_SCALE, h: h * CANVAS_SCALE };
   }
 
   // draw the current face into an offscreen 2d buffer, then keep one cell
