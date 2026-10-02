@@ -114,7 +114,7 @@ html[data-theme="paper"] {
   --color-muted: #525252;
   --color-line: #0a0a0a;
   --color-accent: #A9AEFF;
-  --color-progress: #a3a6fb; /* left-margin scroll indicator */
+  --color-progress: #575758; /* left-margin scroll indicator */
   --sketch-saturation: 1;
   /* mid-grey material, not the near-black --color-accent: on a light page
      the word still needs range between lit and shadowed faces */

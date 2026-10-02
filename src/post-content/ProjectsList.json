@@ -21,8 +21,8 @@
         "short_description": "Inspired by the DIY spirit of communities in Seattle, this tools seeks to make it easy to share events with your friends spottet in the urban environment using an opensource foundation",
         "description": "Where do you go to meet people and submerge yourself in culture, when you are in a new place? This project encourages the act of staying present while walking around your local area, noticing any community efforts, potlucks, park meetups, concerts or other gatherings while making it easy to organize and share with friends. You go from poster -> picture -> shared calendar event in a few minutes.",
         "images": {
-            "main":["images/poser_1.webp"],
-            "fallback":["images/poser_1-small.jpg"]
+            "main":["images/poser_icon.webp"],
+            "fallback":["images/poser_icon-small.jpg"]
         }
     },
     {
