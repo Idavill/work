@@ -10,8 +10,13 @@ let amount = 100;
 // next to that theme's colours. this is only the fallback for a theme that
 // forgot to set one. other cute ones to try:
 //   "(◕‿◕)"   "(｡◕‿◕｡)"   "ʕ•ᴥ•ʔ"   "(=^･ω･^=)"   "^_^"   "(·_·)"
-const FALLBACK_TEXT = "ʕ•ᴥ•ʔ";
-let text = FALLBACK_TEXT;
+// a face is a LIST of lines, so a theme can stack a row of stars above and
+// below the kaomoji. one entry per line, drawn centred on each other.
+const FALLBACK_TEXT = ["ʕ•ᴥ•ʔ"];
+let lines = FALLBACK_TEXT;
+// line spacing as a multiple of the type size. the kaomoji and the star rows
+// are sampled as one block, so this is the only gap between them.
+const LINE_H = 1.15;
 const RES = 6; // sampling step: smaller = more boxes, more detail, slower
 const DEPTH = 70; // how far the letters extrude
 // kaomoji glyphs don't exist in display faces like Bungee Spice, so the
@@ -23,9 +28,10 @@ const FONT_STACK =
 // the face is always sampled into a buffer of this fixed size, so the box
 // count depends only on how much ink the face has and never on the viewport.
 // we then scale the whole drawing to fit whatever size the canvas happens
-// to be. note the face is fitted to the buffer WIDTH, so a face with more
-// glyphs is drawn smaller rather than wider — box count stays in the same
-// ballpark across faces instead of growing with their length.
+// to be. note the face is fitted to the buffer WIDTH (and, once it has more
+// than one line, to its HEIGHT too), so a face with more glyphs or more lines
+// is drawn smaller rather than wider — box count stays in the same ballpark
+// across faces instead of growing with their length.
 const BUF_W = 1000;
 const BUF_H = 1000;
 
@@ -73,16 +79,30 @@ function readPalette() {
   };
 }
 
-// --sketch-face is stored quoted so a paren or semicolon in the face can't
-// break css parsing. getPropertyValue hands back the quotes, so strip them.
+// --sketch-face is a sequence of quoted strings, one per line:
+//   --sketch-face: "✦ ⋆ ✦" "ʕ•ᴥ•ʔ" "✦ ⋆ ✦";
+// the quotes are what keep a paren or semicolon in a face from breaking css
+// parsing, and they're also what separates the lines — so each line gets its
+// own pair. a single unquoted value still works and reads as one line.
 // returns true if the face actually changed, since resampling costs a
 // full-buffer pixel readback and only the face affects it.
 function readFace() {
   const cs = getComputedStyle(document.documentElement);
   const raw = cs.getPropertyValue("--sketch-face").trim();
-  const next = raw.replace(/^["']|["']$/g, "") || FALLBACK_TEXT;
-  if (next === text) return false;
-  text = next;
+
+  const next = [];
+  const quoted = /"([^"]*)"|'([^']*)'/g;
+  let m;
+  while ((m = quoted.exec(raw)) !== null) {
+    const line = m[1] !== undefined ? m[1] : m[2];
+    if (line.trim()) next.push(line);
+  }
+  if (!next.length && raw) next.push(raw);
+
+  const face = next.length ? next : FALLBACK_TEXT;
+  // cheap identity check — lines never contain a newline
+  if (face.join("\n") === lines.join("\n")) return false;
+  lines = face;
   return true;
 }
 
@@ -119,14 +139,26 @@ function s1(p) {
     gfx.textFont(FONT_STACK);
     gfx.textAlign(gfx.CENTER, gfx.CENTER);
 
-    // scale type so the face always fills buffer
-    let size = 280;
-    gfx.textSize(size);
-    const measured = gfx.textWidth(text);
-    if (measured > 0) {
-      gfx.textSize(size * ((w * 0.9) / measured));
+    // scale type so the face always fills the buffer: size it off the widest
+    // line, then give that size back up if the stack of lines would be taller
+    // than the buffer — anything past the edge is simply never sampled.
+    const BASE = 280;
+    gfx.textSize(BASE);
+    let widest = 0;
+    for (let i = 0; i < lines.length; i++) {
+      widest = Math.max(widest, gfx.textWidth(lines[i]));
     }
-    gfx.text(text, w / 2, h / 2);
+    const byWidth = widest > 0 ? BASE * ((w * 0.9) / widest) : BASE;
+    const byHeight = (h * 0.9) / (lines.length * LINE_H);
+    const size = Math.min(byWidth, byHeight);
+    gfx.textSize(size);
+
+    // textAlign is CENTER/CENTER, so each line is placed by its own middle
+    const step = size * LINE_H;
+    const firstY = h / 2 - ((lines.length - 1) / 2) * step;
+    for (let i = 0; i < lines.length; i++) {
+      gfx.text(lines[i], w / 2, firstY + i * step);
+    }
 
     gfx.loadPixels();
     const next = [];
