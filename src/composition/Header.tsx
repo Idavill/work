@@ -6,14 +6,23 @@ type HeaderProps = {
 }
 
 export default function Header({headerOpacity, selectedProject}: HeaderProps) {
+    // fixed, not sticky. sticky is clamped to its containing block and also
+    // still scrolls HORIZONTALLY with the page, so while the header was
+    // overflowing a phone it slid off to the left as soon as you panned. fixed
+    // pins to the viewport unconditionally — which is all this header ever
+    // wanted — at the cost of leaving the flow, hence the pt-* on <main> in
+    // App.tsx that replaces the space it used to take up.
     return(
     <>
         {!selectedProject && (
         <header
-          className="flex flex-row place-content-around sticky top-0 z-4 p-4 transition-colors duration-300"
+          className="flex flex-row place-content-around fixed top-0 inset-x-0 z-4 p-4 transition-colors duration-300"
         >
+          {/* "flexmd:w-fit" was one word — a missing space, so neither `flex`
+              nor `md:w-fit` existed and this box silently fell back to a
+              block. */}
           <div
-            className="flexmd:w-fit justify-center rounded-none border p-1"
+            className="flex md:w-fit justify-center rounded-none border p-1"
             style={{
               boxShadow: headerOpacity > 0.2 ? "0 2px 8px rgba(0,0,0,0.15)" : "none",
               // backdropFilter: headerOpacity > 0.2 ? "blur(16px)" : "none",

@@ -119,7 +119,19 @@ function s1(p) {
     const w = host && host.clientWidth ? host.clientWidth : p.windowWidth;
     const h =
       host && host.clientHeight ? host.clientHeight : p.windowHeight * 0.6;
-    return { w: w * CANVAS_SCALE, h: h * CANVAS_SCALE };
+
+    // CANVAS_SCALE deliberately oversizes the canvas past its box so the
+    // drawing can spill, and the hero is overflow-visible to let it. but
+    // nothing capped that spill against the VIEWPORT, so on a phone the
+    // canvas came out wider than the screen and the page panned sideways.
+    // documentElement.clientWidth, not windowWidth: the latter is
+    // window.innerWidth, which includes the scrollbar and would hand back a
+    // cap that is itself slightly too wide.
+    const viewport = document.documentElement.clientWidth || p.windowWidth;
+    const capped = Math.min(w * CANVAS_SCALE, viewport);
+    // scale height by whatever the width actually got rather than by
+    // CANVAS_SCALE, or capping the width alone would stretch the face
+    return { w: capped, h: h * (capped / w) };
   }
 
   // draw the current face into an offscreen 2d buffer, then keep one cell
@@ -235,6 +247,21 @@ function s1(p) {
     // webgl keeps every previous frame, so the word drawn in the fallback
     // font stays burned in after the real font loads and cells rebuild.
     p.clear();
+
+    // orthographic, not the default perspective camera — this is what fixes
+    // the face sitting slightly LEFT of every other element on the page.
+    // rotateY below tilts the slab, which under perspective sends +x away from
+    // the camera and -x toward it. the near side is then magnified and the far
+    // side shrunk, so the projected face is no longer symmetric about the
+    // canvas centre even though the geometry is: it lands ~7px left. ortho has
+    // no such falloff, so centred geometry projects centred.
+    // the tilt still reads as depth because depth here comes from the
+    // directional light catching the box tops and sides, not from perspective
+    // convergence — see the rotateX/rotateY comment below.
+    // set per frame rather than in setup(): resizeCanvas() restores the
+    // default perspective projection, so windowResized would undo it.
+    p.ortho();
+
     p.push();
 
     // ambient is flat and directionless — it sets the SHADOW floor, the

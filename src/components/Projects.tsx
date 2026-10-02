@@ -19,12 +19,15 @@ export default function Projects({ title, id, ref }: ProjectsProps
     const [hover,setHover] = useState(false);
     return(
       <div className="flex items-end justify-center pt-10 pb-10">
+      {/* h-auto below md, not h-105: a fixed 420px paired with the
+          overflow-hidden on this same element clips the paragraph as soon as
+          the card is narrow enough to wrap it onto more lines. */}
       <div ref={ref} id={id} onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}
-      className=" md:mb-0 mb-10 w-full cursor-default h-105 md:h-[clamp(250px,33vh,410px)] hover:bg-hover transition-colors duration-600 backdrop-blur-2xl backdrop scroll-mt-30 mx-auto max-w-lg overflow-hidden border border-line rounded-none  shadow-hard md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2">
+      className=" md:mb-0 mb-10 w-full cursor-default h-auto md:h-[clamp(250px,33vh,410px)] hover:bg-hover transition-colors duration-600 backdrop-blur-2xl backdrop scroll-mt-30 mx-auto max-w-lg overflow-hidden border border-line rounded-none  shadow-hard md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2">
           <div className="md:flex h-full">
             {/* <div className="md:shrink-0">
             </div> */}
-            <div className="flex flex-col justify-around p-8 xl:p-12 h-full">
+            <div className="flex flex-col justify-around min-w-0 p-5 md:p-8 xl:p-12 h-full">
               <div className="flex opacity-0 text-muted flex-row justify-between">
                 {/* <Bs2Circle className="flex self-end"/> */}
                 <p>Projects</p>
