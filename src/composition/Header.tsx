@@ -22,7 +22,12 @@ export default function Header({headerOpacity, selectedProject}: HeaderProps) {
               // the box never shifts by a pixel as it appears
               borderColor: `color-mix(in srgb, var(--color-line) ${headerOpacity * 100}%, transparent)`,
           }}>
-            <div className="flex flex-row justify-center place-content-around w-110 md:w-150 lg:w-150">
+            {/* w-full below md: w-110 is a fixed 440px, wider than every phone
+                in portrait (iPhone 16 is 393), so the sticky header alone forced
+                the document wider than the viewport. the four buttons need
+                ~320px, which fits the 361px a 393px screen leaves after the
+                header's p-4. */}
+            <div className="flex flex-row justify-center place-content-around w-full md:w-150 lg:w-150">
               <a href="#top"><Button name="↑" /></a>
               <a href="#about"><Button name="About" /></a>
               <a href="#projects"><Button name="Projects" /></a>
