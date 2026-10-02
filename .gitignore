@@ -61,3 +61,10 @@ coverage/
 laundry.md
 /dist/**
 AUDIT.md
+
+# Pre-WebP source images, kept on disk for re-encoding but not tracked and not
+# deployed — it sits outside public/, which Vite copies verbatim into dist/.
+# Regenerate everything in public/images from here with `npm run images`.
+originals/
+
+*.sh
