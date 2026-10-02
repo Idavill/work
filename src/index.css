@@ -19,6 +19,15 @@
   --color-line: #ffffff; /* borders and underlines */
   --color-accent: #ffffff; /* hover / active highlights */
 
+  /* the scroll-position indicator in the left margin (the dots in
+     FancyTop.tsx). its own token rather than --color-accent, because that one
+     also drives Button hover/active, ThemeToggle hover and the Carousel's
+     active dot — this way the indicator can be recoloured on its own.
+     seeded with each theme's --color-line, which is what the indicator was
+     using, so introducing the token changed nothing on screen. pick a real
+     colour per theme in the blocks below. */
+  --color-progress: #ffffff;
+
   /* wash laid over a card while hovered. deliberately translucent so the
      particle background still shows through the card's backdrop-blur —
      a solid colour here would block it. light themes darken, dark
@@ -86,6 +95,7 @@ html[data-theme="mono"] {
   --color-muted: #a3a3a3;
   --color-line: #ffffff;
   --color-accent: #ffffff;
+  --color-progress: #ffffff; /* left-margin scroll indicator */
   --sketch-saturation: 0;
   /* white word, deep grey shadows */
   --color-sketch-material: #ffffff;
@@ -103,17 +113,18 @@ html[data-theme="paper"] {
   --color-ink: #0a0a0a;
   --color-muted: #525252;
   --color-line: #0a0a0a;
-  --color-accent: #0a0a0a;
-  --sketch-saturation: 0;
+  --color-accent: #A9AEFF;
+  --color-progress: #a3a6fb; /* left-margin scroll indicator */
+  --sketch-saturation: 1;
   /* mid-grey material, not the near-black --color-accent: on a light page
      the word still needs range between lit and shadowed faces */
-  --color-sketch-material: #5a5a5a;
-  --color-sketch-ambient: #1f1f1f;
+  --color-sketch-material: #A9AEFF; /* #4a56ff;*/
+  --color-sketch-ambient: #a3a6fb; /*#a4b1ff;*/
   --color-sketch-key: #ffffff;
-  --color-hover: rgba(195, 200, 255, 0.782); /* darken, since the page is light */
+  --color-hover: rgb(200, 203, 255); /* darken, since the page is light */
   --color-shadow: rgba(71, 71, 71, 0.831);
   --sticker-filter: none;
-  --sketch-face: "⋆ ✦ ⋆" "  (ﾉ◕ヮ◕)ﾉ" "⋆ ✦ ⋆";
+  --sketch-face: "⋆ ✦ ⋆" " (ﾉ◕ヮ◕)ﾉ" "⋆ ✦ ⋆";
 }
 
 /* the original green look, rebuilt from tokens */
@@ -124,6 +135,7 @@ html[data-theme="green"] {
   --color-muted: #a3a3a3;
   --color-line: #ffffff;
   --color-accent: #4ade80;
+  --color-progress: #ffffff; /* left-margin scroll indicator */
   --sketch-saturation: 1;
   /* green word, darker green in shadow */
   --color-sketch-material: #4ade80;

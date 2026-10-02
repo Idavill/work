@@ -17,7 +17,37 @@ let lines = FALLBACK_TEXT;
 // line spacing as a multiple of the type size. the kaomoji and the star rows
 // are sampled as one block, so this is the only gap between them.
 const LINE_H = 1.15;
-const RES = 6; // sampling step: smaller = more boxes, more detail, slower
+// sampling step: smaller = more boxes, more detail, slower. NOT a constant,
+// because it is in buffer units and draw() multiplies everything by `fit` —
+// so a cube lands on screen at RES * 0.9 * fit px, which scales linearly with
+// the canvas width. at 1024px that is ~5.6px, but by 320px it is under 2px and
+// the rasteriser starts missing cubes altogether: the face thins out and fades
+// instead of simply getting smaller. so retune RES on resize to hold the cube
+// size roughly constant, trading detail (fewer, chunkier cubes) for a face
+// that stays solid. RES_MIN is the old fixed value, so wide screens are
+// unchanged.
+let RES = 6;
+// on-screen cube size to hold. deliberately set to what a WIDE screen already
+// renders (RES_MIN against a height-limited fit of ~0.6), so the desktop look
+// is bit-for-bit unchanged and only the narrow end, where cubes were falling
+// under a pixel, actually moves.
+const TARGET_BOX_PX = 3.6;
+const RES_MIN = 6;
+const RES_MAX = 24;
+
+// pick the RES that puts a cube nearest TARGET_BOX_PX for a canvas this size.
+// returns true if it changed, i.e. if the caller needs to resample.
+function retuneRes(canvasW, canvasH) {
+  const fit = Math.min(canvasW / ink.w, canvasH / ink.h) * FILL;
+  if (!(fit > 0)) return false;
+  const wanted = Math.min(
+    RES_MAX,
+    Math.max(RES_MIN, Math.round(TARGET_BOX_PX / fit)),
+  );
+  if (wanted === RES) return false;
+  RES = wanted;
+  return true;
+}
 const DEPTH = 70; // how far the letters extrude
 // kaomoji glyphs don't exist in display faces like Bungee Spice, so the
 // browser falls back per-glyph and the eyes end up a different size from
@@ -227,7 +257,15 @@ function s1(p) {
       attributeFilter: ["data-theme"],
     });
 
+    // twice on purpose: retuneRes needs the ink bounds to know the display
+    // scale, and only buildCells can measure them. so sample once at RES_MIN
+    // to get ink, then resample if that scale wants a coarser step — which it
+    // does whenever the page loads already narrow, rather than being resized
+    // down to narrow later.
     buildCells();
+    const first = hostSize();
+    if (retuneRes(first.w, first.h)) buildCells();
+
     // google fonts may still be loading on first paint, so resample
     // once they're ready or the text falls back to plain sans-serif
     if (document.fonts && document.fonts.ready) {
@@ -235,11 +273,15 @@ function s1(p) {
     }
   };
 
-  // follow the layout when the window changes. the sampled cells don't
-  // need rebuilding — only the scale factor in draw() changes.
+  // follow the layout when the window changes. mostly only the scale factor in
+  // draw() changes, but a big enough change moves RES to a new bucket, and then
+  // the cells do have to be rebuilt — retuneRes only says so when it actually
+  // changed, so a drag across one bucket costs a single resample, not one per
+  // resize event.
   p.windowResized = function () {
     const { w, h } = hostSize();
     p.resizeCanvas(w, h);
+    if (retuneRes(w, h)) buildCells();
   };
 
   p.draw = function () {
@@ -270,10 +312,10 @@ function s1(p) {
 
     // the key light is the only thing that differentiates faces, so it
     // provides all the shading. it orbits, so the highlight travels.
-    const angle = p.frameCount * 0.02;
+    const angle = p.frameCount * 0.01;
     const lx = 150 * Math.cos(angle);
     const ly = 200 * Math.sin(angle);
-    const lz = 100 * Math.sin(angle * 0.98);
+    const lz = 100 * Math.sin(angle * 0.1);
     p.directionalLight(p.color(palette.key), p.createVector(lx, ly, lz));
 
     // seen straight on, every box shows only its +z face — all normals
