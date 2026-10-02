@@ -18,9 +18,22 @@ export default function Card({ project, setOpen }: CardProps) {
       onClick={() => setOpen(true)}
       >
       <div className="md:flex">
-        <div className="md:shrink-0">
+        {/* the full image goes in the <img>, so animated projects animate here
+            on the list and not only inside the modal. the -poster.webp sibling
+            (frame 1, ~54KB) is painted behind it as a background, because the
+            full file is 3.8MB for mm and this card had no placeholder at all —
+            without it the thumbnail is an empty box for seconds on mobile. the
+            poster IS frame 1, so there is no visible swap when the real file
+            arrives. the brightness/grayscale filters live on this wrapper so
+            they treat the placeholder and the image identically. */}
+        <div
+          className={`md:shrink-0 h-48 w-full bg-cover bg-center md:h-auto md:w-80 xl:w-96 2xl:w-[26rem] brightness-80 ${hover? "contrast-100" : "grayscale contrast-70"}`}
+          style={{
+            backgroundImage: `url(${project.images.main[0].replace(/\.[^.]+$/, "-poster.webp")})`,
+          }}
+        >
           <img
-            className={`h-48 w-full object-cover md:h-full md:w-80 xl:w-96 2xl:w-[26rem] brightness-80 ${hover? "contrast-100" : "grayscale contrast-70"}`}
+            className="h-48 w-full object-cover md:h-full"
             src={project.images.main[0]}
             alt={`${project.title} preview`}
             loading="lazy"
