@@ -55,7 +55,7 @@ export default function ThemeToggle() {
       onClick={nextTheme}
       title={`Theme: ${theme}`}
       aria-label={`Change theme, currently ${theme}`}
-      className="group fixed bottom-6 right-6 z-4 flex h-14 w-14 items-center justify-center border border-line bg-surface text-ink transition-colors duration-400 hover:bg-hover hover:text-accent"
+      className="group fixed bottom-6 right-6 z-4 flex h-14 w-14 items-center justify-center border border-line bg-surface text-muted transition-colors duration-400 hover:bg-hover hover:text-accent"
       // the bare `button` rule in index.css is unlayered, so its 8px radius and
       // 0.6em/1.2em padding beat any utility class. inline styles are the only
       // thing that outranks it, which is why the box lives here and not above.

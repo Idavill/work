@@ -18,15 +18,12 @@ export default function Header({headerOpacity, selectedProject}: HeaderProps) {
         <header
           className="flex flex-row place-content-around fixed top-0 inset-x-0 z-4 p-4 transition-colors duration-300"
         >
-          {/* "flexmd:w-fit" was one word — a missing space, so neither `flex`
-              nor `md:w-fit` existed and this box silently fell back to a
-              block. */}
           <div
             className="flex md:w-fit justify-center rounded-none border p-1"
             style={{
               boxShadow: headerOpacity > 0.2 ? "0 2px 8px rgba(0,0,0,0.15)" : "none",
               // backdropFilter: headerOpacity > 0.2 ? "blur(16px)" : "none",
-              backgroundColor: `color-mix(in srgb, var(--color-surface) ${headerOpacity * 100}%, transparent)`,
+              backgroundColor: `color-mix(in srgb, var(--color-canvas) ${headerOpacity * 100}%, transparent)`,
               // border width stays on the element; only its colour fades, so
               // the box never shifts by a pixel as it appears
               borderColor: `color-mix(in srgb, var(--color-line) ${headerOpacity * 100}%, transparent)`,
@@ -40,7 +37,6 @@ export default function Header({headerOpacity, selectedProject}: HeaderProps) {
               <a href="#top"><Button name="↑" /></a>
               <a href="#about"><Button name="About" /></a>
               <a href="#projects"><Button name="Projects" /></a>
-              {/* <a href="#education"><Button name="Experience" /></a> */}
               <a href="#contact"><Button name="Contact" /></a>
             </div>
           </div>

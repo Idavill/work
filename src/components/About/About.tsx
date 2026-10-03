@@ -18,6 +18,8 @@ type AboutProps = {
 export default function About({ title, id, ref, topics }: AboutProps){
   const [hover,setHover] = useState(false);
 
+//backdrop-blur-2xl 
+
     return(
       <div className="min-h-dvh flex items-center justify-center py-10">
       <div
@@ -25,7 +27,7 @@ export default function About({ title, id, ref, topics }: AboutProps){
         id={id}
         onMouseEnter={()=>setHover(true)}
         onMouseLeave={()=>setHover(false)}
-        className="cursor-default md:mb-0 w-full h-auto md:h-[clamp(440px,55vh,740px)] hover:bg-hover transition-colors duration-600 backdrop-blur-2xl backdrop scroll-mt-[25vh] mx-auto max-w-lg overflow-hidden border border-line rounded-none shadow-hard md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2">
+        className="cursor-default md:mb-0 w-full h-auto md:h-[clamp(440px,55vh,740px)] bg-canvas hover:bg-hover transition-colors duration-600 backdrop scroll-mt-[25vh] mx-auto max-w-lg overflow-hidden border border-line rounded-none shadow-hard md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2">
           <div className="md:flex h-full">
             <div className="md:shrink-0"/>
             <div className="flex flex-col justify-around p-8 xl:p-12 h-full">

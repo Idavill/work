@@ -98,9 +98,10 @@ html[data-theme="mono"] {
   --color-progress: #ffffff; /* left-margin scroll indicator */
   --sketch-saturation: 0;
   /* white word, deep grey shadows */
+  --color-sketch-noise: #2e2e2e;
   --color-sketch-material: #ffffff;
   --color-sketch-ambient: #2e2e2e;
-  --color-sketch-key: #ffffff;
+  --color-sketch-key: #fffrgb(5, 4, 4)
   --color-hover: rgba(255, 255, 255, 0.07); /* lighten */
   --color-shadow: rgba(26, 45, 255, 0.831);
   --sketch-face: "✧ ⋆ ✧" "( •⌄• ू )✧" "✧ ⋆ ✧";
@@ -108,18 +109,19 @@ html[data-theme="mono"] {
 
 /* inverted black & white */
 html[data-theme="paper"] {
-  --color-canvas: #f5f5f4;
+  --color-canvas: #e0e0d6; /*f5f5f4*/
   --color-surface: #ffffff;
   --color-ink: #0a0a0a;
   --color-muted: #525252;
   --color-line: #0a0a0a;
-  --color-accent: #A9AEFF;
+  --color-accent: #5f66eb;
   --color-progress: #575758; /* left-margin scroll indicator */
   --sketch-saturation: 1;
   /* mid-grey material, not the near-black --color-accent: on a light page
      the word still needs range between lit and shadowed faces */
-  --color-sketch-material: #A9AEFF; /* #4a56ff;*/
-  --color-sketch-ambient: #a3a6fb; /*#a4b1ff;*/
+  --color-sketch-noise: #c3c6ff;
+  --color-sketch-material: #8c92ff; /* #4a56ff;*/
+  --color-sketch-ambient: #8c92ff; /*#a4b1ff;*/
   --color-sketch-key: #ffffff;
   --color-hover: rgb(200, 203, 255); /* darken, since the page is light */
   --color-shadow: rgba(71, 71, 71, 0.831);
@@ -138,6 +140,7 @@ html[data-theme="green"] {
   --color-progress: #ffffff; /* left-margin scroll indicator */
   --sketch-saturation: 1;
   /* green word, darker green in shadow */
+  --color-sketch-noise: #14532d;
   --color-sketch-material: #4ade80;
   --color-sketch-ambient: #14532d;
   --color-sketch-key: #ffffff;
@@ -242,9 +245,9 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
+/* button:hover {
   border-color: var(--color-line);
-}
+} */
 button:focus,
 button:focus-visible {
   /* outline: 4px auto -webkit-focus-ring-color; */

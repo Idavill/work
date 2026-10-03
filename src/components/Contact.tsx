@@ -21,11 +21,8 @@ export default function Contact({ title, id, ref }: ContactProps){
 
     return(
       <div className="min-h-dvh flex items-center justify-center py-10">
-      {/* h-auto below md, not h-80: 320px plus the overflow-hidden here cut
-          the LinkedIn/GitHub links off once the heading and paragraph wrapped
-          onto enough lines to push them past the bottom edge. */}
       <div ref={ref} id={id} onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}
-      className="cursor-default h-auto md:h-[clamp(260px,33vh,410px)] w-full hover:bg-hover transition-colors duration-600 backdrop-blur-2xl backdrop scroll-mt-[25vh] mx-auto max-w-lg overflow-hidden border border-line rounded-none  shadow-hard md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2">
+      className="cursor-default h-auto md:h-[clamp(260px,33vh,410px)] w-full hover:bg-hover transition-colors duration-600 bg-canvas backdrop scroll-mt-[25vh] mx-auto max-w-lg overflow-hidden border border-line rounded-none  shadow-hard md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2">
           <div className="md:flex h-full">
             <div className="md:shrink-0">
             </div>
