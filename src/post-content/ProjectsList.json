@@ -33,8 +33,8 @@
         "short_description": "Application developed for Copenhagen Architecture Biennale. Through satellite imagery, climate indicators, and spatial analytics, six thematic maps construct a chronological narrative—from the subtle pulses of air and heat to the physical imprints of urban expansion and ecological presence.",
         "description": "This project reimagines environmental data as architectural storytelling. Through satellite imagery, climate indicators, and spatial analytics, six thematic maps construct a chronological narrative—from the subtle pulses of air and heat to the physical imprints of urban expansion and ecological presence. Each map transcends its technical function, becoming a spatial artifact that invites viewers to interpret the city as a dynamic, living organism in flux.",
         "images":{
-            "main":["images/sentinel.webp","images/uf-s-4.webp","images/uf-s-7.webp","images/uf-s-6.webp"],
-            "fallback":["images/sentinel-small.jpg","images/uf-s-4-small.jpg","images/uf-s-7-small.jpg","images/uf-s-6-small.jpg"]
+            "main":["images/sentinel.webp","images/3d_model_bienale-poster.webp","images/uf-s-4.webp"],
+            "fallback":["images/sentinel-small.jpg","images/3d_model_bienale-poster.jpg","images/uf-s-4-small.jpg"]
         }
     },
     {
@@ -59,6 +59,18 @@
         "images": {
             "main":["images/flax-s_20.jpg"],
             "fallback":["images/flax-s_20-small.jpg"]
+        }
+    },
+    {
+        "id":"9e4a1c88-5d2b-4f17-a3c6-7b81e0f4d255",
+        "number":6,
+        "tags":["hardware","raspberry pi","3d printing","linux"],
+        "title": "CYBERDECK",
+        "short_description": "PLACEHOLDER TEXT. A handheld field computer built from scratch: a Raspberry Pi, a mechanical keyboard and a 3D-printed shell, assembled into something you can actually take outside and work on.",
+        "description": "PLACEHOLDER TEXT — rewrite this before publishing. A handheld field computer built from scratch, somewhere between a tool and a sketch in hardware. The chassis started as a cardboard mock-up, went through four printed revisions, and ended up housing a Raspberry Pi, a small mechanical keyboard and a battery that lasts a working afternoon. The point was never raw capability; it was to build a machine whose every part I had chosen on purpose, and to find out what changes about how you work when the computer is something you made rather than something you bought. The software side is a deliberately spare Linux setup: no desktop environment, a tiling window manager, and a handful of scripts for the things I actually do on it. Most of the design decisions were made with the thing half-open on a workbench, which is the only way I know to find out where a layout is wrong.",
+        "images": {
+            "main":["images/cyber.webp"],
+            "fallback":["images/cyber-small.jpg"]
         }
     }
 ],

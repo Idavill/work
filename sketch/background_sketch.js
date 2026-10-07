@@ -95,7 +95,7 @@ const background_sketch = function (p) {
   let targetFill;
   let scrollSmooth = 0;
   const FADE = 0.1;
-  const SCROLL_EASE = 0.1;
+  const SCROLL_EASE = 0.5;
   let grainTiles = [];
   let grainIndex = 0;
   // 1 the instant the button is hit, decaying toward 0 every frame
