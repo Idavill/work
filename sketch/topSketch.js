@@ -16,7 +16,7 @@ const FALLBACK_TEXT = ["ʕ•ᴥ•ʔ"];
 let lines = FALLBACK_TEXT;
 // line spacing as a multiple of the type size. the kaomoji and the star rows
 // are sampled as one block, so this is the only gap between them.
-const LINE_H = 1.15;
+const LINE_H = 1.2;
 // sampling step: smaller = more boxes, more detail, slower. NOT a constant,
 // because it is in buffer units and draw() multiplies everything by `fit` —
 // so a cube lands on screen at RES * 0.9 * fit px, which scales linearly with
@@ -26,13 +26,13 @@ const LINE_H = 1.15;
 // size roughly constant, trading detail (fewer, chunkier cubes) for a face
 // that stays solid. RES_MIN is the old fixed value, so wide screens are
 // unchanged.
-let RES = 6;
+let RES = 4;
 // on-screen cube size to hold. deliberately set to what a WIDE screen already
 // renders (RES_MIN against a height-limited fit of ~0.6), so the desktop look
 // is bit-for-bit unchanged and only the narrow end, where cubes were falling
 // under a pixel, actually moves.
 const TARGET_BOX_PX = 3.6;
-const RES_MIN = 6;
+const RES_MIN = 5;
 const RES_MAX = 24;
 
 // pick the RES that puts a cube nearest TARGET_BOX_PX for a canvas this size.
@@ -62,8 +62,8 @@ const FONT_STACK =
 // than one line, to its HEIGHT too), so a face with more glyphs or more lines
 // is drawn smaller rather than wider — box count stays in the same ballpark
 // across faces instead of growing with their length.
-const BUF_W = 1000;
-const BUF_H = 1000;
+const BUF_W = 400;
+const BUF_H = 400;
 
 // --- the two size dials -----------------------------------------------------
 //
@@ -77,8 +77,28 @@ const BUF_H = 1000;
 //
 // for "make the whole sketch bigger" reach for CANVAS_SCALE; for "make the face
 // bigger in the space it already has" reach for FILL.
-const CANVAS_SCALE = 1.2;
-const FILL = 0.92;
+//
+// FILL was 0.92, i.e. the face all but touched the canvas edges. the card
+// panel (see PANEL_PAD) has to come out of that same canvas, so the face gave
+// the difference back: 0.68 leaves the panel room to sit INSIDE the canvas
+// instead of spilling down over the About section. to get the old face size
+// back without losing the card, grow the box rather than the face — raise
+// --sketch-height in index.css, or CANVAS_SCALE above; both scale face and
+// panel together.
+const CANVAS_SCALE = 1.1;
+const FILL = 1.0; //0.68 original
+
+// gap between the face and the edge of the card behind it, as a fraction of
+// the face's on-screen HEIGHT. one number for all four sides rather than a
+// fraction per axis, because these faces are far wider than they are tall and
+// a percentage-of-width padding would read as a huge left/right margin next to
+// a thin top/bottom one.
+//
+// it multiplies up with FILL: the panel ends up FILL * (1 + 2 * PANEL_PAD) of
+// the canvas on whichever axis the face was fitted to, so 0.68 * 1.4 = 0.95 —
+// just inside. push PANEL_PAD past ~0.23 and the panel starts to overflow the
+// canvas (which is allowed to spill, so it will sit over whatever is below).
+const PANEL_PAD = 0.2;
 
 let cells = [];
 let gfx;
@@ -238,10 +258,46 @@ function s1(p) {
     }
   }
 
+  // size the card behind the face (#sketchPanel in FancyTop.tsx) to the face's
+  // on-screen bounds. it lives in the dom rather than being drawn into the
+  // canvas because webgl has no stroked rectangle worth the name, and this way
+  // the card picks up --color-canvas / --color-line / --shadow-hard straight
+  // from the theme, exactly like a project card does.
+  //
+  // this runs on resize and on resample, NOT per frame — it writes to style,
+  // which costs a layout, and nothing about the face's footprint changes
+  // between frames (the animation is in the box DEPTH and the light, both of
+  // which stay inside these bounds).
+  function layoutPanel() {
+    const el = document.getElementById("sketchPanel");
+    if (!el) return;
+    // no cells yet means nothing has been sampled, so there is no face to sit
+    // behind — leave the panel at zero rather than drawing an empty box
+    if (!cells.length) {
+      el.style.width = "0px";
+      el.style.height = "0px";
+      return;
+    }
+    // the same fit draw() uses, so the panel tracks the face exactly. the
+    // rotateX/rotateY tilt is ignored: at 0.18/0.14 rad it shaves under 2% off
+    // the projected size, which the padding swallows.
+    const fit = Math.min(p.width / ink.w, p.height / ink.h) * FILL;
+    const faceW = ink.w * fit;
+    const faceH = ink.h * fit;
+    const pad = faceH * PANEL_PAD;
+    el.style.width = Math.round(faceW + pad * 2) + "px";
+    el.style.height = Math.round(faceH + pad * 2) + "px";
+  }
+
   p.setup = function () {
     const { w, h } = hostSize();
     canvas1 = p.createCanvas(w, h, p.WEBGL).parent("#topSketch");
     canvas1.style("display", "flex");
+    // the panel is absolutely positioned and the canvas is not, so by default
+    // the panel paints OVER it and hides the face completely. giving the canvas
+    // a position and a z-index puts it back on top.
+    canvas1.style("position", "relative");
+    canvas1.style("z-index", "1");
     p.pixelDensity(1);
 
     readPalette();
@@ -251,7 +307,11 @@ function s1(p) {
     // already on screen.
     new MutationObserver(function () {
       readPalette();
-      if (readFace()) buildCells();
+      // a new face has new ink bounds, so the card has to be remeasured with it
+      if (readFace()) {
+        buildCells();
+        layoutPanel();
+      }
     }).observe(document.documentElement, {
       attributes: true,
       attributeFilter: ["data-theme"],
@@ -265,11 +325,15 @@ function s1(p) {
     buildCells();
     const first = hostSize();
     if (retuneRes(first.w, first.h)) buildCells();
+    layoutPanel();
 
     // google fonts may still be loading on first paint, so resample
     // once they're ready or the text falls back to plain sans-serif
     if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(buildCells);
+      document.fonts.ready.then(function () {
+        buildCells();
+        layoutPanel();
+      });
     }
   };
 
@@ -282,6 +346,9 @@ function s1(p) {
     const { w, h } = hostSize();
     p.resizeCanvas(w, h);
     if (retuneRes(w, h)) buildCells();
+    // unconditional, unlike the resample: the fit scale changes on every
+    // resize, bucket change or not, so the card moves with every one of them
+    layoutPanel();
   };
 
   p.draw = function () {
@@ -302,7 +369,28 @@ function s1(p) {
     // convergence — see the rotateX/rotateY comment below.
     // set per frame rather than in setup(): resizeCanvas() restores the
     // default perspective projection, so windowResized would undo it.
-    p.ortho();
+    //
+    // the near/far arguments are the fix for the face being sliced off along a
+    // straight diagonal edge as the window narrowed. called bare, p5 defaults
+    // them to near = 0 and far = max(width, height) — the clip planes are tied
+    // to the CANVAS SIZE, which has nothing to do with how deep the geometry
+    // actually is. the default camera sits at about 0.87 * height, so on a wide
+    // canvas far (the width) comfortably clears it and nothing clips; as the
+    // canvas narrows, far falls until the far plane lands in front of the
+    // geometry and starts cutting through it. a flat slab tilted on two axes
+    // intersects a plane along a straight line, and that line is the diagonal.
+    // the rotateX/rotateY below make it worse the steeper they get, since the
+    // tilt is what gives the slab any depth to be cut at all.
+    //
+    // so: same framing as the default (-w/2..w/2, -h/2..h/2, which is exactly
+    // what p5 would have used), but a depth range big enough that it is never
+    // the binding constraint. near is NEGATIVE on purpose — an orthographic
+    // projection is a box, not a frustum, so there is no division by the near
+    // distance and putting the plane behind the camera is legal; it just widens
+    // the slab of space that gets drawn.
+    const halfW = p.width / 2;
+    const halfH = p.height / 2;
+    p.ortho(-halfW, halfW, -halfH, halfH, -10000, 10000);
 
     p.push();
 
@@ -322,8 +410,8 @@ function s1(p) {
     // identical, so no light can shade one differently from another. a
     // small fixed tilt exposes the tops and sides, and THAT is what reads
     // as depth. raise these for a more dramatic angle.
-    p.rotateX(-0.18);
-    p.rotateY(0.14);
+    p.rotateX(-0.6); // -0.18
+    p.rotateY(0.4); // test to comment out! 0.14
 
     // fit the face to the current canvas: whichever axis is tightest wins, so
     // it never spills out on narrow screens. measured from the ink bounds, so
@@ -349,11 +437,13 @@ function s1(p) {
         p.dist(c.x, c.y, p.mouseX - BUF_W / 2, p.mouseY - BUF_H / 2) * 0.005;
 
       const d =
-        DEPTH * (0.6 + 0.4 * Math.sin(p.frameCount * 0.05 + c.x * 0.02)) * 0.05;
+        DEPTH * (0.6 + 0.4 * Math.sin(p.frameCount * 0.01 + c.x * 0.02)) * 0.05;
       mouseD;
       p.push();
       p.translate(c.x, c.y);
-      p.box(RES * 0.9, RES * 0.9, d);
+      // p.box(RES * 0.9, RES * 0.9, d);
+      p.box(RES * 0.9, RES * 0.9, RES * 2);
+
       p.pop();
     }
     p.pop();

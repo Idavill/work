@@ -19,7 +19,11 @@ export default function SkillList({topics}:SkillListType){
                         headlines column, which the grid has no gap-x for. while
                         stacked it just made the tags 20px narrower than the
                         headline boxes above them. */}
-                    <PaperTag id={"c"} color={"text-ink hover:bg-ink/10"} width={"md:mr-5 "} tag={t}/>
+                    {/* group-hover opts the tags into the About card's hover
+                        colour — their explicit text-ink would otherwise keep
+                        them at the resting colour while the rest of the card
+                        changed. the card is the `group`. */}
+                    <PaperTag id={"c"} color={"text-ink group-hover:text-card-accent transition-colors duration-600 hover:bg-ink/10"} width={"md:mr-5 "} tag={t}/>
                 </div>
                 ))}
             </div>

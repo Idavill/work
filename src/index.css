@@ -19,6 +19,24 @@
   --color-line: #ffffff; /* borders and underlines */
   --color-accent: #ffffff; /* hover / active highlights */
 
+  /* there are two hover-text colours on purpose, because there are two kinds
+     of hover on this site and they want to read differently:
+
+       --color-accent      CONTROLS. things you click that do something: the
+                           nav buttons, the carousel arrows, the modal's close.
+                           these also get a bg-surface behind them on hover, so
+                           the colour is one signal among several.
+       --color-card-accent SURFACES. the big section cards — About, Projects,
+                           Contact and each project card. a whole card
+                           lighting up is a much larger area of colour than a
+                           nav label, so it usually wants to be quieter than
+                           the control accent, not the same.
+
+     resting state for both is --color-ink; only the hover end differs.
+     seeded with each theme's --color-accent so splitting them changed nothing
+     on screen — pick real values per theme in the blocks below. */
+  --color-card-accent: #ffffff;
+
   /* the scroll-position indicator in the left margin (the dots in
      FancyTop.tsx). its own token rather than --color-accent, because that one
      also drives Button hover/active, ThemeToggle hover and the Carousel's
@@ -34,6 +52,17 @@
      themes lighten, which is just the sign of the overlay. */
   --color-hover: rgba(255, 255, 255, 0.06);
 
+  /* wash laid over every project image (card thumbnails and the carousel
+     inside the modal). it is painted by a sibling div with
+     `bg-tint mix-blend-color`, which keeps the photo's LIGHTNESS and takes
+     its hue+saturation from this token — so one colour here repaints all
+     the project shots at once, like a duotone.
+       opaque colour  = full recolour
+       rgba with alpha = partial tint, the alpha is the dial
+       transparent     = off, images render untouched
+     each theme sets its own below. */
+  --color-tint: #ffffff;
+
   /* hard-edged offset drop shadow: a solid block behind the card, no blur.
      the 0 in the third slot is the blur radius — that's what makes the
      edge crisp instead of soft. --color-shadow must contrast with the
@@ -47,6 +76,37 @@
    outside @theme because it isn't a colour utility. */
 :root {
   --sketch-saturation: 0;
+
+  /* --- where the hero sketch sits ------------------------------------
+     #topSketch is the box the p5 face is drawn centred in, so moving the
+     box moves the face. it used to be pinned to the TOP of the hero
+     section (absolute inset-0 h-6/10), and that section does not start at
+     the top of the screen — <main> has pt-24/md:pt-28 and FancyTop adds
+     mt-20 on top of that. so the box was always its own top offset too
+     high, and worse, by a FIXED number of pixels: on a tall desktop it
+     reads as a few px, on a short laptop or a phone it is closer to 60.
+
+     the rule under #topSketch below centres the box on the VIEWPORT
+     instead, from these three dials:
+
+       --sketch-height  how tall the box is. the face is fitted to the box,
+                        so this is also "how big is the whole thing" — the
+                        panel grows with it. (CANVAS_SCALE in topSketch.js
+                        is the other half of that; it oversizes the canvas
+                        past the box and is allowed to spill.)
+       --hero-top       how far below the top of the screen the hero
+                        section starts. NOT cosmetic — the centring maths
+                        subtracts it, so it has to match reality: <main>'s
+                        pt-24 (6rem) + FancyTop's mt-20 (5rem), and the
+                        md: override below for main's pt-28 (7rem). if you
+                        change either padding, change these.
+       --sketch-nudge   pure taste, applied last. negative moves the face
+                        up, positive down. start here before touching the
+                        other two.
+     -------------------------------------------------------------------- */
+  --sketch-height: 60dvh;
+  --hero-top: 11rem; /* main pt-24 (6rem) + FancyTop mt-20 (5rem) */
+  --sketch-nudge: 0px;
 
   /* lighting for the 3d text sketch. the three work together:
        material = the box colour. everything is MULTIPLIED by this, so a
@@ -83,6 +143,45 @@
      (greyscale alone lands in the mid-tones and reads muddy on both, hence
      the brightness push in opposite directions per theme.) */
   --sticker-filter: none;
+
+  /* an optional gradient for the PAGE backdrop, painted on <body> below.
+     it is deliberately not part of --color-canvas: that token is a real
+     colour and has to stay one — tailwind turns it into bg-canvas, which is
+     a background-COLOR and cannot hold a gradient, and the cards, the hero
+     panel and the header's color-mix() all need it opaque and solid.
+     so this is a second layer: --color-canvas paints underneath as the flat
+     base, this paints over it, and a theme that sets nothing gets `none`
+     and looks exactly as it did.
+
+     any css <image> works — linear-gradient, radial-gradient, conic, or
+     several comma-separated and stacked. only the page backdrop changes;
+     cards stay flat --color-canvas, which is what keeps text on them
+     readable over a shifting background. */
+  --canvas-gradient: none;
+}
+
+/* 48rem is tailwind's md:, where <main> goes pt-24 -> pt-28 */
+@media (min-width: 48rem) {
+  :root {
+    --hero-top: 12rem; /* main pt-28 (7rem) + FancyTop mt-20 (5rem) */
+  }
+}
+
+/* the hero sketch box. positioned here rather than with utilities on the
+   element, because the top edge is a calc over the dials above and there is
+   no sensible class for it.
+
+   the sum reads: put the box's CENTRE on the middle of the screen
+   (50dvh - half the box), then rebase it into the hero section, whose own
+   top edge is already --hero-top down the page. */
+#topSketch {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: var(--sketch-height);
+  top: calc(
+    50dvh - (var(--sketch-height) / 2) - var(--hero-top) + var(--sketch-nudge)
+  );
 }
 
 /* html[data-theme] beats :root on specificity, so these always win */
@@ -95,6 +194,7 @@ html[data-theme="mono"] {
   --color-muted: #a3a3a3;
   --color-line: #ffffff;
   --color-accent: #ffffff;
+  --color-card-accent: #ffffff; /* hover text on the big section cards */
   --color-progress: #ffffff; /* left-margin scroll indicator */
   --sketch-saturation: 0;
   /* white word, deep grey shadows */
@@ -103,30 +203,98 @@ html[data-theme="mono"] {
   --color-sketch-ambient: #2e2e2e;
   --color-sketch-key: #fffrgb(5, 4, 4)
   --color-hover: rgba(255, 255, 255, 0.07); /* lighten */
+  /* white has no saturation to give, so mix-blend-color just drains the
+     colour out of the image — a true black & white thumbnail. */
+  --color-tint: #ffffff;
   --color-shadow: rgba(26, 45, 255, 0.831);
-  --sketch-face: "✧ ⋆ ✧" "( •⌄• ू )✧" "✧ ⋆ ✧";
+  --sketch-face: "✧  ✧ ⋆ ✧" "( •⌄• ू )✧" "✧ ⋆ ✧ ✧ ";
 }
 
 /* inverted black & white */
 html[data-theme="paper"] {
-  --color-canvas: #e0e0d6; /*f5f5f4*/
+  --color-canvas: #f3f2e1; /*f4e8cb or 194ec0 or 171b46*/
+  /* the first stop IS --color-canvas, so the gradient starts from the flat
+     colour painted underneath it and the two can never disagree. two dials:
+     the angle (0deg = bottom-to-top, 180deg = top-to-bottom, 165 is a gentle
+     diagonal) and the stop percentages, which slide where the shift happens.
+     keep the stops close in value — this sits behind the particle canvas and
+     under every card, and a loud gradient fights both. */
+  /* --canvas-gradient: linear-gradient(
+    180deg,
+    #f3f2e1 0%,
+    #fffee3 50%,
+    #f3f2e1 100%
+  ); */
+  --color-surface: #ffffff;
+  --color-ink: #12142b;
+  --color-muted: #193481; 
+  --color-line: #9d9d9d;
+  --color-accent: #4f7df1;
+  --color-card-accent: #12142b; /* hover text on the big section cards */
+  --color-progress: #4f7df1; 
+  --sketch-saturation: 1;
+  --color-sketch-noise: #1261ea14; 
+  --color-sketch-material: #9fbafd; 
+  --color-sketch-ambient: #7b90c4; 
+  --color-sketch-key: #ffffff;
+  --color-hover: #f8f7e5; 
+  --color-tint: #ded9c4;
+  --color-shadow: #98a9d8;
+  --sticker-filter: none;
+  /* --sketch-face: "✧  ✧ ✦ ✧" "⁎( ˘ω˘ )⁎⁺" "dive in" "✧ ✦ ✧ ✧ "; */
+  /* --sketch-face: "𓆝 𓆟 𓆞"; "˚✧₊⁎( ˘ω˘ )⁎⁺˳✧༚" "dive in"; */
+   /* --sketch-face: "✦" "✧ 𓆟 ✧" "✦"; 𓆓 */ 
+   /* --sketch-face: "◕ ‿ ◕"; */
+   --sketch-face: "✧" "dive in" "✧";
+     /* --sketch-face: "✧ ✦ ✧" "⁎( ˘ω˘ )⁎⁺" "✧ ✦ ✧"; */
+}
+
+
+/* html[data-theme="paper"] { fun blue colors!
+  --color-canvas: #f3f2e1; 
+  --color-surface: #ffffff;
+  --color-ink: #12142b;
+  --color-muted: #4f7df1; 
+  --color-line: #9d9d9d;
+  --color-accent: #4f7df1;
+  --color-card-accent: #12142b;
+  --color-progress: #12142b; 
+  --sketch-saturation: 1;
+  --color-sketch-noise: #1cac3b16; 
+  --color-sketch-material: #9fbafd; 
+  --color-sketch-ambient: #7b90c4; 
+  --color-sketch-key: #ffffff;
+  --color-hover: #f7f7ec; 
+  --color-tint: #ded9c4;
+  --color-shadow: #c1cdec;
+  --sticker-filter: none;
+} */
+
+/* inverted black & white */
+html[data-theme="LB"] {
+  --color-canvas: #e6e5d3; /*f5f5f4*/
   --color-surface: #ffffff;
   --color-ink: #0a0a0a;
-  --color-muted: #525252;
+  --color-muted: #525252; 
   --color-line: #0a0a0a;
-  --color-accent: #5f66eb;
+  --color-accent: #1279d3;
+  --color-card-accent: #1279d3; /* hover text on the big section cards */
   --color-progress: #575758; /* left-margin scroll indicator */
   --sketch-saturation: 1;
   /* mid-grey material, not the near-black --color-accent: on a light page
      the word still needs range between lit and shadowed faces */
-  --color-sketch-noise: #c3c6ff;
-  --color-sketch-material: #8c92ff; /* #4a56ff;*/
-  --color-sketch-ambient: #8c92ff; /*#a4b1ff;*/
+  --color-sketch-noise: #dcf3ff; /*#9ed1fd*/
+  --color-sketch-material: #424e53; /* #4a56ff;*/
+  --color-sketch-ambient: #4d4848; /*#a4b1ff;*/
   --color-sketch-key: #ffffff;
-  --color-hover: rgb(200, 203, 255); /* darken, since the page is light */
-  --color-shadow: rgba(71, 71, 71, 0.831);
+  --color-hover: #dcf3ff; /* darken, since the page is light */
+  --color-tint: rgba(18, 121, 211, 0.6); /* the accent blue, at 60% */
+  --color-shadow: #d3cebd;
   --sticker-filter: none;
-  --sketch-face: "⋆ ✦ ⋆" " (ﾉ◕ヮ◕)ﾉ" "⋆ ✦ ⋆";
+  /* --sketch-face: "⋆ ✦ ⋆" " (ﾉ◕ヮ◕)ﾉ" "⋆ ✦ ⋆"; */
+  /* --sketch-face: "","⋆ ✦ ⋆" "dive in" "⋆ ✦ ⋆"; */
+  /* --sketch-face: "⋆ ✦ dive in ✦ ⋆"; */
+  --sketch-face: "✧ ✦ ✧" "⁎( ˘ω˘ )⁎⁺" "dive in" "✧ ✦ ✧";
 }
 
 /* the original green look, rebuilt from tokens */
@@ -137,6 +305,7 @@ html[data-theme="green"] {
   --color-muted: #a3a3a3;
   --color-line: #ffffff;
   --color-accent: #4ade80;
+  --color-card-accent: #4ade80; /* hover text on the big section cards */
   --color-progress: #ffffff; /* left-margin scroll indicator */
   --sketch-saturation: 1;
   /* green word, darker green in shadow */
@@ -145,6 +314,7 @@ html[data-theme="green"] {
   --color-sketch-ambient: #14532d;
   --color-sketch-key: #ffffff;
   --color-hover: rgba(74, 222, 128, 0.12); /* accent-tinted lighten */
+  --color-tint: rgba(74, 222, 128, 0.55); /* the accent green, at 55% */
   --color-shadow: rgba(20, 66, 0, 0.831);
   --sketch-face: "✧ ✦ ✧" "⁎( ˘ω˘ )⁎⁺" "✧ ✦ ✧";
 }
@@ -202,6 +372,14 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: var(--color-canvas);
+  background-image: var(--canvas-gradient);
+  /* fixed, so the gradient is mapped to the VIEWPORT and not to the document.
+     body is as tall as the whole page, so without this a two-stop gradient is
+     stretched over several thousand pixels and you only ever see a sliver of
+     it on screen at a time — it reads as a flat colour that slowly drifts.
+     fixed also lines it up with the p5 particle canvas, which is itself
+     position:fixed. swap to `scroll` if you WANT it to travel with the page. */
+  background-attachment: fixed;
 }
 
 /* the app shell must fill the viewport, otherwise the footer can't sit
@@ -219,10 +397,25 @@ body {
   font-style: normal;
 }
 
+/* the section indicator in the left margin (FancyTop.tsx) and nothing else, so
+   this font-size is its one size dial. the dots stack vertically because the
+   box around them is only w-10 — far narrower than a single glyph at this size
+   — so each one wraps onto its own line. that also means raising this makes the
+   column TALLER as well as wider: the glyphs are ~1.1x the font size apart, and
+   past roughly 7em four of them no longer fit the h-4/10 the box is given. */
 #bytesized-medium {
   font-family: "Bytesized", sans-serif;
-  font-size: 5em;
+  font-size: 6.5em;
   font-style: normal;
+
+  /* the cards' hard offset shadow, same 14px and same 0 blur as --shadow-hard
+     above (keep the two in sync) — but text-shadow, not box-shadow. box-shadow
+     follows the element's BOX, and this h2 has no background, so it would paint
+     a solid rectangle floating behind the dots instead of tracing the glyphs.
+     the offsets are NEGATIVE because the h2 carries rotate-180 in FancyTop.tsx
+     and a transform takes the shadow with it: +14px +14px would come out up and
+     to the LEFT, mirroring every card on the page. */
+  text-shadow: -6px -6px 0 var(--color-muted); /* shadow for progress */
 }
 
 

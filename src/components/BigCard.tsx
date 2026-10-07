@@ -29,7 +29,15 @@ export default function BigCard({project}: BigCardProps) {
           </h2>
           {/* overflow-y-auto, not -scroll: -scroll paints an empty scrollbar
               gutter on short descriptions that don't actually overflow. */}
-          <p className="max-mt-4 mb-10 overflow-y-auto text-balance text-muted max-h-80">
+          {/* text-ink at 75%, not text-muted: this is the long version of the
+              short_description on the list card (Card.tsx), and that one is
+              `text-ink opacity-75` — so clicking through to the overlay no
+              longer changes the colour of the text you were just reading.
+              the two are NOT the same value: --color-muted is its own grey per
+              theme, while ink-at-75 is the page's text colour let down toward
+              whatever the card is sitting on, which is what keeps the pair
+              consistent across all four themes rather than only by luck. */}
+          <p className="max-mt-4 mb-10 overflow-y-auto text-balance text-ink opacity-75 max-h-80">
             {project.description}
           </p>
         </div>

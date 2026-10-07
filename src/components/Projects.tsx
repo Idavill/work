@@ -23,11 +23,17 @@ export default function Projects({ title, id, ref }: ProjectsProps
           overflow-hidden on this same element clips the paragraph as soon as
           the card is narrow enough to wrap it onto more lines. */}
       <div ref={ref} id={id} onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}
-      className=" md:mb-0 mb-10 w-full cursor-default h-auto md:h-[clamp(250px,33vh,410px)] hover:bg-hover transition-colors duration-600 bg-canvas backdrop scroll-mt-30 mx-auto max-w-lg overflow-hidden border border-line rounded-none  shadow-hard md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2">
+      // one class covers the whole card: text colour inherits, so the h2 and
+      // the blurb below both follow, on the transition already here for the bg
+      className=" hover:text-card-accent md:mb-0 mb-10 w-full cursor-default h-auto md:h-[clamp(250px,33vh,410px)] hover:bg-hover transition-colors duration-600 bg-canvas backdrop scroll-mt-30 mx-auto max-w-lg overflow-hidden border border-line rounded-none  shadow-hard md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2">
           <div className="md:flex h-full">
             {/* <div className="md:shrink-0">
             </div> */}
-            <div className="flex flex-col justify-around min-w-0 p-5 md:p-8 xl:p-12 h-full">
+            {/* p-8 below xl, matching About — was p-5, which left this card's
+                text 12px closer to the border than About's on a phone. the
+                card is h-auto at that width, so the extra padding just makes
+                it taller rather than squeezing the blurb. */}
+            <div className="flex flex-col justify-around min-w-0 p-8 xl:p-12 h-full">
               <div className="flex opacity-0 text-muted flex-row justify-between">
                 {/* <Bs2Circle className="flex self-end"/> */}
                 <p>Projects</p>

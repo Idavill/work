@@ -18,6 +18,9 @@ export default function Header({headerOpacity, selectedProject}: HeaderProps) {
         <header
           className="flex flex-row place-content-around fixed top-0 inset-x-0 z-4 p-4 transition-colors duration-300"
         >
+          {/* the top-of-page scrim is NOT here. it used to be, and being a
+              child of this fixed header is exactly what made it follow the
+              screen — it lives in App.tsx now, in the document. */}
           <div
             className="flex md:w-fit justify-center rounded-none border p-1"
             style={{

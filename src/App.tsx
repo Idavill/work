@@ -97,9 +97,48 @@ function App() {
   // replace the 1fr row.
   // min-w-full, not min-w-screen: 100vw includes the scrollbar width, so it
   // forced a phantom horizontal scrollbar whenever one was showing.
+  // the root div below is the page backdrop — it covers the whole viewport in
+  // an opaque bg-canvas, so anything painted on <body> underneath it is never
+  // seen. that is why --canvas-gradient is applied HERE and not only in the
+  // body rule in index.css.
+  // bg-[image:...] because bg-canvas is a background-COLOR and a gradient is a
+  // background-IMAGE: different properties, so they stack — the flat colour
+  // underneath, the gradient over it. a theme that sets no --canvas-gradient
+  // resolves to `none` and looks untouched.
+  // bg-fixed maps the gradient to the viewport rather than to the document,
+  // which is thousands of pixels tall — without it you only ever see a sliver
+  // of the ramp and it reads as a flat colour.
   return (
-    <div className={`${color} flex flex-col min-h-screen min-w-full bg-canvas z-3 `}>
+    <div className={`${color} flex flex-col min-h-screen min-w-full bg-canvas bg-[image:var(--canvas-gradient)] bg-fixed z-3 `}>
       <div className={`fixed inset-0 ${selectedProject? "backdrop-grayscale blur-xl" : "blur-sm"} z-2`} />
+      {/* scrim at the very top of the DOCUMENT: a band of the page colour that
+          fades to nothing on the way down, so the particle background starts
+          below the nav rather than running right up behind it. it scrolls away
+          with the page — it is not pinned to the viewport.
+
+          absolute with NO positioned ancestor, which is load-bearing twice:
+          the containing block falls back to the initial one at the document
+          origin, so top-0 means the top of the SITE and the band scrolls off
+          normally (fixed, or absolute inside the fixed <header> where this
+          first lived, is what made it follow the screen) — and it means the
+          root div above must stay unpositioned. adding `relative` there would
+          activate its z-3, turn it into a stacking context and paint its
+          opaque bg-canvas straight over the p5 particle canvas.
+
+          z-1 to match that canvas (fixed, z-index 1, mounted from a container
+          that precedes #root in index.html): equal z-index, so DOM order
+          decides and this wins — above the particles, below main's z-2
+          content and the header's z-4.
+
+          to-canvas/0, not to-transparent: the bare `transparent` keyword is
+          rgba(0,0,0,0), i.e. transparent BLACK, so the browser interpolates
+          toward black and the fade picks up a grey cast that is obvious on the
+          light themes. the /0 alpha modifier holds the hue and moves only the
+          alpha. h-32 is the length of the fade. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 z-1 h-32 bg-linear-to-b from-canvas to-canvas/0"
+      />
       <Header headerOpacity={headerOpacity} selectedProject={!!selectedProject}/>
       {/* p-4 below md: p-10 ate 80px of a 393px phone viewport. and w-full,
           not w-100 — w-100 is a FIXED 400px, so on any phone the content column

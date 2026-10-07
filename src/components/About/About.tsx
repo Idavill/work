@@ -27,7 +27,13 @@ export default function About({ title, id, ref, topics }: AboutProps){
         id={id}
         onMouseEnter={()=>setHover(true)}
         onMouseLeave={()=>setHover(false)}
-        className="cursor-default md:mb-0 w-full h-auto md:h-[clamp(440px,55vh,740px)] bg-canvas hover:bg-hover transition-colors duration-600 backdrop scroll-mt-[25vh] mx-auto max-w-lg overflow-hidden border border-line rounded-none shadow-hard md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2">
+        // hover:text-card-accent, not group-hover: THIS is the element being
+        // hovered, and text colour inherits — so one class here carries the
+        // h2 and TopDescription's paragraph over together, riding the
+        // transition-colors duration-600 that is already here for the bg.
+        // `group` is only for the descendants that set a colour of their own
+        // and therefore do not inherit: MiniHeadlines and SkillList's tags.
+        className="group hover:text-card-accent cursor-default md:mb-0 w-full h-auto md:h-[clamp(440px,55vh,740px)] bg-canvas hover:bg-hover transition-colors duration-600 backdrop scroll-mt-[25vh] mx-auto max-w-lg overflow-hidden border border-line rounded-none shadow-hard md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2">
           <div className="md:flex h-full">
             <div className="md:shrink-0"/>
             <div className="flex flex-col justify-around p-8 xl:p-12 h-full">
