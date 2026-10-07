@@ -21,8 +21,8 @@
         "short_description": "Inspired by the DIY spirit of communities in Seattle, this tools seeks to make it easy to share events with your friends spottet in the urban environment using an opensource foundation",
         "description": "Where do you go to meet people and submerge yourself in culture, when you are in a new place? This project encourages the act of staying present while walking around your local area, noticing any community efforts, potlucks, park meetups, concerts or other gatherings while making it easy to organize and share with friends. You go from poster -> picture -> shared calendar event in a few minutes.",
         "images": {
-            "main":["images/poser_icon.webp"],
-            "fallback":["images/poser_icon-small.jpg"]
+            "main":["images/poser_icon.webp","images/veraproject_poster.webp","images/process_poser.webp"],
+            "fallback":["images/poser_icon-small.jpg","images/veraproject_poster-small.jpg","images/process_poser-small.jpg"]
         }
     },
     {
@@ -37,33 +37,9 @@
             "fallback":["images/sentinel-small.jpg","images/3d_model_bienale-poster.jpg","images/uf-s-4-small.jpg"]
         }
     },
-    {
-        "id":"675f9d70-3f4a-11ee-be56-0242ac120002",
-        "number":4,
-        "tags":["react","three.js","design tool","architecture"],
-        "title": "IDEADOTS 3D-LAB",
-        "short_description": "Web application for idea generation. Place your ideas in 3D space, connect them, and watch your thought network grow organically as you explore relationships between concepts.",
-        "description": "Ideadots 3D-Lab is an experimental tool for visual thinking and idea mapping. Place your ideas in 3D space, connect them, and watch your thought network grow organically as you explore relationships between concepts. Whether brainstorming, planning projects, or studying complex topics, Ideadots Lab helps you see connections and patterns that traditional note-taking methods might miss. Dive into your ideas from new angles and discover insights through spatial organization.",
-        "images": {
-            "main":["images/dots_1.webp","images/dots_4.webp","images/dots_3.webp"],
-            "fallback":["images/dots_1-small.jpg","images/dots_4-small.jpg","images/dots_3-small.jpg"]
-        }
-    },
-    {
-        "id":"3c2f7e50-3f4a-11ee-be56-0242ac120002",
-        "number":5,
-        "tags":["python","supabase","data analysis","research"],
-        "title": "FLAX IN NORTHERN JUTLAND",
-        "short_description": "Data analysis and historical research. By analyzing shipping records from 1650 to 1800, we aim to uncover patterns of trade, assess the scale and significance of textile imports, and situate these findings within their broader historical and economic context.",
-        "description": "This project explores the historical journey of flax as a key commodity in textile production, focusing on its movement from the Baltic region to northern Jutland. By analyzing shipping records from 1650 to 1800, we aim to uncover patterns of trade, assess the scale and significance of textile imports, and situate these findings within their broader historical and economic context. The research will involve meticulous data cleaning and the development of insightful visualizations to illuminate the connections between maritime trade and regional textile manufacturing.",
-        "images": {
-            "main":["images/flax-s_20.jpg"],
-            "fallback":["images/flax-s_20-small.jpg"]
-        }
-    },
-    {
+        {
         "id":"9e4a1c88-5d2b-4f17-a3c6-7b81e0f4d255",
-        "number":6,
+        "number":4,
         "tags":["hardware","raspberry pi","3d printing","linux"],
         "title": "CYBERDECK",
         "short_description": "PLACEHOLDER TEXT. A handheld field computer built from scratch: a Raspberry Pi, a mechanical keyboard and a 3D-printed shell, assembled into something you can actually take outside and work on.",
@@ -71,6 +47,30 @@
         "images": {
             "main":["images/cyber.webp"],
             "fallback":["images/cyber-small.jpg"]
+        }
+    },
+    {
+        "id":"675f9d70-3f4a-11ee-be56-0242ac120002",
+        "number":5,
+        "tags":["react","three.js","design tool","architecture"],
+        "title": "IDEADOTS 3D-LAB",
+        "short_description": "Web application for idea generation. Place your ideas in 3D space, connect them, and watch your thought network grow organically as you explore relationships between concepts.",
+        "description": "Ideadots 3D-Lab is an experimental tool for visual thinking and idea mapping. Place your ideas in 3D space, connect them, and watch your thought network grow organically as you explore relationships between concepts. Whether brainstorming, planning projects, or studying complex topics, Ideadots Lab helps you see connections and patterns that traditional note-taking methods might miss. Dive into your ideas from new angles and discover insights through spatial organization.",
+        "images": {
+            "main":["images/dots_4.webp","images/dots_3.webp","images/dots_1.webp"],
+            "fallback":["images/dots_4-small.jpg","images/dots_3-small.jpg","images/dots_1-small.jpg"]
+        }
+    },
+    {
+        "id":"3c2f7e50-3f4a-11ee-be56-0242ac120002",
+        "number":6,
+        "tags":["python","supabase","data analysis","research"],
+        "title": "FLAX IN NORTHERN JUTLAND",
+        "short_description": "Data analysis and historical research. By analyzing shipping records from 1650 to 1800, we aim to uncover patterns of trade, assess the scale and significance of textile imports, and situate these findings within their broader historical and economic context.",
+        "description": "This project explores the historical journey of flax as a key commodity in textile production, focusing on its movement from the Baltic region to northern Jutland. By analyzing shipping records from 1650 to 1800, we aim to uncover patterns of trade, assess the scale and significance of textile imports, and situate these findings within their broader historical and economic context. The research will involve meticulous data cleaning and the development of insightful visualizations to illuminate the connections between maritime trade and regional textile manufacturing.",
+        "images": {
+            "main":["images/flax-s_20.jpg"],
+            "fallback":["images/flax-s_20-small.jpg"]
         }
     }
 ],

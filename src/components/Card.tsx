@@ -22,7 +22,21 @@ export default function Card({ project, setOpen }: CardProps) {
 
   return (
       <div onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)} key={project.id}
-      className={`group flex mb-12 justify-center m-3 w-full border border-line cursor-pointer hover:bg-hover transition-colors duration-600 bg-canvas backdrop scroll-mt-30 mx-auto max-w-lg overflow-hidden rounded-none shadow-hard md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2`}
+      // hover:scale-[1.02] lifts the whole card — image, text, tags, border and
+      // the hard shadow all together, since a transform scales the rendered
+      // element rather than re-laying anything out. that also means it costs no
+      // layout: the cards below do not shift, and the 1% that spills past each
+      // side is swallowed by main's p-4/md:p-10 padding, so it never pushes a
+      // horizontal scrollbar.
+      //
+      // `transition` and not `transition-colors`: the latter only lists the
+      // colour properties, so the scale would have snapped instantly while the
+      // background faded. tailwind's bare `transition` covers transform and
+      // colour both — and not width/height, so there is still nothing here that
+      // can animate layout. duration-600 is shared with the bg on purpose, so
+      // the lift and the wash move as one gesture; split them if the scale
+      // feels slow on its own.
+      className={`group flex mb-12 justify-center m-3 w-full border border-line cursor-pointer hover:bg-hover hover:scale-[1.02] transition duration-600 bg-canvas backdrop scroll-mt-30 mx-auto max-w-lg overflow-hidden rounded-none shadow-hard md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2`}
       onClick={() => setOpen(true)}
       >
       {/* w-full min-w-0: this is a flex item of the card above, and a flex
@@ -58,10 +72,33 @@ export default function Card({ project, setOpen }: CardProps) {
             past 100 clips the highlights to flat white — if it starts looking
             washed out, pair it with a bit more contrast rather than winding
             the brightness back down. */}
+        {/* the filter is written out here rather than as utility classes
+            because it is one chain of five functions with css variables inside
+            it, and `filter` does not stack: a second filter utility replaces
+            the first rather than adding to it, so the idle and hover states
+            have to be two complete chains, not a base plus an override.
+
+            idle is the duotone described above, now driven by tokens:
+              grayscale   flattens the photo to luminance, so every project
+                          starts from the same neutral base whatever colours it
+                          actually contains — this is what makes one hue work
+                          across all of them
+              sepia       re-tints that grey to a single warm hue (~40deg),
+                          which is the only thing hue-rotate has to spin
+              hue-rotate  --tint-hue, THE colour knob
+              saturate    --tint-strength, how loud it is
+              contrast    kept at the old 0.5 so the idle look is unchanged
+                          apart from the colour
+
+            hover is the unfiltered photo, warmed slightly — note it has to
+            repeat nothing, since it replaces the whole chain. */}
         <div
-          className={`md:shrink-0 h-48 w-full bg-cover bg-center md:h-auto md:w-80 xl:w-96 2xl:w-[26rem] brightness-100 transition-[filter] duration-600 ${hover? " brightness-120 contrast-80" : "grayscale contrast-50"}`}
+          className={`md:shrink-0 h-48 w-full bg-cover bg-center md:h-auto md:w-80 xl:w-96 2xl:w-[26rem] transition-[filter] duration-600`}
           style={{
             backgroundImage: `url(${project.images.main[0].replace(/\.[^.]+$/, "-poster.webp")})`,
+            filter: hover
+              ? "brightness(1.2) contrast(0.8)"
+              : "grayscale(1) sepia(1) hue-rotate(var(--tint-hue)) saturate(var(--tint-strength)) contrast(0.5)",
           }}
         >
           <img

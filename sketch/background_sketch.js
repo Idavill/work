@@ -4,7 +4,7 @@
 // const { read } = require("fs");
 
 // resulting values very close together
-let xScale = 0.02;
+let xScale = 0.005;
 let yScale = 0.004;
 
 let gap;

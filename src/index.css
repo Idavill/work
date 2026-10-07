@@ -52,15 +52,11 @@
      themes lighten, which is just the sign of the overlay. */
   --color-hover: rgba(255, 255, 255, 0.06);
 
-  /* wash laid over every project image (card thumbnails and the carousel
-     inside the modal). it is painted by a sibling div with
-     `bg-tint mix-blend-color`, which keeps the photo's LIGHTNESS and takes
-     its hue+saturation from this token — so one colour here repaints all
-     the project shots at once, like a duotone.
-       opaque colour  = full recolour
-       rgba with alpha = partial tint, the alpha is the dial
-       transparent     = off, images render untouched
-     each theme sets its own below. */
+  /* --color-tint is NOT what tints the images. it describes a `bg-tint
+     mix-blend-color` overlay that no longer exists anywhere in src/ — the
+     duotone is built from filters now, see --tint-hue below. the token is
+     kept only because every theme block still sets a value for it; nothing
+     reads them. safe to delete the lot. */
   --color-tint: #ffffff;
 
   /* hard-edged offset drop shadow: a solid block behind the card, no blur.
@@ -143,6 +139,37 @@
      (greyscale alone lands in the mid-tones and reads muddy on both, hence
      the brightness push in opposite directions per theme.) */
   --sticker-filter: none;
+
+  /* --- the duotone on the project thumbnails ------------------------------
+     every project photo is flattened to greyscale and then re-tinted a single
+     hue, so the card list reads as one set rather than six unrelated pictures.
+     the filter chain itself lives in Card.tsx; these are its two dials.
+
+     --tint-hue is THE colour knob. the chain greyscales first and then applies
+     sepia, which lands the image on a warm hue of about 40deg — so hue-rotate
+     is measured FROM there, not from 0. the angle you want is roughly
+     (target hue - 40):
+       red          ~0deg   -> -40deg
+       orange       ~30deg  -> -10deg
+       yellow       ~55deg  ->  15deg
+       green        ~140deg -> 100deg
+       teal         ~180deg -> 140deg
+       blue         ~210deg -> 170deg   <- current
+       purple       ~270deg -> 230deg
+       pink         ~320deg -> 280deg
+     it wraps, so 190deg and -170deg are the same colour.
+
+     --tint-strength is how loud it is. 0 leaves the photo plain greyscale and
+     the hue does nothing at all; 1 is sepia's own strength; past ~2.5 the
+     midtones start to posterise. it multiplies SATURATION, so it can only
+     amplify the single hue sepia produced — it can never bring a photo's own
+     colours back. that is the point: the look does not depend on what each
+     photo happens to contain.
+
+     both can be overridden per theme in the blocks below, so a light and a
+     dark theme can carry different tints. */
+  --tint-hue: 185deg;
+  --tint-strength: 0.7;
 
   /* an optional gradient for the PAGE backdrop, painted on <body> below.
      it is deliberately not part of --color-canvas: that token is a real
@@ -233,13 +260,13 @@ html[data-theme="paper"] {
   --color-card-accent: #12142b; /* hover text on the big section cards */
   --color-progress: #4f7df1; 
   --sketch-saturation: 1;
-  --color-sketch-noise: #1261ea14; 
+  --color-sketch-noise: #aac1e914; /*1261ea14*/
   --color-sketch-material: #9fbafd; 
   --color-sketch-ambient: #7b90c4; 
   --color-sketch-key: #ffffff;
-  --color-hover: #f8f7e5; 
+  --color-hover: #f0f3f7; 
   --color-tint: #ded9c4;
-  --color-shadow: #98a9d8;
+  --color-shadow: #9db0e1; /*98a9d8*/
   --sticker-filter: none;
   /* --sketch-face: "✧  ✧ ✦ ✧" "⁎( ˘ω˘ )⁎⁺" "dive in" "✧ ✦ ✧ ✧ "; */
   /* --sketch-face: "𓆝 𓆟 𓆞"; "˚✧₊⁎( ˘ω˘ )⁎⁺˳✧༚" "dive in"; */

@@ -100,7 +100,45 @@ const FILL = 1.0; //0.68 original
 // canvas (which is allowed to spill, so it will sit over whatever is below).
 const PANEL_PAD = 0.2;
 
+// --- sparkle ---------------------------------------------------------------
+// tiny white cubes that pop into existence ON TOP of the face, swell, and
+// vanish. they are their own geometry drawn in a second pass after the letters,
+// not the letter-cubes restyled — which is what lets them be pure white and a
+// fraction of a cube in size, independent of whatever the face is doing.
+//
+// white, literally 255, and emissive rather than lit. an emissive material is
+// self-lit: it ignores the orbiting key light entirely, so a sparkle reads at
+// full brightness no matter which way the slab happens to be facing at that
+// moment. a normal material would be shaded along with everything else and the
+// glints would dim and brighten with the light instead of twinkling on their
+// own.
+//
+//   SPAWN  new sparkles per frame, on average. fractional on purpose — 0.6 at
+//          50fps is roughly one every other frame. push it past ~3 and the face
+//          stops twinkling and starts strobing.
+//   LIFE   how many frames one lasts, start to finish. longer reads as a slow
+//          shimmer, shorter as a camera flash.
+//   SIZE   cube size at the peak, as a fraction of a letter-cube. this is the
+//          "tiny" dial — at 0.45 a sparkle is under half a letter cube, so it
+//          sits on the face as a speck rather than a lump. the scale animation
+//          runs from 0 up to this and back, so they grow out of nothing.
+//   FRONT  how far in front of the slab they sit, in letter-cube units. the
+//          letters are RES*2 deep and centred on z=0, so their front face is at
+//          +RES — anything less than 1 here buries the sparkles inside them.
+const SPARKLE_SPAWN = 0.3;
+const SPARKLE_LIFE = 80;
+const SPARKLE_SIZE = 0.4;
+const SPARKLE_FRONT = 1;
+
 let cells = [];
+// the sparkles currently alive: {x, y, end}. a short list rather than a flag
+// per cell, because there are only ever a handful of these against thousands of
+// cells, and the second pass should cost the handful and not the thousands.
+// the POSITION is copied at spawn time, not the cell index — cells get rebuilt
+// whenever RES retunes or the theme swaps the face, and an index would then
+// point at a different cube (or off the end). buffer-centred coordinates stay
+// meaningful across all of that.
+let sparkles = [];
 let gfx;
 
 // bounding box of the sampled ink, in the same buffer-centred coords as cells,
@@ -445,6 +483,55 @@ function s1(p) {
       p.box(RES * 0.9, RES * 0.9, RES * 2);
 
       p.pop();
+    }
+
+    // --- the sparkles, a second pass over the finished face -----------------
+    // spawn first. the loop shape is what lets SPAWN be fractional: a whole
+    // number places that many, and the leftover fraction is the chance of one
+    // more. the position is lifted from a random CELL rather than from anywhere
+    // in the box, so sparkles only ever land on the ink — on the face itself,
+    // never floating in the empty space around it.
+    let toSpawn = SPARKLE_SPAWN;
+    while (cells.length > 0 && toSpawn > 0) {
+      if (toSpawn < 1 && Math.random() > toSpawn) break;
+      const c = cells[(Math.random() * cells.length) | 0];
+      sparkles.push({ x: c.x, y: c.y, end: p.frameCount + SPARKLE_LIFE });
+      toSpawn -= 1;
+    }
+
+    if (sparkles.length) {
+      // emissive = self-lit. the box ignores the orbiting key light and comes
+      // out flat 255 white whichever way the slab is turned.
+      p.emissiveMaterial(255, 255, 255);
+
+      // draw and prune in one pass: survivors are written back over the front
+      // of the array and the length is trimmed at the end, so no garbage is
+      // allocated per frame the way filter() would.
+      let kept = 0;
+      for (let i = 0; i < sparkles.length; i++) {
+        const s = sparkles[i];
+        const left = s.end - p.frameCount;
+        if (left <= 0) continue;
+        sparkles[kept++] = s;
+
+        // 0 -> 1 -> 0 across its life. sin, so it grows out of nothing and
+        // shrinks back to nothing; a plain countdown would have each speck
+        // appear full-size and only taper, which reads as a glitch.
+        const pulse = Math.sin((left / SPARKLE_LIFE) * Math.PI);
+        const size = RES * SPARKLE_SIZE * pulse;
+
+        p.push();
+        // the z is what puts them ON TOP: the letter cubes are RES*2 deep and
+        // centred on z=0, so this clears their front face
+        p.translate(s.x, s.y, RES * SPARKLE_FRONT);
+        p.box(size);
+        p.pop();
+      }
+      sparkles.length = kept;
+
+      // emissive is sketch-wide state and push/pop does not scope it, so
+      // without this the whole face would render self-lit white next frame
+      p.emissiveMaterial(0, 0, 0);
     }
     p.pop();
   };
