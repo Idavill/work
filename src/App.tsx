@@ -186,7 +186,7 @@ function App() {
       {/* <BackToTop selectedProject={!!selectedProject}/> */}
       {/* no selectedProject gate: the theme switcher stays reachable even with
           a project modal open */}
-      <ThemeToggle />
+      {/* <ThemeToggle /> */}
     </div>
   );
 }
