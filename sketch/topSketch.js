@@ -62,8 +62,8 @@ const FONT_STACK =
 // than one line, to its HEIGHT too), so a face with more glyphs or more lines
 // is drawn smaller rather than wider — box count stays in the same ballpark
 // across faces instead of growing with their length.
-const BUF_W = 400;
-const BUF_H = 400;
+const BUF_W = 700;
+const BUF_H = 700;
 
 // --- the two size dials -----------------------------------------------------
 //

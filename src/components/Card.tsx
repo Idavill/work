@@ -36,7 +36,12 @@ export default function Card({ project, setOpen }: CardProps) {
       // can animate layout. duration-600 is shared with the bg on purpose, so
       // the lift and the wash move as one gesture; split them if the scale
       // feels slow on its own.
-      className={`group flex mb-12 justify-center m-3 w-full border border-line cursor-pointer hover:bg-hover hover:scale-[1.02] transition duration-600 bg-canvas backdrop scroll-mt-30 mx-auto max-w-lg overflow-hidden rounded-none shadow-hard md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2`}
+      // snap-start: the page uses mandatory snapping (see index.css), and the
+      // run of project cards is the longest stretch on it. without a target of
+      // their own the browser would reach past them to #projects or #contact
+      // and drag you off whichever card you were reading. with one, the list
+      // steps card by card instead.
+      className={`group flex mb-12 justify-center m-3 w-full border border-line cursor-pointer hover:bg-hover hover:scale-[1.02] transition duration-600 bg-canvas backdrop scroll-mt-30 snap-start mx-auto max-w-lg overflow-hidden rounded-none shadow-hard md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2`}
       onClick={() => setOpen(true)}
       >
       {/* w-full min-w-0: this is a flex item of the card above, and a flex

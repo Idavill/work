@@ -10,7 +10,7 @@ import Footer from "./composition/Footer";
 import Header from "./composition/Header";
 import ContactSectionCard from "./components/Contact";
 import BackToTop from "./components/BackToTop";
-import ThemeToggle from "./components/ThemeToggle";
+import CornerCube from "./components/CornerCube";
 import About from "./components/About/About";
 import Projects from "./components/Projects";
 // draggable fruit stickers — parked for now, uncomment this and the
@@ -156,7 +156,7 @@ function App() {
             <span className="loading justify-center loading-dots loading-xl absolute z-20"></span>
           </div>
         <FancyTop ref={topRef} title={"FancyTop"} id="top" selectedProject={!!selectedProject} currentSection={currentSection}/>
-        <About ref={aboutRef} title={"IDA VILLADSEN"} id="about" topics={aboutJson.topics} content={aboutJson.content}/>
+        <About ref={aboutRef} title={"ABOUT ME"} id="about" topics={aboutJson.topics} content={aboutJson.content}/>
         <Projects ref={projectsRef} title={"PROJECTS"} id="projects" skills={projects.skills} content={projects.content}/>
           {projects.projects.map((project) => (
             <Card
@@ -184,9 +184,11 @@ function App() {
 
       <Footer selectedProject={!!selectedProject}/>
       {/* <BackToTop selectedProject={!!selectedProject}/> */}
-      {/* no selectedProject gate: the theme switcher stays reachable even with
-          a project modal open */}
+      {/* no selectedProject gate: the corner cube stays reachable even with
+          a project modal open. the theme switcher it replaced is still in
+          src/components/ThemeToggle.tsx if the cycling is ever wanted back. */}
       {/* <ThemeToggle /> */}
+      <CornerCube />
     </div>
   );
 }
