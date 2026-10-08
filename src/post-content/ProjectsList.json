@@ -18,8 +18,8 @@
         "number":2,
         "tags":["rust","qwen","image processing"],
         "title": "POSER",
-        "short_description": "Inspired by the DIY spirit of communities in Seattle, this tools seeks to make it easy to share events with your friends spottet in the urban environment using an opensource foundation.",
-        "description": "Where do you go to meet people and submerge yourself in culture, when you are in a new place? This project encourages the act of staying present while walking around your local area, noticing any community efforts, potlucks, park meetups, concerts or other gatherings while making it easy to organize and share with friends. You go from poster -> picture -> shared calendar event in a few minutes.",
+        "short_description": "Inspired by the DIY spirit of communities in Seattle, this tools makes it easy to share events with your real friends. It uses image processing to easily scan and organise events spottet on posters in the urban environment using opensource tools.",
+        "description": "This project encourages staying present while walking around your local area, where you might notice community efforts, potlucks, park meetups, concerts or other gatherings making it easy to spread the words to your friends. The VLM used to scan the images runs locally, but can run from any computer in your network, distributing the workload.",
         "images": {
             "main":["images/poser_icon.webp","images/veraproject_poster.webp","images/process_poser.webp"],
             "fallback":["images/poser_icon-small.jpg","images/veraproject_poster-small.jpg","images/process_poser-small.jpg"]
@@ -42,8 +42,8 @@
         "number":4,
         "tags":["hardware","rust","concept"],
         "title": "CYBERDECK",
-        "short_description": "In this project I want to use technology in order to transform my own toy hairbrush with mirror as a representation of deeply rooted norms and gendered expectations  of beauty into a device about connectivity and community as an antithesis to our collective addiction and isolation.",
-        "description": "As technology is continuously tweaked to elevate user engagement, real addiction has been observed in humans, and recently a legal precedent was set in a US court for the addictive design of Meta and Google’s platforms, whose purported purpose was to connect people. Meanwhile, beauty content is making it more difficult to escape one’s own reflection as it tries to sell invasive ideas of beauty, lengthy routines and expensive treatments to adults and even kids. Grooming and beauty rituals used to be a social event shared in tribes and bedroom chambers. However, now it is done in solitude in front of a screen. The addictive nature of the platforms means that we are  at the mercy of the echos bouncing inside a personalized reflective box and whatever take on natural bodies they nudge us to internalize. In this project, I want to use technology in order to transform my own toy hairbrush with mirror as a representation of deeply rooted norms and gendered expectations of beauty into a device about connectivity and community as an antithesis to our collective addiction and isolation.",
+        "short_description": "This cyberdeck concept is about using technology to transform a toy hairbrush as a representation of deeply rooted norms and gendered expectationsinto a device about connectivity and community as an antithesis to our individual isolation.",
+        "description": "As technology is continuously tweaked to elevate user engagement, real addiction has been observed in humans, and recently a legal precedent was set in a US court for the addictive design of Meta and Google’s platforms, whose purported purpose was to connect people. Meanwhile, beauty content is making it more difficult to escape one’s own reflection as it tries to sell invasive ideas of beauty, lengthy routines and expensive treatments to adults and even kids. Grooming and beauty rituals used to be a social event shared in tribes and bedroom chambers. However, now it is done in solitude in front of a screen. The addictive nature of the platforms means that we are  at the mercy of the echos bouncing inside a personalized reflective box and whatever take on natural bodies they nudge us to internalize. In this project, I want to use technology in order to transform my own toy hairbrush with mirror as a representation of deeply rooted norms and gendered expectations of beauty into a device about connectivity and community as an antithesis to our individual addiction and isolation.",
         "images": {
             "main":["images/cyber.webp"],
             "fallback":["images/cyber-small.jpg"]
@@ -54,8 +54,8 @@
         "number":5,
         "tags":["react","three.js","design tool","architecture"],
         "title": "IDEADOTS 3D-LAB",
-        "short_description": "Web application for idea generation. Place your ideas in 3D space, connect them, and watch your thought network grow organically as you explore relationships between concepts.",
-        "description": "Ideadots 3D-Lab is an experimental tool for visual thinking and idea mapping. Place your ideas in 3D space, connect them, and watch your thought network grow organically as you explore relationships between concepts. Whether brainstorming, planning projects, or studying complex topics, Ideadots Lab helps you see connections and patterns that traditional note-taking methods might miss. Dive into your ideas from new angles and discover insights through spatial organization.",
+        "short_description": "Place your notes in 3D space, connect them, and watch a network of ideas grow into a conceptual tapestry. This tool can be used for early stages of interior design and decoration, urban registration or simply as a mind castle.",
+        "description": "Ideadots 3D-Lab is an experimental tool for visual thinking and idea mapping. Place your ideas in 3D space, connect them, and watch your thought network as you explore relationships between concepts. Whether brainstorming, planning projects, or studying complex topics, Ideadots Lab helps you see connections and patterns that traditional note-taking methods might miss. Dive into your ideas from new angles and discover insights through spatial organization.",
         "images": {
             "main":["images/dots_4.webp","images/dots_3.webp","images/dots_1.webp"],
             "fallback":["images/dots_4-small.jpg","images/dots_3-small.jpg","images/dots_1-small.jpg"]

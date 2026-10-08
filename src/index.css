@@ -144,7 +144,7 @@
 
      emoji work too, but they are colour fonts — no fill can touch them, so one
      will ignore the cube's ink colour and render in its own palette. */
-  --cube-face: "𓆟";
+  --cube-face: "☼";
 
   /* emoji are colour fonts — no text colour can touch them, so a filter is
      the only way to restyle them. currently full colour.

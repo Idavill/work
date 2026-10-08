@@ -61,6 +61,7 @@ coverage/
 laundry.md
 /dist/**
 AUDIT.md
+COPY-REVIEW.md
 
 # Pre-WebP source images, kept on disk for re-encoding but not tracked and not
 # deployed — it sits outside public/, which Vite copies verbatim into dist/.

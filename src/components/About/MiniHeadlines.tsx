@@ -60,14 +60,14 @@ export default function MiniHeadlines(){
                     // card hover while the tags stayed put.
                     className={`transition-colors duration-600 flex hover:bg-ink/10 md:flex-1 md:min-h-0 flex-col justify-start border-1 border-line px-3 py-2 `}>
                     <p className={`flex border-b-2 w-fit ${hover1? "border-line": "border-transparent" }`}>✧⋆ Visual Storytelling ⋆✧ </p>
-                    <p className="flex break-words">I love to tell stories that are inherently visual and spatial situated i.e. in the urban fabric and our lived experience</p>
+                    <p className="flex break-words">I love to tell stories that are inherently visual and spatially situated i.e. in the urban fabric and our lived experience</p>
                 </section>
                 <section
                     onMouseEnter={()=>setHover2(true)}
                     onMouseLeave={()=>setHover2(false)}
                     className={`transition-colors duration-600 flex hover:bg-ink/10 md:flex-1 md:min-h-0 flex-col justify-start border-1 border-line px-3 py-2`}>
-                    <p className={`flex border-b-2 w-fit ${hover2? "border-line": "border-transparent" }`}>✧⋆ Diverse technologies ⋆✧</p>
-                    <p className="flex break-words">It's not about the tool, but about the task. My toolbox spans from engineering, analysis to design</p>
+                    <p className={`flex border-b-2 w-fit ${hover2? "border-line": "border-transparent" }`}>✧⋆ Background ⋆✧</p>
+                    <p className="flex break-words">Architectural design and software development</p>
                 </section>
             </div>
         </div>

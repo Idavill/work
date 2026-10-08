@@ -30,7 +30,7 @@ export default function TopDescription(){
                   +
                 </span>
                 <div className="flex w-full h-fit flex-col md:w-5/6">
-                  <p className="flex break-words w-full" >{`Software developer with a playful design mindset <3 Passionate about building intuitive tools and user experiences, exploring creative technologies in the intersection of design and technology.`}</p>
+                  <p className="flex break-words w-full" >{`Copenhagen-based software developer with a playful design mindset <3 I am all about building intuitive tools and experiences - always tinkering with projects wearing a diverse toolbelt. You will find me at the intersection between design concept and technical implementation.`}</p>
                 </div>
               </div>
         </>

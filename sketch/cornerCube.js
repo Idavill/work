@@ -20,7 +20,7 @@
 //            rather than as a change of pose.
 //   EASE     how fast the twist catches up to its target each frame, 0..1.
 //            lower is slower and more elastic-looking; 1 would teleport.
-const SIZE = 0.5;
+const SIZE = 0.35;
 const SPIN_X = 0.006;
 const SPIN_Y = 0.011;
 const TWIST = Math.PI * 2;

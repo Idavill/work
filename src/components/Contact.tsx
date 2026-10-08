@@ -49,8 +49,8 @@ export default function Contact({ title, id, ref }: ContactProps){
                 <div className="flex flex-col pl-0 md:pl-5 w-full md:w-5/6">
                   {/* <p className="flex break-words w-full" >Below you can explore an array of my</p> */}
 
-
-                  <p className="flex break-words" >Feel free to reach me through LinkedIn or GitHub to connect or collaborate.</p>
+                 
+                  <p className="flex break-words" >Feel free to reach me through LinkedIn or GitHub to connect and collaborate.</p>
                 </div>
               </div>
               <div className="flex flex-row">
