@@ -70,7 +70,7 @@ export default function MiniHeadlines(){
                     <p className="flex break-words">Architectural design and software development</p>
                 </section>
             </div>
-        </div>
+        </div> 
         </>
     )
 }
