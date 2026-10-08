@@ -49,7 +49,7 @@ export default function Projects({ title, id, ref }: ProjectsProps
                   +
                 </span>
                 <div className="flex flex-col pl-0 md:pl-5 w-full md:w-5/6">
-                  <p className="flex break-words w-full" >Below you can explore a selection of my most recent interactive, data-driven, and colorful projects. This includes interactive pieces, data analysis and visualizations, as well as creative coding projects</p>
+                  <p className="flex break-words w-full" >Below you can explore a selection of my most recent interactive, data-driven, and colorful projects. This includes interactive pieces, data analysis and visualizations, as well as creative coding projects.</p>
                 </div>
               </div>
             </div>

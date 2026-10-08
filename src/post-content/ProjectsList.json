@@ -18,7 +18,7 @@
         "number":2,
         "tags":["rust","qwen","image processing"],
         "title": "POSER",
-        "short_description": "Inspired by the DIY spirit of communities in Seattle, this tools seeks to make it easy to share events with your friends spottet in the urban environment using an opensource foundation",
+        "short_description": "Inspired by the DIY spirit of communities in Seattle, this tools seeks to make it easy to share events with your friends spottet in the urban environment using an opensource foundation.",
         "description": "Where do you go to meet people and submerge yourself in culture, when you are in a new place? This project encourages the act of staying present while walking around your local area, noticing any community efforts, potlucks, park meetups, concerts or other gatherings while making it easy to organize and share with friends. You go from poster -> picture -> shared calendar event in a few minutes.",
         "images": {
             "main":["images/poser_icon.webp","images/veraproject_poster.webp","images/process_poser.webp"],
@@ -40,10 +40,10 @@
         {
         "id":"9e4a1c88-5d2b-4f17-a3c6-7b81e0f4d255",
         "number":4,
-        "tags":["hardware","raspberry pi","3d printing","linux"],
+        "tags":["hardware","rust","concept"],
         "title": "CYBERDECK",
-        "short_description": "PLACEHOLDER TEXT. A handheld field computer built from scratch: a Raspberry Pi, a mechanical keyboard and a 3D-printed shell, assembled into something you can actually take outside and work on.",
-        "description": "PLACEHOLDER TEXT — rewrite this before publishing. A handheld field computer built from scratch, somewhere between a tool and a sketch in hardware. The chassis started as a cardboard mock-up, went through four printed revisions, and ended up housing a Raspberry Pi, a small mechanical keyboard and a battery that lasts a working afternoon. The point was never raw capability; it was to build a machine whose every part I had chosen on purpose, and to find out what changes about how you work when the computer is something you made rather than something you bought. The software side is a deliberately spare Linux setup: no desktop environment, a tiling window manager, and a handful of scripts for the things I actually do on it. Most of the design decisions were made with the thing half-open on a workbench, which is the only way I know to find out where a layout is wrong.",
+        "short_description": "In this project I want to use technology in order to transform my own toy hairbrush with mirror as a representation of deeply rooted norms and gendered expectations  of beauty into a device about connectivity and community as an antithesis to our collective addiction and isolation.",
+        "description": "As technology is continuously tweaked to elevate user engagement, real addiction has been observed in humans, and recently a legal precedent was set in a US court for the addictive design of Meta and Google’s platforms, whose purported purpose was to connect people. Meanwhile, beauty content is making it more difficult to escape one’s own reflection as it tries to sell invasive ideas of beauty, lengthy routines and expensive treatments to adults and even kids. Grooming and beauty rituals used to be a social event shared in tribes and bedroom chambers. However, now it is done in solitude in front of a screen. The addictive nature of the platforms means that we are  at the mercy of the echos bouncing inside a personalized reflective box and whatever take on natural bodies they nudge us to internalize. In this project, I want to use technology in order to transform my own toy hairbrush with mirror as a representation of deeply rooted norms and gendered expectations of beauty into a device about connectivity and community as an antithesis to our collective addiction and isolation.",
         "images": {
             "main":["images/cyber.webp"],
             "fallback":["images/cyber-small.jpg"]
