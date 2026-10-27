@@ -185,6 +185,11 @@
      dark theme can carry different tints. */
   --tint-hue: 185deg;
   --tint-strength: 0.7;
+  /*--frog-tint-hue: 330deg; /*335*/
+  /*--frog-tint-strength: 0.65; /*0.6*/
+  --frog-tint-hue: 199deg; /*335*/
+  --frog-tint-strength: 10;
+
 
   /* an optional gradient for the PAGE backdrop, painted on <body> below.
      it is deliberately not part of --color-canvas: that token is a real

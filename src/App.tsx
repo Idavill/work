@@ -11,6 +11,7 @@ import Header from "./composition/Header";
 import ContactSectionCard from "./components/Contact";
 import BackToTop from "./components/BackToTop";
 import CornerCube from "./components/CornerCube";
+import CornerGif from "./components/CornerGif";
 import About from "./components/About/About";
 import Projects from "./components/Projects";
 // draggable fruit stickers — parked for now, uncomment this and the
@@ -188,7 +189,10 @@ function App() {
           a project modal open. the theme switcher it replaced is still in
           src/components/ThemeToggle.tsx if the cycling is ever wanted back. */}
       {/* <ThemeToggle /> */}
-      <CornerCube />
+      {/* testing a gif in the cube's corner. swap these two lines back to
+          return the rotating cube — nothing else needs touching. */}
+      {/* <CornerCube /> */}
+      <CornerGif />
     </div>
   );
 }

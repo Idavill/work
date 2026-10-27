@@ -22,10 +22,16 @@ export default function MiniHeadlines(){
             the sections are md:flex-1 md:min-h-0 to divide that height between
             them — scoped to md+ because below md there is no cell height to
             divide and they must keep their own content height.
-            their content is justify-start with a fixed px-3 py-2, so the text
-            keeps the same small inset from the border at every width — centring
-            it made the inset look like it grew and shrank with the screen, since
-            the leftover height was split above and below the words.
+            their content is justify-center, so each title+blurb pair sits in
+            the middle of its half of the row. the blurbs are short — two lines
+            at most — and half the row is a good deal taller than that, so
+            justify-start put the whole surplus in one block underneath the
+            text and read as an unfinished box rather than a deliberate inset.
+            the tradeoff is what justify-start was there for in the first
+            place: the gap above and below the words is now the leftover
+            height split in two, so it grows and shrinks with the screen
+            instead of staying at py-2. px-3 still pins the horizontal inset,
+            which is the edge the eye actually tracks.
 
             and the type scales fluidly rather than stepping at breakpoints —
             stepped sizes rewrapped the prose into an extra line at the middle
@@ -58,19 +64,19 @@ export default function MiniHeadlines(){
                     // border-color to currentColor, so these boxes were
                     // tracking the text — and so changing to the accent on
                     // card hover while the tags stayed put.
-                    className={`transition-colors duration-600 flex hover:bg-ink/10 md:flex-1 md:min-h-0 flex-col justify-start border-1 border-line px-3 py-2 `}>
-                    <p className={`flex border-b-2 w-fit ${hover1? "border-line": "border-transparent" }`}>✧⋆ Visual Storytelling ⋆✧ </p>
-                    <p className="flex break-words">I love to tell stories that are inherently visual and spatially situated i.e. in the urban fabric and our lived experience</p>
+                    className={`transition-colors duration-600 flex hover:bg-ink/10 md:flex-1 md:min-h-0 flex-col justify-center border-1 border-line px-3 py-2 `}>
+                    <p className={`flex border-b-2 w-fit ${hover1? "border-line": "border-transparent" }`}>✧⋆ Currently learning ⋆✧</p>
+                    <p className="flex break-words">Rust, vision models for image processing and linocutting</p>
                 </section>
                 <section
                     onMouseEnter={()=>setHover2(true)}
                     onMouseLeave={()=>setHover2(false)}
-                    className={`transition-colors duration-600 flex hover:bg-ink/10 md:flex-1 md:min-h-0 flex-col justify-start border-1 border-line px-3 py-2`}>
-                    <p className={`flex border-b-2 w-fit ${hover2? "border-line": "border-transparent" }`}>✧⋆ Background ⋆✧</p>
-                    <p className="flex break-words">Architectural design and software development</p>
+                    className={`transition-colors duration-600 flex hover:bg-ink/10 md:flex-1 md:min-h-0 flex-col justify-center border-1 border-line px-3 py-2`}>
+                    <p className={`flex border-b-2 w-fit ${hover2? "border-line": "border-transparent" }`}>✧⋆ Ask me about ⋆✧</p>
+                    <p className="flex break-words ">TouchDesigner and what makes a really good public space</p>
                 </section>
             </div>
-        </div> 
+        </div>
         </>
     )
 }

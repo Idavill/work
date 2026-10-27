@@ -42,11 +42,18 @@ export default function Contact({ title, id, ref }: ContactProps){
                     text-shadow. see that file for the why. */}
                 <span
                   aria-hidden="true"
-                  className="flex justify-center w-1/6 mb-5 text-6xl leading-none text-progress text-shadow-[0.07em_0.07em_0_var(--color-muted)]"
+                  className="flex justify-center w-1/6 mb-5 md:mb-0 text-6xl leading-none text-progress text-shadow-[0.07em_0.07em_0_var(--color-muted)]"
                 >
                   +
                 </span>
-                <div className="flex flex-col pl-0 md:pl-5 w-full md:w-5/6">
+                {/* md:justify-center, because the "+" beside this column is
+                    60px of text-6xl and the blurb is a single line — the
+                    column stretches to the glyph's height, so the default
+                    justify-start parked the text against the top of it and
+                    left the rest of the gap underneath. only from md: below
+                    that the row is flex-col, the "+" sits above rather than
+                    beside, and there is no leftover height to centre in. */}
+                <div className="flex flex-col md:justify-center pl-0 md:pl-5 w-full md:w-5/6">
                   {/* <p className="flex break-words w-full" >Below you can explore an array of my</p> */}
 
                  

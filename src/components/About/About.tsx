@@ -33,7 +33,20 @@ export default function About({ title, id, ref, topics }: AboutProps){
         // transition-colors duration-600 that is already here for the bg.
         // `group` is only for the descendants that set a colour of their own
         // and therefore do not inherit: MiniHeadlines and SkillList's tags.
-        className="group hover:text-card-accent cursor-default md:mb-0 w-full h-auto md:h-[clamp(440px,55vh,740px)] bg-canvas hover:bg-hover transition-colors duration-600 backdrop scroll-mt-[25vh] mx-auto max-w-lg overflow-hidden border border-line rounded-none shadow-hard md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2">
+        // the height is fixed, not content-driven, and the inner column is
+        // justify-around — so the clamp is what sets the spacing between the
+        // title, the description and the bottom row. whatever the content does
+        // not use gets handed to justify-around and shows up as gaps.
+        // that makes it sensitive to the topics list: each PaperTag is ~30px
+        // (text-sm 20px line + py-1 + borders) plus gap-2, so going from six
+        // topics to four freed ~76px and inflated every gap. this clamp is the
+        // old clamp(440px,55vh,740px) minus about that much.
+        // ~390px is the floor at md — p-8 + the hidden header + the h2 + a
+        // three-line TopDescription + pt-6 + four tags. the card is
+        // overflow-hidden, so going under that clips the bottom row rather
+        // than scrolling it. FancyTop.tsx carries the old values if you want
+        // the hero and this card back on the same height tier.
+        className="group hover:text-card-accent cursor-default md:mb-0 w-full h-auto md:h-[clamp(400px,47vh,665px)] bg-canvas hover:bg-hover transition-colors duration-600 backdrop scroll-mt-[25vh] mx-auto max-w-lg overflow-hidden border border-line rounded-none shadow-hard md:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl z-2">
           <div className="md:flex h-full">
             <div className="md:shrink-0"/>
             <div className="flex flex-col justify-around p-8 xl:p-12 h-full">
