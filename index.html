@@ -18,9 +18,12 @@
 
     <!-- external assets (fine to keep absolute) -->
     <!-- integrity pins the exact file: if the cdn ever serves something else,
-         the browser refuses to run it. bumping the version means a new hash -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.13/p5.js"
-            integrity="sha384-FaPOgHPL+UWWd8Qzpc+MmXqvuE8pfvUHYlGAMMtMocorB8gq/wfN3NsnL4+y0m0U"
+         the browser refuses to run it. bumping the version means a new hash.
+         held at 1.8.0 on purpose: newer p5 (seen in 1.11) wraps a font list
+         containing spaces in quotes, the canvas rejects it, and the sketches'
+         FONT_STACK / CUBE_FONT fall back to 12px — the 3d name breaks up -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/p5.js"
+            integrity="sha384-UGaPYECMaSWw6KZ2g2vFfj8T+W+Ywb5paiXQ8zLxHF2+Y6lRd5ppoyGjkfbkimAv"
             crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

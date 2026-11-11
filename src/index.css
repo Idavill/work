@@ -1,4 +1,9 @@
 @import "tailwindcss";
+/* docs/ and old_docs/ hold built releases. tailwind scans every file it isn't
+   told to ignore, so without this it reads class names out of the PREVIOUS
+   build's js and every rebuild drags those leftovers along */
+@source not "../docs";
+@source not "../old_docs";
 
 /* ---------------------------------------------------------------
    design tokens
