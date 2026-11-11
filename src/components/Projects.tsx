@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Bs2Circle } from "react-icons/bs";
+// import { Bs2Circle } from "react-icons/bs";
 
 type ProjectsProps = {
   ref: any;

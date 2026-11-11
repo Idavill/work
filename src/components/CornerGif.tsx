@@ -14,7 +14,9 @@ export default function CornerGif() {
   return (
     <div className="fixed bottom-10 right-10 z-4 h-30 w-30">
       <img
-        src="/images/UntitledArtwork1.gif"
+        // relative, like the paths in ProjectsList.json: a leading / would
+        // skip the /work/ base on github pages and 404
+        src="images/UntitledArtwork1.gif"
         alt=""
         aria-hidden="true"
         // the project thumbnails' tint, on the gif's own colours rather than

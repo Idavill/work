@@ -5,8 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ida Villadsen Portfolio</title>
 
+    <!-- apply the saved theme before first paint, otherwise the default
+         theme flashes for a frame before react mounts -->
+    <script>
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem("theme") || "mono";
+      } catch (e) {
+        document.documentElement.dataset.theme = "mono";
+      }
+    </script>
+
     <!-- external assets (fine to keep absolute) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/p5.js"></script>
+    <!-- integrity pins the exact file: if the cdn ever serves something else,
+         the browser refuses to run it. bumping the version means a new hash -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.13/p5.js"
+            integrity="sha384-FaPOgHPL+UWWd8Qzpc+MmXqvuE8pfvUHYlGAMMtMocorB8gq/wfN3NsnL4+y0m0U"
+            crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Aladin&family=Bungee+Spice&family=Bytesized&family=Faculty+Glyphic&family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Koulen&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100&display=swap" rel="stylesheet">
@@ -14,15 +29,18 @@
 
     <!-- favicon (use vite's built-in handling) -->
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <script type="module" crossorigin src="/work/assets/index-BGE1J3Za.js"></script>
-    <link rel="stylesheet" crossorigin href="/work/assets/index-Dfap8nBR.css">
+    <script type="module" crossorigin src="/work/assets/index-CmPPehhV.js"></script>
+    <link rel="stylesheet" crossorigin href="/work/assets/index-D5CeQxHi.css">
   </head>
   <body>
     <div id="pfive-container-background"></div>
 
     <!-- relative paths for local scripts -->
-    <script src="./sketch/sketch.js"></script>
+    <!-- particle background temporarily off — uncomment to bring it back -->
+    <!-- <script src="./sketch/sketch.js"></script> -->
+    <script src="./sketch/background_sketch.js"></script>
     <script src="./sketch/topSketch.js"></script>
+    <script src="./sketch/cornerCube.js"></script>
 
     <div id="root"></div>
 
