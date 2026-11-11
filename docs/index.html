@@ -5,14 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ida Villadsen Portfolio</title>
 
-    <!-- apply the saved theme before first paint, otherwise the default
-         theme flashes for a frame before react mounts -->
+    <!-- the site's theme, set before first paint so nothing flashes.
+         DEFAULT_THEME is THE switch: "paper" (light, the name as the 3d face)
+         or "mono" (black & white, the dark one). the rest live in index.css.
+
+         the saved theme is ignored on purpose while <ThemeToggle /> is hidden
+         in App.tsx: visitors can't change it, so a theme a browser saved
+         earlier would stick with no way out — and localhost keeps its own
+         saved theme, which is how dev and the live site ended up different.
+         bring the toggle back and uncomment the try/catch to honour it.
+
+         wrapped in { } so these names stay out of the global scope the
+         sketch scripts share. -->
     <script>
-      try {
-        document.documentElement.dataset.theme =
-          localStorage.getItem("theme") || "mono";
-      } catch (e) {
-        document.documentElement.dataset.theme = "mono";
+      {
+        const DEFAULT_THEME = "paper";
+        let theme = DEFAULT_THEME;
+        // try { theme = localStorage.getItem("theme") || DEFAULT_THEME; }
+        // catch (e) {}
+        document.documentElement.dataset.theme = theme;
       }
     </script>
 
