@@ -52,9 +52,12 @@
     <!-- relative paths for local scripts -->
     <!-- particle background temporarily off — uncomment to bring it back -->
     <!-- <script src="./sketch/sketch.js"></script> -->
-    <script src="./sketch/background_sketch.js"></script>
-    <script src="./sketch/topSketch.js"></script>
-    <script src="./sketch/cornerCube.js"></script>
+    <!-- ?v= is the release number. vite doesn't fingerprint these files the way
+         it does assets/, so their urls never change and a browser can keep an
+         old copy next to a new page. bump it on every release (all three). -->
+    <script src="./sketch/background_sketch.js?v=1.0.2"></script>
+    <script src="./sketch/topSketch.js?v=1.0.2"></script>
+    <script src="./sketch/cornerCube.js?v=1.0.2"></script>
 
     <div id="root"></div>
 
