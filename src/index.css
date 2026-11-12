@@ -194,6 +194,9 @@
   /*--frog-tint-strength: 0.65; /*0.6*/
   --frog-tint-hue: 199deg; /*335*/
   --frog-tint-strength: 10;
+  /* last step of the frog's filter. 1 = untouched, below flattens it toward
+     grey, above pushes darks darker and lights lighter */
+  --frog-contrast: 0.8;
 
 
   /* an optional gradient for the PAGE backdrop, painted on <body> below.
@@ -240,26 +243,34 @@
 
 /* pure black & white */
 html[data-theme="mono"] {
-  --color-canvas: #0a0a0a;
-  --color-surface: #171717;
-  --color-ink: #ffffff;
+  --color-canvas: #161616; /*0a0a0a*/
+  --color-surface: #492e10;
+  --color-ink: #b5b5b5;
   --color-muted: #a3a3a3;
-  --color-line: #ffffff;
+  --color-line: #4c4c4c;
   --color-accent: #ffffff;
   --color-card-accent: #ffffff; /* hover text on the big section cards */
   --color-progress: #ffffff; /* left-margin scroll indicator */
   --sketch-saturation: 0;
   /* white word, deep grey shadows */
-  --color-sketch-noise: #2e2e2e;
-  --color-sketch-material: #ffffff;
-  --color-sketch-ambient: #2e2e2e;
-  --color-sketch-key: #fffrgb(5, 4, 4)
-  --color-hover: rgba(255, 255, 255, 0.07); /* lighten */
+  --color-sketch-noise: #00010753; /*2e2e2e*/
+  --color-sketch-material: #ffffff; /*ffffff*/
+  --color-sketch-ambient: #747474; /*2e2e2e*/
+  --color-sketch-key: #fff(5, 4, 4);
+  --color-hover: rgba(16, 16, 16, 0.99); /* lighten */
   /* white has no saturation to give, so mix-blend-color just drains the
      colour out of the image — a true black & white thumbnail. */
   --color-tint: #ffffff;
-  --color-shadow: rgba(26, 45, 255, 0.831);
-  --sketch-face: "✧  ✧ ⋆ ✧" "( •⌄• ू )✧" "✧ ⋆ ✧ ✧ ";
+  --color-shadow: rgba(25, 25, 25, 0.831); /*rgba(26, 45, 255, 0.831);*/
+  --sketch-face: "⋆ ✧ ⋆" "ida villadsen" "⋆ ✧ ⋆"; /*"✧  ✧ ⋆ ✧" "( •⌄• ू )✧" "✧ ⋆ ✧ ✧ "*/
+  /* black & white frog. strength is its saturate(), so 0 drains the sepia
+     out and leaves plain grey — the hue does nothing at 0. for a hint of
+     the theme's navy instead, try hue 200deg with a strength around 0.5 */
+  --frog-tint-hue: 0deg;
+  --frog-tint-strength: 0;
+  /* without colour to separate them the frog's tones run together, so it
+     gets more contrast than paper's 0.8 */
+  --frog-contrast: 1.1;
 }
 
 /* inverted black & white */

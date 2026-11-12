@@ -56,7 +56,7 @@ export default function CornerGif() {
         // object-contain so the gif's own aspect ratio survives the square
         // box, the way the cube is drawn to the smaller side of it.
         //className="h-full w-full opacity-90 object-contain contrast-80 brightness-230 hue-rotate-[var(--frog-tint-hue)] saturate-[var(--frog-tint-strength)]"
-        className="h-full w-full object-contain [filter:brightness(1.99)_grayscale(1)_sepia(1)_hue-rotate(var(--frog-tint-hue))_saturate(var(--frog-tint-strength))_contrast(0.8)]"
+        className="h-full w-full object-contain [filter:brightness(1.99)_grayscale(1)_sepia(1)_hue-rotate(var(--frog-tint-hue))_saturate(var(--frog-tint-strength))_contrast(var(--frog-contrast))]"
 
       />
     </div>
